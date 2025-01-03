@@ -61,7 +61,7 @@ const projects = [
   {
     title: "Vehicle Theft Detector",
     description:
-      "Reduced cost and time of transportation in railway networks using Graph Theory.",
+      "Created a real-time monitoring system, improving fleet management, security, and tracking efficiency.",
     image: "/images/projects/vehicleTheftDetector.gif",
     github: "https://github.com/harshhh28/Vehicle-Theft-Detector/",
     demo: "https://github.com/harshhh28/Vehicle-Theft-Detector/",
@@ -70,7 +70,7 @@ const projects = [
   {
     title: "Variational Calculus",
     description:
-      "Reduced cost and time of transportation in railway networks using Graph Theory.",
+      "Explored Euler-Lagrange Equation, the Brachistochrone, Geodesic Sphere, and Catenary problems.",
     image: "/images/projects/variationalCalculus.gif",
     github: "https://github.com/harshhh28/Variational-Calculus/",
     demo: "https://variationalcalculus.weebly.com/",
