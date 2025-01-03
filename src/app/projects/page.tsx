@@ -64,7 +64,7 @@ const projects = [
       "Created a real-time monitoring system, improving fleet management, security, and tracking efficiency.",
     image: "/images/projects/vehicleTheftDetector.gif",
     github: "https://github.com/harshhh28/Vehicle-Theft-Detector/",
-    demo: "https://github.com/harshhh28/Vehicle-Theft-Detector/",
+    demo: "https://youtu.be/QJU5-LBFimQ",
     tags: ["Arduino Uno R3", "GSM", "GPS", "Accelerometer"],
   },
   {
