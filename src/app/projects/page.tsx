@@ -10,7 +10,7 @@ const projects = [
       "A mobile chat app with Atomic Pattern Design, MVC model and Gemini API integration.",
     image: "/images/projects/chatApp.gif",
     github: "https://github.com/harshhh28/G12_Chat_Application",
-    demo: "https://youtu.be/amOgt-EhnI4",
+    demo: "https://github.com/harshhh28/G12_Chat_Application",
     tags: ["React Native", "Expo", "Firebase", "Cloudinary", "Jest"],
   },
   {
