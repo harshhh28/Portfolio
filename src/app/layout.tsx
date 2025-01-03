@@ -9,8 +9,14 @@ import { cn } from "@/lib/utils";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "My Portfolio",
-  description: "Personal portfolio showcasing my work and experience",
+  title: "Harsh Gajjar's Portfolio",
+  description:
+    "Harsh Gajjar's personal portfolio showcasing projects, experience and blogs.",
+  icons: {
+    icon: ["/favicon.ico?v=4"],
+    apple: ["/apple-touch-icon.png?v=4"],
+    shortcut: ["/apple-touch-icon.png"],
+  },
 };
 
 export default function RootLayout({
