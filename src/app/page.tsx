@@ -3,12 +3,12 @@
 import { SiGithub, SiLinkedin, SiX } from "react-icons/si";
 import Link from "next/link";
 import { TypeAnimation } from "react-type-animation";
-import BackgroundAnimation from "../components/BackgroundAnimation";
+// import BackgroundAnimation from "../components/BackgroundAnimation";
 
 export default function About() {
   return (
     <div className="min-h-screen pt-24 px-4 sm:px-6 lg:px-8">
-      <BackgroundAnimation />
+      {/* <BackgroundAnimation /> */}
       <div className="max-w-4xl mx-auto">
         <div className="backdrop-blur-lg bg-black/40 rounded-3xl border border-white/10 p-8 animate-in slide-in-from-bottom duration-700">
           <h1 className="text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500 pb-4">
@@ -18,11 +18,16 @@ export default function About() {
                 1000, // Waits 1s
                 "", // Deletes the text
                 100, // Waits 0.1s
-                "Hello, I'm a Full Stack Developer", // Types the text again
+                "Full Stack Developer", // Types the text again
                 1000, // Waits 1s
                 "", // Deletes the text
                 100, // Waits 0.1s
-                "Hello, I'm Harsh Gajjar", // Types the text again
+                "Creative Blogger", // Types the text again
+                1000, // Waits 1s
+                "", // Deletes the text
+                100, // Waits 0.1s
+                "Lifelong Learner", // Types the text again
+                1000, // Waits 1s
               ]}
               wrapper="span"
               cursor={true}
@@ -31,8 +36,10 @@ export default function About() {
             />
           </h1>
           <p className="text-xl text-white/80 mb-8">
-            Full Stack Developer passionate about creating beautiful and
-            functional web experiences.
+            A Full Stack Developer passionate about crafting beautiful and
+            functional web experiences. A Creative Blogger who enjoys sharing
+            knowledge and experiences with a touch of humor. A Lifelong Learner,
+            always curious to explore new technologies and ideas.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-1 gap-8 mb-12">

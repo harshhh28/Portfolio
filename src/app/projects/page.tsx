@@ -46,7 +46,7 @@ const projects = [
       "Tackled minimum distance search path problem using Viterbi soft and hard decoding",
     image: "/images/projects/convolutionCodes.gif",
     github: "https://github.com/harshhh28/Convolution-Coding",
-    demo: "https://github.com/",
+    demo: "https://github.com/harshhh28/Convolution-Coding",
     tags: ["Viterbi Algorithm", "Dynamic Programming", "Backtracking"],
   },
   {
@@ -64,7 +64,7 @@ const projects = [
       "Reduced cost and time of transportation in railway networks using Graph Theory.",
     image: "/images/projects/vehicleTheftDetector.gif",
     github: "https://github.com/harshhh28/Vehicle-Theft-Detector/",
-    demo: "https://",
+    demo: "https://github.com/harshhh28/Vehicle-Theft-Detector/",
     tags: ["Arduino Uno R3", "GSM", "GPS", "Accelerometer"],
   },
   {
