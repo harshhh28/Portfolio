@@ -73,7 +73,7 @@ const projects = [
       "Reduced cost and time of transportation in railway networks using Graph Theory.",
     image: "/images/projects/variationalCalculus.gif",
     github: "https://github.com/harshhh28/Variational-Calculus/",
-    demo: "https://transportationrouteproblem.weebly.com/",
+    demo: "https://variationalcalculus.weebly.com/",
     tags: ["Brachistochrone", "Geodesic Sphere", "Catenary"],
   },
 ];
