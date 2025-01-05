@@ -6,19 +6,25 @@ readTime: 6 min read
 tags: ["django", "python", "backend"]
 ---
 
-1. Fixed A LOT OF templating errors.
-2. Jinja2 makes the layout so damn smooth ([link](https://chaicode.com/blogs/jinja-templates-and-apps-in-django)).
-3. Creating apps (`urls(project)->urls(app)`, etc.).
-4. CSS and browser caching.
+1. Fixed A LOT OF templating errors.<br />
+2. Jinja2 makes the layout so damn smooth ([link](https://chaicode.com/blogs/jinja-templates-and-apps-in-django)).<br />
+3. Creating apps (`urls(project)->urls(app)`, etc.).<br />
+4. CSS and browser caching.<br />
 
-So, it took me more than an hour to debug why my CSS was not getting loaded even after changing and saving it 10 times! I tried many approaches including:
+<br />
 
-1. Adding `STATICFILES_STORAGE`.
-2. Adding (update cache) `MIDDLEWARES`.
+So, it took me more than an hour to debug why my CSS was not getting loaded even after changing and saving it 10 times! I tried many approaches including:<br />
+
+1. Adding `STATICFILES_STORAGE`.<br />
+2. Adding (update cache) `MIDDLEWARES`.<br />
+
+<br />
 
 But none worked.  
-In the end, I got it solved by adding `?v={{ STATIC_VERSION }}` after `{% static 'style.css' %}`.
+In the end, I got it solved by adding `?v={{ STATIC_VERSION }}` after `{% static 'style.css' %}`.<br />
 
-### What it does?
+<br />
 
-It helps bust the cached (old version of your CSS) and forces the browser to download the latest version.
+### What it does?<br />
+
+It helps bust the cached (old version of your CSS) and forces the browser to download the latest version.<br />
