@@ -1,8 +1,10 @@
 import { Calendar } from "lucide-react";
 import Link from "next/link";
-import { blogPosts } from "@/lib/blog";
+import { getAllPosts } from "@/lib/mdx";
 
-export default function Blog() {
+export default async function Blog() {
+  const posts = await getAllPosts();
+
   return (
     <div className="min-h-screen pt-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
@@ -11,7 +13,7 @@ export default function Blog() {
         </h1>
 
         <div className="space-y-8">
-          {Object.values(blogPosts).map((post, index) => (
+          {posts.map((post, index) => (
             <Link
               key={post.slug}
               href={`/blogs/${post.slug}`}
@@ -22,17 +24,21 @@ export default function Blog() {
                 <div className="flex items-center gap-4 text-white/60 mb-4">
                   <div className="flex items-center gap-2">
                     <Calendar size={16} />
-                    <span>{post.date}</span>
+                    <span>{post.frontmatter?.date}</span>
                   </div>
                   <span>•</span>
-                  <span>{post.readTime}</span>
+                  <span>{post.frontmatter?.readTime}</span>
                 </div>
 
-                <h2 className="text-2xl font-bold mb-3">{post.title}</h2>
-                <p className="text-white/80 mb-6">{post.excerpt}</p>
+                <h2 className="text-2xl font-bold mb-3">
+                  {post.frontmatter?.title}
+                </h2>
+                <p className="text-white/80 mb-6">
+                  {post.frontmatter?.excerpt}
+                </p>
 
                 <div className="flex flex-wrap gap-2">
-                  {post.tags.map((tag) => (
+                  {post.frontmatter?.tags.map((tag: string) => (
                     <span
                       key={tag}
                       className="px-3 py-1 bg-white/10 rounded-full text-sm">

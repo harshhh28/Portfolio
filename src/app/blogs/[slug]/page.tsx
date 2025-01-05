@@ -1,15 +1,21 @@
-import { Calendar } from "lucide-react";
 import { notFound } from "next/navigation";
-import { blogPosts } from "@/lib/blog";
+import { Calendar } from "lucide-react";
+import { getPost, getAllPosts } from "@/lib/mdx";
+import { MDXContent } from "@/components/MDXContent";
 
-export function generateStaticParams() {
-  return Object.keys(blogPosts).map((slug) => ({
-    slug,
+export async function generateStaticParams() {
+  const posts = await getAllPosts();
+  return posts.map((post) => ({
+    slug: post.slug,
   }));
 }
 
-export default function BlogPost({ params }: { params: { slug: string } }) {
-  const post = blogPosts[params.slug];
+export default async function BlogPost({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const post = await getPost(params.slug);
 
   if (!post) {
     notFound();
@@ -22,18 +28,18 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
           <div className="flex items-center gap-4 text-white/60 mb-6">
             <div className="flex items-center gap-2">
               <Calendar size={16} />
-              <span>{post.date}</span>
+              <span>{post.frontmatter.date}</span>
             </div>
             <span>•</span>
-            <span>{post.readTime}</span>
+            <span>{post.frontmatter.readTime}</span>
           </div>
 
           <h1 className="text-4xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500">
-            {post.title}
+            {post.frontmatter.title}
           </h1>
 
           <div className="flex flex-wrap gap-2 mb-8">
-            {post.tags.map((tag) => (
+            {post.frontmatter.tags.map((tag: string) => (
               <span
                 key={tag}
                 className="px-3 py-1 bg-white/10 rounded-full text-sm">
@@ -43,11 +49,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
           </div>
 
           <div className="prose prose-invert prose-lg max-w-none">
-            {post.content.split("\n").map((paragraph, index) => (
-              <p key={index} className="mb-4 text-white/80 leading-relaxed">
-                {paragraph}
-              </p>
-            ))}
+            <MDXContent>{post.content}</MDXContent>
           </div>
         </article>
       </div>
