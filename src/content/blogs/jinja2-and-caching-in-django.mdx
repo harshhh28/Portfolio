@@ -1,0 +1,24 @@
+---
+title: Jinja2 and Browser Caching Issues in Django
+excerpt: So, it took me more than an hour to debug why my CSS was not getting loaded...
+date: "27-09-2024"
+readTime: 6 min read
+tags: ["django", "python", "backend"]
+---
+
+1. Fixed A LOT OF templating errors.
+2. Jinja2 makes the layout so damn smooth ([link](https://chaicode.com/blogs/jinja-templates-and-apps-in-django)).
+3. Creating apps (`urls(project)->urls(app)`, etc.).
+4. CSS and browser caching.
+
+So, it took me more than an hour to debug why my CSS was not getting loaded even after changing and saving it 10 times! I tried many approaches including:
+
+1. Adding `STATICFILES_STORAGE`.
+2. Adding (update cache) `MIDDLEWARES`.
+
+But none worked.  
+In the end, I got it solved by adding `?v={{ STATIC_VERSION }}` after `{% static 'style.css' %}`.
+
+### What it does?
+
+It helps bust the cached (old version of your CSS) and forces the browser to download the latest version.
