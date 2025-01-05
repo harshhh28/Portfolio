@@ -5,6 +5,12 @@ import { compile } from '@mdx-js/mdx';
 
 const postsDirectory = path.join(process.cwd(), 'src/content/blogs');
 
+// Helper function to parse date string in dd-mm-yyyy format
+function parseDate(dateStr: string) {
+  const [day, month, year] = dateStr.replace(/['"]/g, '').split('-');
+  return new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+}
+
 export async function getAllPosts() {
   const fileNames = fs.readdirSync(postsDirectory);
   const posts = await Promise.all(
@@ -18,13 +24,13 @@ export async function getAllPosts() {
     })
   );
 
-  return posts.sort((a, b) => {
-    if (a.frontmatter?.date && b.frontmatter?.date && a.frontmatter.date < b.frontmatter.date) {
-      return 1;
-    } else {
-      return -1;
-    }
-  });
+  return posts
+    .filter((post): post is NonNullable<typeof post> => post !== null)
+    .sort((a, b) => {
+      const dateA = parseDate(a.frontmatter?.date);
+      const dateB = parseDate(b.frontmatter?.date);
+      return dateB.getTime() - dateA.getTime(); // Sort in descending order (newest first)
+    });
 }
 
 export async function getPost(slug: string) {
