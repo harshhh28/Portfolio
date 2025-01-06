@@ -36,6 +36,7 @@ export default function RootLayout({
         <Navigation />
         <main className="relative z-10 flex-1">{children}</main>
         <Footer />
+        <Analytics />
       </body>
     </html>
   );
