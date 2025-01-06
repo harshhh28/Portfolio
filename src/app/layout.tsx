@@ -5,6 +5,7 @@ import Navigation from "@/components/Navigation";
 import BackgroundAnimation from "@/components/BackgroundAnimation";
 import { Footer } from "@/components/Footer";
 import { cn } from "@/lib/utils";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
