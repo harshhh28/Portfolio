@@ -12,7 +12,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Harsh Gajjar's Portfolio",
   description:
-    "Harsh Gajjar's personal portfolio showcasing projects, experience and blogs.",
+    "Harsh Gajjar's personal portfolio showcasing projects, education, experience, learnings and blogs.",
   icons: {
     icon: ["/favicon.ico?v=4"],
     apple: ["/apple-touch-icon.png?v=4"],
