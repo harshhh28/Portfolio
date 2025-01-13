@@ -1,7 +1,11 @@
+"use client";
+
 import { ExternalLink } from "lucide-react";
 import { SiGithub } from "react-icons/si";
 import Link from "next/link";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import Loader from "@/components/Loader";
 
 const projects = [
   {
@@ -79,6 +83,20 @@ const projects = [
 ];
 
 export default function Projects() {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
   return (
     <div className="min-h-screen pt-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">

@@ -4,6 +4,7 @@ import { Calendar, Clock } from "lucide-react";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { TagFilter } from "@/components/TagFilter";
+import Loader from "@/components/Loader";
 
 // Type for the post
 interface Post {
@@ -18,6 +19,7 @@ interface Post {
 }
 
 export default function Blog() {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [posts, setPosts] = useState<Post[]>([]);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [allTags, setAllTags] = useState<string[]>([]);
@@ -31,6 +33,7 @@ export default function Blog() {
           new Set(data.posts.flatMap((post: Post) => post.frontmatter.tags))
         ) as string[];
         setAllTags(tags);
+        setIsLoading(false);
       });
   }, []);
 
@@ -45,6 +48,18 @@ export default function Blog() {
       ? true
       : post.frontmatter.tags.some((tag) => selectedTags.includes(tag))
   );
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <div className="min-h-screen pt-24 px-4 sm:px-6 lg:px-8">

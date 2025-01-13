@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
 import { enIN } from "date-fns/locale";
+import Loader from "@/components/Loader";
 
 interface NewsArticle {
   title: string;
@@ -35,7 +36,7 @@ const LiveTime = () => {
 
 export default function RecentNews() {
   const [todayNews, setTodayNews] = useState<NewsArticle[]>([]);
-  const [yesterdayNews, setYesterdayNews] = useState<NewsArticle[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchNews = async () => {
@@ -44,9 +45,10 @@ export default function RecentNews() {
         if (!response.ok) throw new Error("Failed to fetch");
         const data = await response.json();
         setTodayNews(data.today);
-        setYesterdayNews(data.yesterday);
       } catch (error) {
         console.error("Error fetching news:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -137,19 +139,31 @@ export default function RecentNews() {
     </div>
   );
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
   return (
     <div className="min-h-screen pt-16 sm:pt-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         <div
           className="backdrop-blur-lg bg-gradient-to-br from-black/50 to-black/30 
-            rounded-3xl border border-white/10 p-6 sm:p-8 
-            mb-8 sm:mb-12 mt-8 sm:mt-0
-            animate-in slide-in-from-bottom
-            group relative overflow-hidden
-            hover:border-white/20 transition-all duration-500">
+              rounded-3xl border border-white/10 p-6 sm:p-8 
+              mb-8 sm:mb-12 mt-8 sm:mt-0
+              animate-in slide-in-from-bottom
+              group relative overflow-hidden
+              hover:border-white/20 transition-all duration-500">
           <div
             className="absolute inset-0 bg-gradient-to-r from-white/5 to-transparent 
-              opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                opacity-0 group-hover:opacity-100 transition-opacity duration-500"
           />
 
           <div className="relative">
@@ -170,7 +184,6 @@ export default function RecentNews() {
         </div>
 
         <NewsSection title="Today's Headlines" articles={todayNews} />
-        <NewsSection title="Yesterday's Top Stories" articles={yesterdayNews} />
       </div>
     </div>
   );

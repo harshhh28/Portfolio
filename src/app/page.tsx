@@ -4,6 +4,8 @@ import { SiGithub, SiLinkedin, SiX } from "react-icons/si";
 import Link from "next/link";
 import { TypeAnimation } from "react-type-animation";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import Loader from "@/components/Loader";
 
 const SKILLS = [
   {
@@ -145,6 +147,20 @@ const EDUCATION = [
 ];
 
 export default function About() {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
   return (
     <div className="min-h-screen pt-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">

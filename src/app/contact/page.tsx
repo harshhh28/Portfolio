@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
-import { TypeAnimation } from "react-type-animation";
+import React, { useEffect, useState } from "react";
 import { Send, ArrowLeft } from "react-feather";
 import { useWebhook } from "../../hooks/useWebhook";
+import Loader from "@/components/Loader";
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -15,7 +15,7 @@ const ContactPage = () => {
 
   const { sendWebhook, error } = useWebhook();
   const [isMessageSent, setIsMessageSent] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,7 +28,6 @@ const ContactPage = () => {
     };
 
     try {
-      setLoading(true);
       await sendWebhook(payload);
       setIsMessageSent(true);
       setFormData({
@@ -37,19 +36,29 @@ const ContactPage = () => {
         message: "",
         error: "",
       });
-      setLoading(false);
       setTimeout(() => {
         setIsMessageSent(false);
       }, 2000); // Match the rocket animation duration
     } catch (err) {
       console.error("Error sending message:", err);
-      setLoading(false);
       setFormData((prev) => ({
         ...prev,
         error: "Error occurred :(",
       }));
     }
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <div className="min-h-screen pt-24 px-4 sm:px-6 lg:px-8">
@@ -131,7 +140,7 @@ const ContactPage = () => {
                 border border-white/20 rounded-lg font-medium flex items-center justify-center gap-2
                 ${isMessageSent ? "bg-green-900/50" : "hover:bg-white/15"}
                 transition-all duration-300`}
-              disabled={loading}>
+              disabled={isLoading}>
               {isMessageSent ? (
                 <div className="relative">
                   <div className="absolute right-full top-1/2 -translate-y-1/2">
@@ -156,8 +165,8 @@ const ContactPage = () => {
                 </div>
               ) : (
                 <>
-                  <Send size={18} className={loading ? "animate-spin" : ""} />
-                  {loading ? "Sending..." : "Send Message"}
+                  <Send size={18} className={isLoading ? "animate-spin" : ""} />
+                  {isLoading ? "Sending..." : "Send Message"}
                 </>
               )}
             </button>
