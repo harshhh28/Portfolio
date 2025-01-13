@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { TypeAnimation } from "react-type-animation";
-import { Send } from "react-feather";
+import { Send, ArrowLeft } from "react-feather";
 import { useWebhook } from "../../hooks/useWebhook";
 
 const ContactPage = () => {
@@ -54,21 +54,21 @@ const ContactPage = () => {
   return (
     <div className="min-h-screen pt-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-2xl mx-auto">
-        <div className="backdrop-blur-lg bg-black/40 rounded-3xl border border-white/10 p-8 form-container">
-          <div className="form-element" style={{ animationDelay: "0.1s" }}>
-            <h1 className="text-4xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500">
+        <div className="backdrop-blur-lg bg-black/40 rounded-3xl border border-white/10 p-6 sm:p-8 form-container">
+          <div className="form-element mb-6">
+            <h1 className="text-3xl sm:text-4xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500">
               Get in Touch
             </h1>
-            <p className="text-white/60 mb-8">
+            <p className="text-sm sm:text-base text-white/60 mb-6">
               Have a question or want to work together? Let's connect!
             </p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="form-element" style={{ animationDelay: "0.2s" }}>
+            <div className="form-element">
               <label
                 htmlFor="name"
-                className="block text-sm font-medium mb-2 text-white/80">
+                className="block text-sm sm:text-base font-medium mb-2 text-white/80">
                 Name
               </label>
               <input
@@ -79,16 +79,16 @@ const ContactPage = () => {
                 onChange={(e) =>
                   setFormData({ ...formData, name: e.target.value })
                 }
-                className="glass-input w-full"
+                className="glass-input w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base"
                 required
                 placeholder="Your name"
               />
             </div>
 
-            <div className="form-element" style={{ animationDelay: "0.3s" }}>
+            <div className="form-element">
               <label
                 htmlFor="email"
-                className="block text-sm font-medium mb-2 text-white/80">
+                className="block text-sm sm:text-base font-medium mb-2 text-white/80">
                 Email
               </label>
               <input
@@ -99,16 +99,16 @@ const ContactPage = () => {
                 onChange={(e) =>
                   setFormData({ ...formData, email: e.target.value })
                 }
-                className="glass-input w-full"
+                className="glass-input w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base"
                 required
                 placeholder="your@email.com"
               />
             </div>
 
-            <div className="form-element" style={{ animationDelay: "0.4s" }}>
+            <div className="form-element">
               <label
                 htmlFor="message"
-                className="block text-sm font-medium mb-2 text-white/80">
+                className="block text-sm sm:text-base font-medium mb-2 text-white/80">
                 Message
               </label>
               <textarea
@@ -119,7 +119,7 @@ const ContactPage = () => {
                   setFormData({ ...formData, message: e.target.value })
                 }
                 rows={6}
-                className="glass-input w-full resize-none"
+                className="glass-input w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base resize-none"
                 required
                 placeholder="Your message here..."
               />
@@ -127,10 +127,10 @@ const ContactPage = () => {
 
             <button
               type="submit"
-              className={`form-element submit-button w-full px-6 py-3 bg-white/10 
+              className={`form-element submit-button w-full px-4 sm:px-6 py-2 sm:py-3 bg-white/10 
                 border border-white/20 rounded-lg font-medium flex items-center justify-center gap-2
-                ${isMessageSent ? "bg-green-900/50" : "hover:bg-white/15"}`}
-              style={{ animationDelay: "0.5s" }}
+                ${isMessageSent ? "bg-green-900/50" : "hover:bg-white/15"}
+                transition-all duration-300`}
               disabled={loading}>
               {isMessageSent ? (
                 <div className="relative">

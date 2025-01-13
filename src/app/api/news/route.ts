@@ -40,7 +40,8 @@ export async function GET() {
       sortBy: 'relevancy',
       domains: 'techcrunch.com,thenextweb.com,theverge.com,wired.com,venturebeat.com,dev.to,medium.com'
     });
-    return Response.json({
+
+    const responseData = {
       today: todayResponse.articles.filter((article: { title: string; description: string; urlToImage: string; }) => 
         article.title && article.description && article.urlToImage
       ),
@@ -49,9 +50,22 @@ export async function GET() {
           article.title && article.description && article.urlToImage
         )
         .slice(0, 5)
+    };
+
+    return new Response(JSON.stringify(responseData), {
+      headers: {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-store' // Disable caching
+      }
     });
   } catch (error) {
     console.error("Error fetching news:", error);
-    return Response.json({ error: "Failed to fetch news" }, { status: 500 });
+    return new Response(JSON.stringify({ error: "Failed to fetch news" }), {
+      status: 500,
+      headers: {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-store' // Disable caching
+      }
+    });
   }
 } 

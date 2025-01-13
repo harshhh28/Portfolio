@@ -38,25 +38,23 @@ export default async function BlogPost({
 
         <article
           className="relative backdrop-blur-lg bg-gradient-to-br from-black/50 to-black/30 
-          rounded-3xl border border-white/10 p-8 animate-in slide-in-from-bottom
+          rounded-3xl border border-white/10 p-6 sm:p-8 animate-in slide-in-from-bottom
           group overflow-hidden">
-          {/* Gradient overlay effect */}
           <div
             className="absolute inset-0 bg-gradient-to-r from-white/5 to-transparent 
             opacity-0 group-hover:opacity-100 transition-opacity duration-500"
           />
 
           <div className="relative">
-            {/* Meta information */}
-            <div className="flex flex-wrap items-center gap-4 text-white/60 mb-8">
-              <div className="flex items-center gap-2 hover:text-white/80 transition-colors">
+            <div className="flex flex-wrap items-center gap-3 text-white/60 mb-6">
+              <div className="flex items-center gap-1.5 hover:text-white/80 transition-colors">
                 <Calendar size={16} className="group-hover:text-white/80" />
                 <span className="text-sm font-medium">
                   {post.frontmatter?.date}
                 </span>
               </div>
               <span className="text-white/30">•</span>
-              <div className="flex items-center gap-2 hover:text-white/80 transition-colors">
+              <div className="flex items-center gap-1.5 hover:text-white/80 transition-colors">
                 <Clock size={16} className="group-hover:text-white/80" />
                 <span className="text-sm font-medium">
                   {post.frontmatter?.readTime}
@@ -64,21 +62,19 @@ export default async function BlogPost({
               </div>
             </div>
 
-            {/* Title with enhanced gradient */}
             <h1
-              className="text-4xl font-bold mb-8 bg-clip-text text-transparent 
+              className="text-3xl sm:text-4xl font-bold mb-6 bg-clip-text text-transparent 
               bg-gradient-to-r from-white via-white to-gray-500
               group-hover:to-white transition-all duration-500">
               {post.frontmatter?.title}
             </h1>
 
-            {/* Tags with hover effects */}
             {post.frontmatter?.tags && post.frontmatter.tags.length > 0 && (
-              <div className="flex flex-wrap gap-2 mb-8">
+              <div className="flex flex-wrap gap-1.5 mb-6">
                 {post.frontmatter.tags.map((tag: string) => (
                   <span
                     key={tag}
-                    className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-sm
+                    className="px-2 sm:px-3 py-0.5 sm:py-1 bg-white/5 border border-white/10 rounded-full text-xs sm:text-sm
                       hover:bg-white/10 hover:border-white/20 hover:scale-105 
                       transition-all duration-300">
                     {tag}
@@ -87,7 +83,6 @@ export default async function BlogPost({
               </div>
             )}
 
-            {/* Content with improved typography */}
             <div
               className="prose prose-invert prose-lg max-w-none
               prose-headings:text-white/90 prose-p:text-white/70 

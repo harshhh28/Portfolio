@@ -84,21 +84,21 @@ export default function Projects() {
       <div className="max-w-6xl mx-auto">
         <div
           className="backdrop-blur-lg bg-gradient-to-br from-black/50 to-black/30 
-          rounded-3xl border border-white/10 p-8 mb-12 
+          rounded-3xl border border-white/10 p-6 sm:p-8 mb-8 sm:mb-12
           animate-in slide-in-from-bottom hover:border-white/20 
           transition-all duration-500 group relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-r from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-          <h1 className="relative text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-gray-500">
+          <h1 className="relative text-3xl sm:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-gray-500">
             My Projects
           </h1>
-          <p className="relative text-white/60 mt-4 max-w-2xl">
+          <p className="relative text-white/60 mt-3 sm:mt-4 max-w-2xl text-sm sm:text-base">
             A collection of my work spanning web development, machine learning,
             and hardware projects. Each project represents a unique challenge
             and learning experience.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8">
           {projects.map((project, index) => (
             <div
               key={project.title}
@@ -111,7 +111,7 @@ export default function Projects() {
                 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500"
               />
 
-              <div className="relative h-48 overflow-hidden">
+              <div className="relative h-40 sm:h-48 overflow-hidden">
                 <Image
                   src={project.image}
                   alt={project.title}
@@ -121,21 +121,21 @@ export default function Projects() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
               </div>
 
-              <div className="relative p-6">
+              <div className="relative p-4 sm:p-6">
                 <h3
-                  className="text-2xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r 
+                  className="text-xl sm:text-2xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r 
                   from-white to-white/70 group-hover/card:to-white transition-all duration-500">
                   {project.title}
                 </h3>
-                <p className="text-white/70 mb-4 group-hover/card:text-white/90 transition-colors duration-300">
+                <p className="text-sm sm:text-base text-white/70 mb-3 sm:mb-4 group-hover/card:text-white/90 transition-colors duration-300">
                   {project.description}
                 </p>
 
-                <div className="flex flex-wrap gap-2 mb-6">
+                <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-4 sm:mb-6">
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-sm
+                      className="px-2 sm:px-3 py-0.5 sm:py-1 bg-white/5 border border-white/10 rounded-full text-xs sm:text-sm
                         group-hover/card:bg-white/10 group-hover/card:border-white/20 
                         transition-all duration-300 hover:scale-105">
                       {tag}
@@ -143,29 +143,29 @@ export default function Projects() {
                   ))}
                 </div>
 
-                <div className="flex gap-4">
+                <div className="flex gap-3 sm:gap-4">
                   <Link
                     href={project.github}
                     target="_blank"
-                    className="flex items-center gap-2 hover:text-white/90 transition-all duration-300
-                      group/link relative">
+                    className="flex items-center gap-1.5 sm:gap-2 hover:text-white/90 transition-all duration-300
+                      group/link relative text-sm sm:text-base">
                     <div
                       className="absolute inset-0 bg-white/0 group-hover/link:bg-white/5 
                       rounded-lg transition-colors duration-300"
                     />
-                    <SiGithub size={20} />
+                    <SiGithub size={16} className="sm:w-5 sm:h-5" />
                     <span className="relative">Code</span>
                   </Link>
                   <Link
                     href={project.demo}
                     target="_blank"
-                    className="flex items-center gap-2 hover:text-white/90 transition-all duration-300
-                      group/link relative">
+                    className="flex items-center gap-1.5 sm:gap-2 hover:text-white/90 transition-all duration-300
+                      group/link relative text-sm sm:text-base">
                     <div
                       className="absolute inset-0 bg-white/0 group-hover/link:bg-white/5 
                       rounded-lg transition-colors duration-300"
                     />
-                    <ExternalLink size={20} />
+                    <ExternalLink size={16} className="sm:w-5 sm:h-5" />
                     <span className="relative">Demo</span>
                   </Link>
                 </div>
