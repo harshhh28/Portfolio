@@ -56,7 +56,7 @@ export default function Blog() {
             transition-all duration-500 group relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-r from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           <h1 className="text-3xl sm:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-gray-500">
-            Latest Articles
+            My Blogs
           </h1>
           <p className="text-sm sm:text-base text-white/60 mt-3 sm:mt-4 max-w-xl">
             Thoughts, learnings, and experiences shared through words. Dive into

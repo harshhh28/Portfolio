@@ -110,3 +110,16 @@ body {
 .submit-button:hover::after {
   transform: translateX(100%);
 }
+
+.transition-all {
+  transition: all 0.5s ease-in-out;
+}
+
+.max-h-0 {
+  max-height: 0;
+  overflow: hidden;
+}
+
+.max-h-400 {
+  max-height: 400px; /* Adjust this value based on your content */
+}

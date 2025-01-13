@@ -92,9 +92,9 @@ export default function Projects() {
             My Projects
           </h1>
           <p className="relative text-white/60 mt-3 sm:mt-4 max-w-2xl text-sm sm:text-base">
-            A collection of my work spanning web development, machine learning,
-            and hardware projects. Each project represents a unique challenge
-            and learning experience.
+            A collection of my work spanning web/app development, machine
+            learning, and hardware projects. Each project represents a unique
+            challenge and learning experience.
           </p>
         </div>
 

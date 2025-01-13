@@ -50,11 +50,16 @@ const Navigation = () => {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="lg:hidden relative p-2.5 rounded-lg 
+              className={`lg:hidden relative p-2.5 rounded-lg 
                 transition-all duration-300 active:scale-95
                 hover:bg-white/10 focus:outline-none focus:ring-2 
-                focus:ring-white/20">
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
+                focus:ring-white/20 ${isOpen ? "transform rotate-90" : ""}`}>
+              <div
+                className={`transition-transform duration-300 ${
+                  isOpen ? "rotate-35" : ""
+                }`}>
+                {isOpen ? <X size={24} /> : <Menu size={24} />}
+              </div>
             </button>
 
             {/* Desktop Navigation */}

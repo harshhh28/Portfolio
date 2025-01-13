@@ -143,7 +143,8 @@ export default function RecentNews() {
         <div
           className="backdrop-blur-lg bg-gradient-to-br from-black/50 to-black/30 
             rounded-3xl border border-white/10 p-6 sm:p-8 
-            mb-8
+            mb-8 sm:mb-12 mt-8 sm:mt-0
+            animate-in slide-in-from-bottom
             group relative overflow-hidden
             hover:border-white/20 transition-all duration-500">
           <div
