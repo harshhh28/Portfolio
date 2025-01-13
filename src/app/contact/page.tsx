@@ -10,6 +10,7 @@ const ContactPage = () => {
     name: "",
     email: "",
     message: "",
+    error: "",
   });
 
   const { sendWebhook, error } = useWebhook();
@@ -30,6 +31,12 @@ const ContactPage = () => {
       setLoading(true);
       await sendWebhook(payload);
       setIsMessageSent(true);
+      setFormData({
+        name: "",
+        email: "",
+        message: "",
+        error: "",
+      });
       setLoading(false);
       setTimeout(() => {
         setIsMessageSent(false);
@@ -37,6 +44,10 @@ const ContactPage = () => {
     } catch (err) {
       console.error("Error sending message:", err);
       setLoading(false);
+      setFormData((prev) => ({
+        ...prev,
+        error: "Error occurred :(",
+      }));
     }
   };
 
