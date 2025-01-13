@@ -82,34 +82,62 @@ export default function Projects() {
   return (
     <div className="min-h-screen pt-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
-        <h1 className="text-4xl font-bold mb-12 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500 p-4">
-          My Projects
-        </h1>
+        <div
+          className="backdrop-blur-lg bg-gradient-to-br from-black/50 to-black/30 
+          rounded-3xl border border-white/10 p-8 mb-12 
+          animate-in slide-in-from-bottom hover:border-white/20 
+          transition-all duration-500 group relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          <h1 className="relative text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-gray-500">
+            My Projects
+          </h1>
+          <p className="relative text-white/60 mt-4 max-w-2xl">
+            A collection of my work spanning web development, machine learning,
+            and hardware projects. Each project represents a unique challenge
+            and learning experience.
+          </p>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {projects.map((project, index) => (
             <div
               key={project.title}
-              className="backdrop-blur-lg bg-black/40 rounded-3xl border border-white/10 overflow-hidden hover:scale-[1.02] transition-transform duration-300 animate-in slide-in-from-bottom"
+              className="group/card relative backdrop-blur-lg bg-gradient-to-br from-black/50 to-black/30 
+                rounded-3xl border border-white/10 overflow-hidden hover:scale-[1.02] 
+                transition-all duration-500 animate-in slide-in-from-bottom"
               style={{ animationDelay: `${index * 200}ms` }}>
-              <div className="relative h-48">
+              <div
+                className="absolute inset-0 bg-gradient-to-r from-white/5 to-transparent 
+                opacity-0 group-hover/card:opacity-100 transition-opacity duration-500"
+              />
+
+              <div className="relative h-48 overflow-hidden">
                 <Image
                   src={project.image}
                   alt={project.title}
                   fill
-                  className="object-cover"
+                  className="object-cover transform group-hover/card:scale-110 transition-transform duration-500"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
               </div>
 
-              <div className="p-6">
-                <h3 className="text-2xl font-bold mb-2">{project.title}</h3>
-                <p className="text-white/80 mb-4">{project.description}</p>
+              <div className="relative p-6">
+                <h3
+                  className="text-2xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r 
+                  from-white to-white/70 group-hover/card:to-white transition-all duration-500">
+                  {project.title}
+                </h3>
+                <p className="text-white/70 mb-4 group-hover/card:text-white/90 transition-colors duration-300">
+                  {project.description}
+                </p>
 
                 <div className="flex flex-wrap gap-2 mb-6">
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-3 py-1 bg-white/10 rounded-full text-sm">
+                      className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-sm
+                        group-hover/card:bg-white/10 group-hover/card:border-white/20 
+                        transition-all duration-300 hover:scale-105">
                       {tag}
                     </span>
                   ))}
@@ -119,16 +147,26 @@ export default function Projects() {
                   <Link
                     href={project.github}
                     target="_blank"
-                    className="flex items-center gap-2 hover:text-white/70 transition-colors">
+                    className="flex items-center gap-2 hover:text-white/90 transition-all duration-300
+                      group/link relative">
+                    <div
+                      className="absolute inset-0 bg-white/0 group-hover/link:bg-white/5 
+                      rounded-lg transition-colors duration-300"
+                    />
                     <SiGithub size={20} />
-                    Code
+                    <span className="relative">Code</span>
                   </Link>
                   <Link
                     href={project.demo}
                     target="_blank"
-                    className="flex items-center gap-2 hover:text-white/70 transition-colors">
+                    className="flex items-center gap-2 hover:text-white/90 transition-all duration-300
+                      group/link relative">
+                    <div
+                      className="absolute inset-0 bg-white/0 group-hover/link:bg-white/5 
+                      rounded-lg transition-colors duration-300"
+                    />
                     <ExternalLink size={20} />
-                    Demo
+                    <span className="relative">Demo</span>
                   </Link>
                 </div>
               </div>

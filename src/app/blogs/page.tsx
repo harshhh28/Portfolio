@@ -1,61 +1,150 @@
-import { Calendar } from "lucide-react";
-import Link from "next/link";
-import { getAllPosts } from "@/lib/mdx";
+"use client";
 
-export default async function Blog() {
-  const posts = await getAllPosts();
+import { Calendar, Clock } from "lucide-react";
+import Link from "next/link";
+import { useState, useEffect } from "react";
+import { TagFilter } from "@/components/TagFilter";
+
+// Type for the post
+interface Post {
+  slug: string;
+  frontmatter: {
+    title: string;
+    excerpt: string;
+    date: string;
+    readTime: string;
+    tags: string[];
+  };
+}
+
+export default function Blog() {
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [allTags, setAllTags] = useState<string[]>([]);
+
+  useEffect(() => {
+    // Fetch posts
+    fetch("/api/posts")
+      .then((res) => res.json())
+      .then((data) => {
+        setPosts(data.posts);
+        // Extract unique tags
+        const tags = Array.from(
+          new Set(data.posts.flatMap((post: Post) => post.frontmatter.tags))
+        ) as string[];
+        setAllTags(tags);
+      });
+  }, []);
+
+  const handleTagSelect = (tag: string) => {
+    setSelectedTags((prev) =>
+      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
+    );
+  };
+
+  const filteredPosts = posts.filter((post) =>
+    selectedTags.length === 0
+      ? true
+      : post.frontmatter.tags.some((tag) => selectedTags.includes(tag))
+  );
 
   return (
     <div className="min-h-screen pt-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-4xl font-bold mb-12 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500 p-4">
-          Blogs
-        </h1>
+        <div
+          className="backdrop-blur-lg bg-gradient-to-br from-black/50 to-black/30 
+            rounded-3xl border border-white/10 p-8 mb-12 
+            animate-in slide-in-from-bottom hover:border-white/20 
+            transition-all duration-500 group relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-gray-500">
+            Latest Articles
+          </h1>
+          <p className="text-white/60 mt-4 max-w-xl">
+            Thoughts, learnings, and experiences shared through words. Dive into
+            a collection of insights about technology, development, and
+            innovation.
+          </p>
+        </div>
 
-        {posts && posts.length > 0 ? (
+        <TagFilter
+          tags={allTags}
+          selectedTags={selectedTags}
+          onTagSelect={handleTagSelect}
+        />
+
+        {filteredPosts && filteredPosts.length > 0 ? (
           <div className="space-y-8">
-            {posts.map((post, index) => (
+            {filteredPosts.map((post, index) => (
               <Link
                 key={post.slug}
                 href={`/blogs/${post.slug}`}
-                className="block">
+                className="block group">
                 <article
-                  className="backdrop-blur-lg bg-black/40 rounded-3xl border border-white/10 p-6 hover:scale-[1.02] transition-transform duration-300 cursor-pointer animate-in slide-in-from-bottom"
+                  className="relative backdrop-blur-lg bg-gradient-to-br from-black/50 to-black/30 
+                    rounded-3xl border border-white/10 p-8 
+                    transition-all duration-500 
+                    hover:bg-black/50 hover:border-white/20 hover:scale-[1.02]
+                    animate-in slide-in-from-bottom
+                    group/card overflow-hidden"
                   style={{ animationDelay: `${index * 200}ms` }}>
-                  <div className="flex items-center gap-4 text-white/60 mb-4">
-                    <div className="flex items-center gap-2">
-                      <Calendar size={16} />
-                      <span>{post.frontmatter?.date}</span>
-                    </div>
-                    <span>•</span>
-                    <span>{post.frontmatter?.readTime}</span>
-                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-white/5 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500" />
 
-                  <h2 className="text-2xl font-bold mb-3">
-                    {post.frontmatter?.title}
-                  </h2>
-                  <p className="text-white/80 mb-6">
-                    {post.frontmatter?.excerpt}
-                  </p>
-
-                  {post.frontmatter?.tags &&
-                    post.frontmatter.tags.length > 0 && (
-                      <div className="flex flex-wrap gap-2">
-                        {post.frontmatter?.tags.map((tag: string) => (
-                          <span
-                            key={tag}
-                            className="px-3 py-1 bg-white/10 rounded-full text-sm">
-                            {tag}
-                          </span>
-                        ))}
+                  <div className="relative">
+                    <div className="flex flex-wrap items-center gap-4 text-white/60 mb-6">
+                      <div className="flex items-center gap-2 hover:text-white/80 transition-colors">
+                        <Calendar
+                          size={16}
+                          className="group-hover/card:text-white/80"
+                        />
+                        <span className="text-sm font-medium">
+                          {post.frontmatter?.date}
+                        </span>
                       </div>
-                    )}
+                      <div className="flex items-center gap-2 hover:text-white/80 transition-colors">
+                        <Clock
+                          size={16}
+                          className="group-hover/card:text-white/80"
+                        />
+                        <span className="text-sm font-medium">
+                          {post.frontmatter?.readTime}
+                        </span>
+                      </div>
+                    </div>
+
+                    <h2
+                      className="text-2xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r 
+                      from-white to-white/70 group-hover/card:to-white transition-all duration-500">
+                      {post.frontmatter?.title}
+                    </h2>
+
+                    <p className="text-white/70 mb-6 line-clamp-2 group-hover/card:text-white/90 transition-colors duration-500">
+                      {post.frontmatter?.excerpt}
+                    </p>
+
+                    {post.frontmatter?.tags &&
+                      post.frontmatter.tags.length > 0 && (
+                        <div className="flex flex-wrap gap-2">
+                          {post.frontmatter?.tags.map((tag: string) => (
+                            <span
+                              key={tag}
+                              className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-sm
+                              group-hover/card:bg-white/10 group-hover/card:border-white/20 
+                              transition-all duration-300 hover:scale-105">
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                  </div>
                 </article>
               </Link>
             ))}
           </div>
         ) : (
-          <p className="text-white/60">No blog posts found.</p>
+          <div className="backdrop-blur-lg bg-black/40 rounded-3xl border border-white/10 p-8 text-center">
+            <p className="text-white/60">No blog posts found.</p>
+          </div>
         )}
       </div>
     </div>

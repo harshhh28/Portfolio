@@ -3,116 +3,286 @@
 import { SiGithub, SiLinkedin, SiX } from "react-icons/si";
 import Link from "next/link";
 import { TypeAnimation } from "react-type-animation";
-// import BackgroundAnimation from "../components/BackgroundAnimation";
+
+const SKILLS = [
+  {
+    name: "Next.js",
+    url: "https://nextjs.org/docs",
+  },
+  {
+    name: "Node.js",
+    url: "https://nodejs.org/docs/latest/api/",
+  },
+  {
+    name: "Express.js",
+    url: "https://expressjs.com/",
+  },
+  {
+    name: "React.js",
+    url: "https://react.dev/",
+  },
+  {
+    name: "React Native",
+    url: "https://reactnative.dev/docs/getting-started",
+  },
+  {
+    name: "TypeScript",
+    url: "https://www.typescriptlang.org/docs/",
+  },
+  {
+    name: "JavaScript",
+    url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
+  },
+  {
+    name: "CSS",
+    url: "https://developer.mozilla.org/en-US/docs/Web/CSS",
+  },
+  {
+    name: "Tailwind CSS",
+    url: "https://tailwindcss.com/docs",
+  },
+  {
+    name: "HTML",
+    url: "https://developer.mozilla.org/en-US/docs/Web/HTML",
+  },
+  {
+    name: "Firebase",
+    url: "https://firebase.google.com/docs",
+  },
+  {
+    name: "MongoDB",
+    url: "https://www.mongodb.com/docs/",
+  },
+  {
+    name: "PostgreSQL",
+    url: "https://www.postgresql.org/docs/",
+  },
+  {
+    name: "Cloudinary",
+    url: "https://cloudinary.com/documentation",
+  },
+  {
+    name: "Google Cloud",
+    url: "https://cloud.google.com/docs",
+  },
+  {
+    name: "Vercel",
+    url: "https://vercel.com/docs",
+  },
+  {
+    name: "Machine Learning",
+    url: "https://developers.google.com/machine-learning",
+  },
+  {
+    name: "Python",
+    url: "https://docs.python.org/3/",
+  },
+  {
+    name: "NumPy",
+    url: "https://numpy.org/doc/",
+  },
+  {
+    name: "Pandas",
+    url: "https://pandas.pydata.org/docs/",
+  },
+  {
+    name: "Matplotlib",
+    url: "https://matplotlib.org/stable/contents.html",
+  },
+  {
+    name: "Scikit-learn",
+    url: "https://scikit-learn.org/stable/documentation.html",
+  },
+  {
+    name: "TensorFlow",
+    url: "https://www.tensorflow.org/api_docs",
+  },
+  {
+    name: "Keras",
+    url: "https://keras.io/api/",
+  },
+  {
+    name: "SeaBorn",
+    url: "https://seaborn.pydata.org/api.html",
+  },
+  {
+    name: "C++",
+    url: "https://cplusplus.com/doc/",
+  },
+  {
+    name: "C",
+    url: "https://devdocs.io/c/",
+  },
+];
+
+const EDUCATION = [
+  {
+    school:
+      "Dhirubhai Ambani Institute of Information and Communication Technology (DA-IICT)",
+    schoolUrl: "https://www.daiict.ac.in",
+    degree:
+      "Bachelor of Technology in Information and Communication Technology (ICT)",
+    duration: "2022 - Present",
+    courses: [
+      "Machine Learning",
+      "Augmented and Virtual Reality Systems",
+      "Software Engineering",
+      "Computer Networks",
+      "System Programming",
+      "Design and Analysis of Algorithms",
+      "Data Structures",
+      "Object Oriented Programming",
+    ],
+  },
+  {
+    school: "The H. B. Kapadia New High School",
+    schoolUrl: "https://www.hbkapadia.com",
+    degree: "Higher Secondary Education (XII) - Science",
+    duration: "2021 - 2022",
+    courses: ["Physics", "Chemistry", "Mathematics", "Computer Science"],
+  },
+];
 
 export default function About() {
   return (
     <div className="min-h-screen pt-24 px-4 sm:px-6 lg:px-8">
-      {/* <BackgroundAnimation /> */}
       <div className="max-w-4xl mx-auto">
-        <div className="backdrop-blur-lg bg-black/40 rounded-3xl border border-white/10 p-8 animate-in slide-in-from-bottom duration-700">
-          <h1 className="text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500 pb-4">
-            <TypeAnimation
-              sequence={[
-                "Hello, I'm Harsh Gajjar", // Types the text
-                1000, // Waits 1s
-                "", // Deletes the text
-                100, // Waits 0.1s
-                "Full Stack Developer", // Types the text again
-                1000, // Waits 1s
-                "", // Deletes the text
-                100, // Waits 0.1s
-                "Creative Blogger", // Types the text again
-                1000, // Waits 1s
-                "", // Deletes the text
-                100, // Waits 0.1s
-                "Lifelong Learner", // Types the text again
-                1000, // Waits 1s
-              ]}
-              wrapper="span"
-              cursor={true}
-              repeat={Infinity}
-              style={{ display: "inline-block" }}
-            />
-          </h1>
-          <p className="text-xl text-white/80 mb-8">
-            A Full Stack Developer passionate about crafting beautiful and
-            functional web experiences. A Creative Blogger who enjoys sharing
-            knowledge and experiences with a touch of humor. A Lifelong Learner,
-            always curious to explore new technologies and ideas.
-          </p>
+        <div
+          className="backdrop-blur-lg bg-gradient-to-br from-black/50 to-black/30 
+            rounded-3xl border border-white/10 p-8 
+            hover:border-white/20 transition-all duration-500 
+            group relative overflow-hidden
+            animate-in slide-in-from-bottom">
+          {/* Gradient overlay effect */}
+          <div
+            className="absolute inset-0 bg-gradient-to-r from-white/5 to-transparent 
+              opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+          />
 
-          <div className="grid grid-cols-1 md:grid-cols-1 gap-8 mb-12">
-            <div className="space-y-4">
-              <h2 className="text-2xl font-bold">Skills</h2>
-              <div className="flex flex-wrap gap-3">
-                {[
-                  "Next.js",
-                  "Node.js",
-                  "Express.js",
-                  "React.js",
-                  "React Native",
-                  "TypeScript",
-                  "JavaScript",
-                  "CSS",
-                  "Tailwind CSS",
-                  "HTML",
-                  "Firebase",
-                  "MongoDB",
-                  "PostgreSQL",
-                  "Cloudinary",
-                  "Google Cloud",
-                  "Vercel",
-                  "Machine Learning",
-                  "Python",
-                  "NumPy",
-                  "Pandas",
-                  "Matplotlib",
-                  "Scikit-learn",
-                  "TensorFlow",
-                  "Keras",
-                  "SeaBorn",
-                  "C++",
-                  "C",
-                ].map((skill) => (
-                  <span
-                    key={skill}
-                    className="px-4 py-2 bg-white/10 rounded-lg border border-white/20 hover:bg-white/20 transition-colors">
-                    {skill}
-                  </span>
+          {/* Content container */}
+          <div className="relative space-y-8">
+            <h1 className="text-5xl font-bold mb-8 min-h-[64px] bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500">
+              <TypeAnimation
+                sequence={[
+                  "Hello, I'm Harsh Gajjar",
+                  1000,
+                  "",
+                  100,
+                  "Full Stack Developer",
+                  1000,
+                  "",
+                  100,
+                  "Creative Blogger",
+                  1000,
+                  "",
+                  100,
+                  "Lifelong Learner",
+                  1000,
+                ]}
+                wrapper="span"
+                cursor={true}
+                repeat={Infinity}
+                style={{ display: "inline-block", lineHeight: "1.2" }}
+              />
+            </h1>
+
+            <p className="text-xl text-white/80 leading-relaxed transform transition-all duration-300 group-hover:text-white/90">
+              A Full Stack Developer passionate about crafting beautiful and
+              functional web experiences. A Creative Blogger who enjoys sharing
+              knowledge and experiences with a touch of humor. A Lifelong
+              Learner, always curious to explore new technologies and ideas.
+            </p>
+
+            <div className="space-y-8">
+              <div>
+                <h2 className="text-2xl font-bold mb-6 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+                  Skills & Technologies
+                </h2>
+                <div className="flex flex-wrap gap-3">
+                  {SKILLS.map((skill) => (
+                    <Link
+                      key={skill.name}
+                      href={skill.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-4 py-2 bg-white/5 rounded-lg border border-white/10 
+                        hover:bg-white/10 hover:border-white/20 
+                        transition-all duration-300 hover:-translate-y-1
+                        backdrop-blur-sm group/skill">
+                      <span className="relative">
+                        {skill.name}
+                        <span
+                          className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 
+                          opacity-0 group-hover/skill:opacity-100 transition-opacity duration-500"
+                        />
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-8">
+              <h2 className="text-2xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+                Education
+              </h2>
+              <div className="space-y-6">
+                {EDUCATION.map((edu) => (
+                  <div
+                    key={edu.school}
+                    className="backdrop-blur-sm bg-white/5 rounded-lg border border-white/10 
+                      p-6 hover:bg-white/10 hover:border-white/20 
+                      transition-all duration-300 group/edu">
+                    <div className="flex justify-between items-start mb-2">
+                      <Link
+                        href={edu.schoolUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xl font-semibold hover:text-white/80 transition-colors">
+                        <h3>{edu.school}</h3>
+                      </Link>
+                      <span className="text-white/60 text-sm">
+                        {edu.duration}
+                      </span>
+                    </div>
+                    <p className="text-lg text-white/80 mb-3">{edu.degree}</p>
+                    <div className="flex flex-wrap gap-2">
+                      {edu.courses.map((course) => (
+                        <span
+                          key={course}
+                          className="px-3 py-1 text-sm bg-white/5 border border-white/10 
+                            rounded-full group-hover/edu:bg-white/10 
+                            group-hover/edu:border-white/20 transition-all duration-300">
+                          {course}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 ))}
               </div>
             </div>
 
-            {/* <div className="space-y-4">
-              <h2 className="text-2xl font-bold">Experience</h2>
-              <ul className="space-y-3 text-white/80">
-                <li>• Senior Developer at Tech Corp</li>
-                <li>• Lead Developer at StartUp Inc</li>
-                <li>• Freelance Web Developer</li>
-              </ul>
-            </div> */}
-          </div>
-
-          <div className="flex gap-6 items-center">
-            <Link
-              href="https://github.com/harshhh28"
-              target="_blank"
-              className="hover:text-white/70 transition-colors">
-              <SiGithub size={28} />
-            </Link>
-            <Link
-              href="https://linkedin.com/in/harsh-gajjar-936536209"
-              target="_blank"
-              className="hover:text-white/70 transition-colors">
-              <SiLinkedin size={28} />
-            </Link>
-            <Link
-              href="https://x.com/harshgajjar_28"
-              target="_blank"
-              className="hover:text-white/70 transition-colors">
-              <SiX size={28} />
-            </Link>
+            <div className="flex gap-6 items-center">
+              {[
+                { icon: SiGithub, href: "https://github.com/harshhh28" },
+                {
+                  icon: SiLinkedin,
+                  href: "https://linkedin.com/in/harsh-gajjar-936536209",
+                },
+                { icon: SiX, href: "https://x.com/harshgajjar_28" },
+              ].map((social, index) => (
+                <Link
+                  key={social.href}
+                  href={social.href}
+                  target="_blank"
+                  className="p-3 hover:bg-white/10 rounded-lg transition-all duration-300
+                    border border-transparent hover:border-white/10
+                    hover:-translate-y-1"
+                  style={{ transitionDelay: `${index * 50}ms` }}>
+                  <social.icon size={24} />
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </div>

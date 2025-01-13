@@ -33,7 +33,7 @@ const ContactPage = () => {
       setLoading(false);
       setTimeout(() => {
         setIsMessageSent(false);
-      }, 3000); // Reset the message after 2 seconds
+      }, 2000); // Match the rocket animation duration
     } catch (err) {
       console.error("Error sending message:", err);
       setLoading(false);
@@ -43,15 +43,21 @@ const ContactPage = () => {
   return (
     <div className="min-h-screen pt-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-2xl mx-auto">
-        <div
-          className={`backdrop-blur-lg bg-black/40 rounded-3xl border border-white/10 p-8 animate-in slide-in-from-bottom`}>
-          <h1 className="text-4xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500">
-            Get in Touch
-          </h1>
+        <div className="backdrop-blur-lg bg-black/40 rounded-3xl border border-white/10 p-8 form-container">
+          <div className="form-element" style={{ animationDelay: "0.1s" }}>
+            <h1 className="text-4xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500">
+              Get in Touch
+            </h1>
+            <p className="text-white/60 mb-8">
+              Have a question or want to work together? Let's connect!
+            </p>
+          </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-              <label htmlFor="name" className="block text-sm font-medium mb-2">
+            <div className="form-element" style={{ animationDelay: "0.2s" }}>
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium mb-2 text-white/80">
                 Name
               </label>
               <input
@@ -62,13 +68,16 @@ const ContactPage = () => {
                 onChange={(e) =>
                   setFormData({ ...formData, name: e.target.value })
                 }
-                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-white/20 transition-colors"
+                className="glass-input w-full"
                 required
+                placeholder="Your name"
               />
             </div>
 
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium mb-2">
+            <div className="form-element" style={{ animationDelay: "0.3s" }}>
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium mb-2 text-white/80">
                 Email
               </label>
               <input
@@ -79,15 +88,16 @@ const ContactPage = () => {
                 onChange={(e) =>
                   setFormData({ ...formData, email: e.target.value })
                 }
-                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-white/20 transition-colors"
+                className="glass-input w-full"
                 required
+                placeholder="your@email.com"
               />
             </div>
 
-            <div>
+            <div className="form-element" style={{ animationDelay: "0.4s" }}>
               <label
                 htmlFor="message"
-                className="block text-sm font-medium mb-2">
+                className="block text-sm font-medium mb-2 text-white/80">
                 Message
               </label>
               <textarea
@@ -98,68 +108,56 @@ const ContactPage = () => {
                   setFormData({ ...formData, message: e.target.value })
                 }
                 rows={6}
-                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-white/20 transition-colors resize-none"
+                className="glass-input w-full resize-none"
                 required
+                placeholder="Your message here..."
               />
             </div>
 
             <button
               type="submit"
-              className={`w-full px-6 py-3 bg-white/10 hover:bg-white/20 border border-white/10 rounded-lg font-medium flex items-center justify-center gap-2 transition-colors ${
-                isMessageSent ? "bg-green-900" : ""
-              }`}
+              className={`form-element submit-button w-full px-6 py-3 bg-white/10 
+                border border-white/20 rounded-lg font-medium flex items-center justify-center gap-2
+                ${isMessageSent ? "bg-green-900/50" : "hover:bg-white/15"}`}
+              style={{ animationDelay: "0.5s" }}
               disabled={loading}>
               {isMessageSent ? (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 text-green-500 animate-bounce"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M5 13l4 4L19 7"
-                  />
-                </svg>
+                <div className="relative">
+                  <div className="absolute right-full top-1/2 -translate-y-1/2">
+                    {[...Array(5)].map((_, i) => (
+                      <div
+                        key={i}
+                        className="smoke-particle"
+                        style={{
+                          right: `${i * 3}px`,
+                          animationDelay: `${i * 0.1}s`,
+                        }}
+                      />
+                    ))}
+                  </div>
+                  <svg
+                    viewBox="0 0 24 24"
+                    width="18"
+                    height="18"
+                    className="transform transition-transform duration-700 animate-rocket text-blue-400 fill-current">
+                    <path d="M4 10.4l15-4.4l-4.4 15l-2.6-6.4z" />
+                  </svg>
+                </div>
               ) : (
-                <Send
-                  size={20}
-                  className={`transition-transform transform ${
-                    loading ? "animate-spin" : ""
-                  }`}
-                />
+                <>
+                  <Send size={18} className={loading ? "animate-spin" : ""} />
+                  {loading ? "Sending..." : "Send Message"}
+                </>
               )}
-              {loading ? (
-                "Sending..."
-              ) : isMessageSent ? (
-                <TypeAnimation
-                  sequence={["Message sent successfully!", 4000]}
-                  wrapper="span"
-                  cursor={false}
-                  repeat={0}
-                />
-              ) : (
-                "Send Message"
-              )}
-              {isMessageSent ? (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 text-green-500 animate-bounce"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M5 13l4 4L19 7"
-                  />
-                </svg>
-              ) : null}
             </button>
-            {error && <p>Error: {error}</p>}
+
+            {error && (
+              <div
+                className="form-element text-red-400 text-sm mt-2"
+                style={{ animationDelay: "0.6s" }}>
+                Error: {error}
+              </div>
+            )}
           </form>
         </div>
       </div>

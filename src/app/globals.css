@@ -12,25 +12,6 @@ body {
   background: rgb(var(--background-rgb));
 }
 
-@keyframes float {
-  0% {
-    transform: translateY(0) rotate(0deg);
-    opacity: 0.8;
-  }
-  50% {
-    transform: translateY(-20px) rotate(180deg);
-    opacity: 0.4;
-  }
-  100% {
-    transform: translateY(0) rotate(360deg);
-    opacity: 0.8;
-  }
-}
-
-.animate-float {
-  animation: float 15s infinite ease-in-out;
-}
-
 @keyframes slide-in-from-bottom {
   from {
     transform: translateY(20px);
@@ -44,4 +25,88 @@ body {
 
 .animate-in {
   animation: slide-in-from-bottom 0.6s ease-out forwards;
+}
+
+@layer utilities {
+  .input-glow {
+    @apply focus:ring-2 focus:ring-white/20 focus:border-white/20 hover:border-white/20 transition-all duration-300;
+  }
+
+  .form-field {
+    @apply w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:outline-none input-glow;
+  }
+}
+
+@keyframes rocket-fly {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  15% {
+    transform: translate(-5px, 0) rotate(-5deg) scale(1.2);
+  }
+  30% {
+    transform: translate(0, 0) rotate(0deg) scale(1.1);
+  }
+  45% {
+    transform: translate(20px, 0) rotate(0deg) scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(100vw, 0) rotate(0deg) scale(0.5);
+    opacity: 0;
+  }
+}
+
+@keyframes smoke {
+  0% {
+    transform: translate(0, 0) scale(0);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(-20px, 0) scale(2);
+    opacity: 0;
+  }
+}
+
+.animate-rocket {
+  animation: rocket-fly 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.smoke-particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  animation: smoke 1s ease-out forwards;
+}
+
+.glass-input {
+  @apply bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg px-4 py-3
+    transition-all duration-300;
+}
+
+.glass-input:focus {
+  @apply border-white/30 bg-white/10 outline-none;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+.glass-input:hover {
+  @apply border-white/20 bg-white/10;
+}
+
+.submit-button {
+  @apply relative overflow-hidden transition-all duration-300;
+}
+
+.submit-button::after {
+  content: "";
+  @apply absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0;
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+
+.submit-button:hover::after {
+  transform: translateX(100%);
 }
