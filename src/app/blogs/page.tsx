@@ -23,18 +23,35 @@ export default function Blog() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [allTags, setAllTags] = useState<string[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch("/api/posts")
-      .then((res) => res.json())
-      .then((data) => {
+    const fetchPosts = async () => {
+      try {
+        const res = await fetch("/api/posts");
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        const data = await res.json();
         setPosts(data.posts);
         const tags = Array.from(
           new Set(data.posts.flatMap((post: Post) => post.frontmatter.tags))
         ) as string[];
         setAllTags(tags);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "Failed to fetch posts");
+        console.error("Error fetching posts:", err);
+      } finally {
         setIsLoading(false);
-      });
+      }
+    };
+
+    fetchPosts();
+
+    // Cleanup function
+    return () => {
+      // Cancel any pending operations if needed
+    };
   }, []);
 
   const handleTagSelect = (tag: string) => {
@@ -49,13 +66,17 @@ export default function Blog() {
       : post.frontmatter.tags.some((tag) => selectedTags.includes(tag))
   );
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
-
-    return () => clearTimeout(timer);
-  }, []);
+  if (error) {
+    return (
+      <div className="min-h-screen pt-24 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto">
+          <div className="backdrop-blur-lg bg-black/40 rounded-3xl border border-red-500/10 p-6 sm:p-8 text-center">
+            <p className="text-sm sm:text-base text-red-400">Error: {error}</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (isLoading) {
     return <Loader />;
@@ -157,7 +178,7 @@ export default function Blog() {
         ) : (
           <div className="backdrop-blur-lg bg-black/40 rounded-3xl border border-white/10 p-6 sm:p-8 text-center">
             <p className="text-sm sm:text-base text-white/60">
-              No blog posts found.
+              No blog posts found :(
             </p>
           </div>
         )}

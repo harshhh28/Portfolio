@@ -20,42 +20,27 @@ const techKeywords = [
 
 export async function GET() {
   try {
-    // Get today's tech news
+    const today = new Date();
+    const todayStr = today.toISOString().split('T')[0];
+
     const todayResponse = await newsapi.v2.topHeadlines({
       category: "technology",
-      language: "en",
-      pageSize: 10
-    });
-
-    // Get yesterday's tech news
-    const yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
-    const yesterdayStr = yesterday.toISOString().split('T')[0];
-    
-    const yesterdayResponse = await newsapi.v2.everything({
-      q: techKeywords,
-      language: 'en',
-      from: yesterdayStr,
-      to: yesterdayStr,
-      sortBy: 'relevancy',
-      domains: 'techcrunch.com,thenextweb.com,theverge.com,wired.com,venturebeat.com,dev.to,medium.com'
+      language: "en", 
+      pageSize: 10,
+      from: todayStr,
+      to: todayStr
     });
 
     const responseData = {
       today: todayResponse.articles.filter((article: { title: string; description: string; urlToImage: string; }) => 
         article.title && article.description && article.urlToImage
-      ),
-      yesterday: yesterdayResponse.articles
-        .filter((article: { title: string; description: string; urlToImage: string; }) => 
-          article.title && article.description && article.urlToImage
-        )
-        .slice(0, 5)
+      )
     };
 
     return new Response(JSON.stringify(responseData), {
       headers: {
         'Content-Type': 'application/json',
-        'Cache-Control': 'no-store' // Disable caching
+        'Cache-Control': 'no-cache, no-store, must-revalidate'
       }
     });
   } catch (error) {
@@ -63,9 +48,8 @@ export async function GET() {
     return new Response(JSON.stringify({ error: "Failed to fetch news" }), {
       status: 500,
       headers: {
-        'Content-Type': 'application/json',
-        'Cache-Control': 'no-store' // Disable caching
+        'Content-Type': 'application/json'
       }
     });
   }
-} 
+}

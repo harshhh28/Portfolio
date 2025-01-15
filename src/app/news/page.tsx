@@ -41,7 +41,15 @@ export default function RecentNews() {
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const response = await fetch("/api/news", { cache: "no-store" });
+        const response = await fetch("/api/news", {
+          cache: "no-store",
+          headers: {
+            "Cache-Control": "no-cache",
+            Pragma: "no-cache",
+          },
+          next: { revalidate: 0 }, // Disable Next.js cache
+        });
+
         if (!response.ok) throw new Error("Failed to fetch");
         const data = await response.json();
         setTodayNews(data.today);
@@ -53,6 +61,10 @@ export default function RecentNews() {
     };
 
     fetchNews();
+
+    // Refresh news every hour
+    const interval = setInterval(fetchNews, 3600000);
+    return () => clearInterval(interval);
   }, []);
 
   const NewsSection = ({
@@ -132,7 +144,18 @@ export default function RecentNews() {
           rounded-3xl border border-white/10 p-6 
           transition-all duration-500 hover:border-white/20">
           <p className="text-white/60 text-center text-lg">
-            News will be available soon...
+            News will be available soon
+            <div className="flex gap-1 justify-center mt-2">
+              <div
+                className="w-2 h-2 bg-white/40 rounded-full animate-bounce"
+                style={{ animationDelay: "0ms" }}></div>
+              <div
+                className="w-2 h-2 bg-white/40 rounded-full animate-bounce"
+                style={{ animationDelay: "200ms" }}></div>
+              <div
+                className="w-2 h-2 bg-white/40 rounded-full animate-bounce"
+                style={{ animationDelay: "400ms" }}></div>
+            </div>
           </p>
         </div>
       )}
