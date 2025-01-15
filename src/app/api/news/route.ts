@@ -8,6 +8,7 @@ if (!process.env.NEXT_PUBLIC_NEWS_API_KEY) {
 const newsapi = new NewsAPI(process.env.NEXT_PUBLIC_NEWS_API_KEY);
 
 const techKeywords = [
+  'ai agents',
   'web development',
   'app development',
   'blockchain',
