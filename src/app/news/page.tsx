@@ -19,14 +19,17 @@ export default function RecentNews() {
   const [currentDate, setCurrentDate] = useState<string>(
     new Date().toISOString().split("T")[0]
   );
+  const [currentHour, setCurrentHour] = useState<number>(new Date().getHours());
 
   const fetchNews = async () => {
     const newDate = new Date().toISOString().split("T")[0];
+    const newHour = new Date().getHours();
     const timestamp = new Date().toISOString();
 
-    // Check if date has changed
-    if (newDate !== currentDate) {
+    // Check if date or hour has changed
+    if (newDate !== currentDate || newHour !== currentHour) {
       setCurrentDate(newDate);
+      setCurrentHour(newHour);
       setTodayNews([]);
     }
 
@@ -41,7 +44,10 @@ export default function RecentNews() {
 
       if (!response.ok) throw new Error("Failed to fetch");
       const data = await response.json();
-      setTodayNews(data.today);
+
+      const shuffledNews = data.today.sort(() => Math.random() - 0.5);
+
+      setTodayNews(shuffledNews);
       console.log(
         `✅ Fetch successful at ${timestamp} - ${data.today.length} articles`
       );
