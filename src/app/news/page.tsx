@@ -30,7 +30,7 @@ export default function RecentNews() {
     if (newDate !== currentDate || newHour !== currentHour) {
       setCurrentDate(newDate);
       setCurrentHour(newHour);
-      setTodayNews([]);
+      setTodayNews([]); // This clears existing news before new fetch
     }
 
     console.log(`🔄 Starting news fetch at ${timestamp}`);
