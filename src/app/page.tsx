@@ -6,6 +6,7 @@ import { TypeAnimation } from "react-type-animation";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import Loader from "@/components/Loader";
+import { FaGoogle } from "react-icons/fa";
 
 const SKILLS = [
   {
@@ -146,6 +147,28 @@ const EDUCATION = [
   },
 ];
 
+const POSITIONS = [
+  {
+    title: "Core Member",
+    organization: "Google Developer Group on Campus, DA-IICT",
+    organizationUrl: "https://dscdaiict.in/",
+    duration: "2023 - Present",
+    description:
+      "Contributing to the developer community as a core member of GDG, organizing technical events and workshops to foster learning and collaboration among students and various communities.",
+    icon: <FaGoogle className="w-5 h-5" />,
+    events: [
+      {
+        name: "SLoP 3.0",
+        url: "https://slop.dscdaiict.in",
+      },
+      {
+        name: "Dev-o-lution'25",
+        url: "https://devolution.dscdaiict.in",
+      },
+    ],
+  },
+];
+
 export default function About() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -251,6 +274,54 @@ export default function About() {
 
             <div className="space-y-8">
               <h2 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+                Positions of Responsibility
+              </h2>
+              <div className="space-y-4 sm:space-y-6">
+                {POSITIONS.map((pos) => (
+                  <div
+                    key={pos.title}
+                    className="backdrop-blur-sm bg-white/5 rounded-lg border border-white/10 
+                  p-4 sm:p-6 hover:bg-white/10 hover:border-white/20 
+                  transition-all duration-300 group/edu rounded-2xl">
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 mb-2">
+                      <Link
+                        href={pos.organizationUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-lg sm:text-xl font-semibold hover:text-white/80 transition-colors">
+                        <h3>{pos.organization}</h3>
+                      </Link>
+                      <span className="text-white/60 text-sm">
+                        {pos.duration}
+                      </span>
+                    </div>
+                    <p className="text-base sm:text-lg text-white/80 mb-3">
+                      {pos.title}
+                    </p>
+                    <p className="text-sm text-white/70">{pos.description}</p>
+                    {pos.events && pos.events.length > 0 && (
+                      <div className="mt-3 flex flex-wrap gap-1.5 sm:gap-2">
+                        {pos.events.map((event) => (
+                          <Link
+                            key={event.name}
+                            href={event.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="px-2 sm:px-3 py-1 text-xs sm:text-sm bg-white/5 border border-white/10 
+                              rounded-full group-hover/edu:bg-white/10 
+                              group-hover/edu:border-white/20 transition-all duration-300 hover:text-white/80">
+                            {event.name}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="space-y-8">
+              <h2 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
                 Education
               </h2>
               <div className="space-y-4 sm:space-y-6">
@@ -259,7 +330,7 @@ export default function About() {
                     key={edu.school}
                     className="backdrop-blur-sm bg-white/5 rounded-lg border border-white/10 
                       p-4 sm:p-6 hover:bg-white/10 hover:border-white/20 
-                      transition-all duration-300 group/edu">
+                      transition-all duration-300 group/edu rounded-2xl">
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 mb-2">
                       <Link
                         href={edu.schoolUrl}
