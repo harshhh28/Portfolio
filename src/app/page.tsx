@@ -158,7 +158,7 @@ const POSITIONS = [
     icon: <FaGoogle className="w-5 h-5" />,
     events: [
       {
-        name: "SLoP 3.0",
+        name: "SLoP 4.0",
         url: "https://slop.dscdaiict.in",
       },
       {
@@ -280,9 +280,9 @@ export default function About() {
                 {POSITIONS.map((pos) => (
                   <div
                     key={pos.title}
-                    className="backdrop-blur-sm bg-white/5 rounded-lg border border-white/10 
+                    className="backdrop-blur-sm bg-white/5 rounded-2xl border border-white/10 
                   p-4 sm:p-6 hover:bg-white/10 hover:border-white/20 
-                  transition-all duration-300 group/edu rounded-2xl">
+                  transition-all duration-300 group/edu">
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 mb-2">
                       <Link
                         href={pos.organizationUrl}
@@ -328,7 +328,7 @@ export default function About() {
                 {EDUCATION.map((edu) => (
                   <div
                     key={edu.school}
-                    className="backdrop-blur-sm bg-white/5 rounded-lg border border-white/10 
+                    className="backdrop-blur-sm bg-white/5 rounded-2xl border border-white/10 
                       p-4 sm:p-6 hover:bg-white/10 hover:border-white/20 
                       transition-all duration-300 group/edu rounded-2xl">
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 mb-2">

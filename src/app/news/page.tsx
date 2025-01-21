@@ -36,10 +36,12 @@ export default function RecentNews() {
     console.log(`🔄 Starting news fetch at ${timestamp}`);
     try {
       const response = await fetch("/api/news", {
+        cache: "no-store",
         headers: {
-          "Cache-Control": "no-cache",
+          "Cache-Control": "no-cache, no-store, must-revalidate",
           Pragma: "no-cache",
         },
+        next: { revalidate: 0 },
       });
 
       if (!response.ok) throw new Error("Failed to fetch");
