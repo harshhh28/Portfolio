@@ -22,18 +22,9 @@ export default function RecentNews() {
   const [currentHour, setCurrentHour] = useState<number>(new Date().getHours());
 
   const fetchNews = async () => {
-    const newDate = new Date().toISOString().split("T")[0];
-    const newHour = new Date().getHours();
     const timestamp = new Date().toISOString();
-
-    // Check if date or hour has changed
-    if (newDate !== currentDate || newHour !== currentHour) {
-      setCurrentDate(newDate);
-      setCurrentHour(newHour);
-      setTodayNews([]); // This clears existing news before new fetch
-    }
-
     console.log(`🔄 Starting news fetch at ${timestamp}`);
+
     try {
       const response = await fetch("/api/news", {
         cache: "no-store",
@@ -62,18 +53,41 @@ export default function RecentNews() {
     }
   };
 
+  // Check for date/hour changes
   useEffect(() => {
+    const checkDateTime = () => {
+      const now = new Date();
+      const newDate = now.toISOString().split("T")[0];
+      const newHour = now.getHours();
+
+      if (newDate !== currentDate) {
+        console.log("📅 Date changed, refreshing news...");
+        setCurrentDate(newDate);
+        setCurrentHour(newHour);
+        setTodayNews([]); // Clear existing news
+        fetchNews();
+      } else if (newHour !== currentHour) {
+        console.log("🕒 Hour changed, refreshing news...");
+        setCurrentHour(newHour);
+        fetchNews();
+      }
+    };
+
+    // Initial fetch
     fetchNews();
 
-    const intervalId = setInterval(() => {
-      fetchNews();
-    }, 3600000);
+    // Check every minute for date/hour changes
+    const dateCheckInterval = setInterval(checkDateTime, 60000);
+
+    // Hourly refresh for fresh news
+    const newsRefreshInterval = setInterval(fetchNews, 3600000);
 
     return () => {
-      console.log("🛑 Clearing news fetch interval");
-      clearInterval(intervalId);
+      console.log("🛑 Clearing intervals");
+      clearInterval(dateCheckInterval);
+      clearInterval(newsRefreshInterval);
     };
-  }, []); // Empty dependency array means this runs once on mount
+  }, [currentDate, currentHour]);
 
   if (isLoading) {
     return <Loader />;
