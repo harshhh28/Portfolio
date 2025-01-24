@@ -152,7 +152,7 @@ const POSITIONS = [
     title: "Core Member",
     organization: "Google Developer Group on Campus, DA-IICT",
     organizationUrl: "https://dscdaiict.in/",
-    duration: "2023 - Present",
+    duration: "2024 - Present",
     description:
       "Contributing to the developer community as a core member of GDG, organizing technical events and workshops to foster learning and collaboration among students and various communities.",
     icon: <FaGoogle className="w-5 h-5" />,
