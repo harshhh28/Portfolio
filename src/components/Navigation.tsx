@@ -12,7 +12,7 @@ const Navigation = () => {
   const links = [
     { href: "/", label: "About" },
     { href: "/projects", label: "Projects" },
-    { href: "/blog", label: "Blog" },
+    { href: "https://blog.harshgajjar.xyz", label: "Blog" },
     { href: "/contact", label: "Contact" },
     { href: "/news", label: "Tech News" },
   ];
@@ -64,34 +64,41 @@ const Navigation = () => {
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex gap-2">
-              {links.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`px-4 py-2 rounded-lg transition-all duration-300 
-                    relative group/link overflow-hidden
-                    ${
-                      pathname === link.href
-                        ? "text-white font-medium bg-white/10"
-                        : "text-white/60 hover:text-white"
-                    }`}>
-                  <span className="relative z-10">{link.label}</span>
-                  <span
-                    className={`absolute inset-0 -z-0 rounded-lg
-                      transition-all duration-500
+              {links.map((link) => {
+                const isExternal = link.href.startsWith("http");
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    {...(isExternal && {
+                      target: "_blank",
+                      rel: "noopener noreferrer",
+                    })}
+                    className={`px-4 py-2 rounded-lg transition-all duration-300 
+                      relative group/link overflow-hidden
                       ${
                         pathname === link.href
-                          ? "bg-white/10"
-                          : "bg-gradient-to-r from-white/10 to-white/5 opacity-0 group-hover/link:opacity-100"
-                      }`}
-                  />
-                  <span
-                    className="absolute bottom-0 left-0 h-0.5 w-0 
-                      bg-gradient-to-r from-white/50 to-transparent
-                      group-hover/link:w-full transition-all duration-500"
-                  />
-                </Link>
-              ))}
+                          ? "text-white font-medium bg-white/10"
+                          : "text-white/60 hover:text-white"
+                      }`}>
+                    <span className="relative z-10">{link.label}</span>
+                    <span
+                      className={`absolute inset-0 -z-0 rounded-lg
+                        transition-all duration-500
+                        ${
+                          pathname === link.href
+                            ? "bg-white/10"
+                            : "bg-gradient-to-r from-white/10 to-white/5 opacity-0 group-hover/link:opacity-100"
+                        }`}
+                    />
+                    <span
+                      className="absolute bottom-0 left-0 h-0.5 w-0 
+                        bg-gradient-to-r from-white/50 to-transparent
+                        group-hover/link:w-full transition-all duration-500"
+                    />
+                  </Link>
+                );
+              })}
             </div>
           </div>
 
@@ -100,26 +107,33 @@ const Navigation = () => {
             className={`lg:hidden overflow-hidden transition-all duration-500 ease-in-out
               ${isOpen ? "max-h-[400px] mt-4" : "max-h-0"}`}>
             <div className="flex flex-col gap-2 pb-4">
-              {links.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setIsOpen(false)}
-                  className={`px-4 py-2.5 rounded-lg 
-                    transition-all duration-300 relative group/mobile
-                    ${
-                      pathname === link.href
-                        ? "text-white font-medium bg-white/10"
-                        : "text-white/60 hover:text-white"
-                    }`}>
-                  <span className="relative z-10">{link.label}</span>
-                  <span
-                    className={`absolute inset-0 -z-0 rounded-lg bg-gradient-to-r 
-                      from-white/10 to-transparent opacity-0 
-                      group-hover/mobile:opacity-100 transition-all duration-300`}
-                  />
-                </Link>
-              ))}
+              {links.map((link) => {
+                const isExternal = link.href.startsWith("http");
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setIsOpen(false)}
+                    {...(isExternal && {
+                      target: "_blank",
+                      rel: "noopener noreferrer",
+                    })}
+                    className={`px-4 py-2.5 rounded-lg 
+                      transition-all duration-300 relative group/mobile
+                      ${
+                        pathname === link.href
+                          ? "text-white font-medium bg-white/10"
+                          : "text-white/60 hover:text-white"
+                      }`}>
+                    <span className="relative z-10">{link.label}</span>
+                    <span
+                      className={`absolute inset-0 -z-0 rounded-lg bg-gradient-to-r 
+                        from-white/10 to-transparent opacity-0 
+                        group-hover/mobile:opacity-100 transition-all duration-300`}
+                    />
+                  </Link>
+                );
+              })}
             </div>
           </div>
         </div>
