@@ -112,7 +112,7 @@ export default function Blog() {
             {filteredPosts.map((post, index) => (
               <Link
                 key={post.slug}
-                href={`/blogs/${post.slug}`}
+                href={`/blog/${post.slug}`}
                 className="block group">
                 <article
                   className="relative backdrop-blur-lg bg-gradient-to-br from-black/50 to-black/30 

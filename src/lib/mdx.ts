@@ -3,7 +3,7 @@ import path from 'path';
 import matter from 'gray-matter';
 import { compile } from '@mdx-js/mdx';
 
-const postsDirectory = path.join(process.cwd(), 'src/content/blogs');
+const postsDirectory = path.join(process.cwd(), 'src/content/blog');
 
 // Helper function to parse date string in dd-mm-yyyy format
 function parseDate(dateStr: string) {

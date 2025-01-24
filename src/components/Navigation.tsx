@@ -12,7 +12,7 @@ const Navigation = () => {
   const links = [
     { href: "/", label: "About" },
     { href: "/projects", label: "Projects" },
-    { href: "/blogs", label: "Blogs" },
+    { href: "/blog", label: "Blog" },
     { href: "/contact", label: "Contact" },
     { href: "/news", label: "Tech News" },
   ];
