@@ -38,16 +38,26 @@ export default function RecentNews() {
       if (!response.ok) throw new Error("Failed to fetch");
       const data = await response.json();
 
-      const shuffledNews = data.today.sort(() => Math.random() - 0.5);
+      // Validate data structure
+      if (!data?.today || !Array.isArray(data.today)) {
+        throw new Error("Invalid data format received");
+      }
+
+      // Safe array shuffle with fallback
+      const shuffledNews =
+        data.today.length > 0
+          ? [...data.today].sort(() => Math.random() - 0.5)
+          : [];
 
       setTodayNews(shuffledNews);
       console.log(
-        `✅ Fetch successful at ${timestamp} - ${data.today.length} articles`
+        `✅ Fetch successful at ${timestamp} - ${shuffledNews.length} articles`
       );
       setError(null);
     } catch (error) {
       console.error("❌ Error fetching news:", error);
-      setError("Failed to fetch news");
+      setError(error instanceof Error ? error.message : "Failed to fetch news");
+      setTodayNews([]); // Fallback to empty array
     } finally {
       setIsLoading(false);
     }

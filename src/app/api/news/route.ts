@@ -1,11 +1,14 @@
 // @ts-ignore
-import NewsAPI from 'newsapi';
-
 if (!process.env.NEXT_PUBLIC_NEWS_API_KEY) {
   throw new Error('NEXT_PUBLIC_NEWS_API_KEY environment variable is not set');
 }
 
-const newsapi = new NewsAPI(process.env.NEXT_PUBLIC_NEWS_API_KEY);
+interface NewsArticle {
+  title?: string;
+  description?: string;
+  link?: string;
+  image_url?: string;
+}
 
 const techKeywords = [
   'ai agents',
@@ -21,36 +24,55 @@ const techKeywords = [
 
 export async function GET() {
   try {
-    const today = new Date();
-    const todayStr = today.toISOString().split('T')[0];
+    const response = await fetch(
+      `https://newsdata.io/api/1/news?apikey=${process.env.NEXT_PUBLIC_NEWS_API_KEY}&language=en&category=technology&size=10&q=programming`,
+      {
+        headers: {
+          'Accept': 'application/json'
+        }
+      }
+    );
 
-    const todayResponse = await newsapi.v2.topHeadlines({
-      category: "technology",
-      language: "en", 
-      pageSize: 10,
-      from: todayStr,
-      to: todayStr
-    });
+    if (!response.ok) {
+      throw new Error(`API returned status: ${response.status}`);
+    }
 
-    const responseData = {
-      today: todayResponse.articles.filter((article: { title: string; description: string; urlToImage: string; }) => 
-        article.title && article.description && article.urlToImage
-      )
+    const data = await response.json();
+
+    interface TransformedData {
+      today: Array<{
+        title: string;
+        description: string;
+        url: string;
+        urlToImage: string;
+      }>;
+    }
+
+    if (!data?.results || !Array.isArray(data.results)) {
+      throw new Error('Invalid API response format');
+    }
+
+    // Transform API data to match frontend interface
+    const transformedData: TransformedData = {
+      today: data.results.map((article: NewsArticle) => ({
+        title: article.title || '',
+        description: article.description || '',
+        url: article.link || '',
+        urlToImage: article.image_url || '/images/news/news-placeholder.png'
+      })).filter((article: { title: string; url: string }) => article.title && article.url)
     };
 
-    return new Response(JSON.stringify(responseData), {
-      headers: {
-        'Content-Type': 'application/json',
-        'Cache-Control': 'no-cache, no-store, must-revalidate'
-      }
+    return new Response(JSON.stringify(transformedData), {
+      headers: { 'Content-Type': 'application/json' }
     });
+
   } catch (error) {
-    console.error("Error fetching news:", error);
-    return new Response(JSON.stringify({ error: "Failed to fetch news" }), {
-      status: 500,
-      headers: {
-        'Content-Type': 'application/json'
-      }
+    console.error('Error fetching news:', error);
+    return new Response(JSON.stringify({
+      today: []
+    }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' }
     });
   }
 }
