@@ -92,7 +92,7 @@ $ npm run dev
 
 ## :memo: License
 
-This project is under license from MIT. For more details, see the [LICENSE](LICENSE.md) file.
+This project is under license from MIT. For more details, see the [LICENSE](LICENSE) file.
 
 Made with :heart: by <a href="https://github.com/harshhh28" target="_blank">Harsh Gajjar</a>
 
