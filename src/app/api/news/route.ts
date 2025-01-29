@@ -13,19 +13,21 @@ interface NewsArticle {
 const techKeywords = [
   'ai agents',
   'web development',
-  'app development',
+  'cloud computing',
   'blockchain',
   'cryptocurrency',
-  'web3',
-  'cloud computing',
-  'artificial intelligence',
   'machine learning',
-].join(' OR ');
+  'web3',
+  'artificial intelligence',
+  'app development',
+];
+
+const searchQuery = techKeywords.map(keyword => `"${keyword}"`).join(' OR ');
 
 export async function GET() {
   try {
     const response = await fetch(
-      `https://newsdata.io/api/1/news?apikey=${process.env.NEXT_PUBLIC_NEWS_API_KEY}&language=en&category=technology&size=10&q=programming`,
+      `https://newsdata.io/api/1/news?apikey=${process.env.NEXT_PUBLIC_NEWS_API_KEY}&language=en&category=technology&size=10&q=${encodeURIComponent(searchQuery)}`,
       {
         headers: {
           'Accept': 'application/json'
@@ -55,9 +57,9 @@ export async function GET() {
     // Transform API data to match frontend interface
     const transformedData: TransformedData = {
       today: data.results.map((article: NewsArticle) => ({
-        title: article.title || '',
-        description: article.description || '',
-        url: article.link || '',
+        title: article.title || 'Breaking Tech News',
+        description: article.description || 'Click below to read more!',
+        url: article.link || 'https://www.bbc.com/',
         urlToImage: article.image_url || '/images/news/news-placeholder.png'
       })).filter((article: { title: string; url: string }) => article.title && article.url)
     };
