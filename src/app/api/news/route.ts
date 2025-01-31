@@ -1,80 +1,90 @@
-// @ts-ignore
-if (!process.env.NEXT_PUBLIC_NEWS_API_KEY) {
-  throw new Error('NEXT_PUBLIC_NEWS_API_KEY environment variable is not set');
-}
-
-interface NewsArticle {
-  title?: string;
-  description?: string;
-  link?: string;
-  image_url?: string;
-}
+import { NextResponse } from 'next/server';
 
 const techKeywords = [
-  'ai agents',
+  'artificial intelligence',
+  'machine learning',
+  'blockchain',
   'web development',
   'cloud computing',
-  'blockchain',
-  'cryptocurrency',
-  'machine learning',
-  'web3',
-  'artificial intelligence',
   'app development',
 ];
 
-const searchQuery = techKeywords.map(keyword => `"${keyword}"`).join(' OR ');
+// Helper function to delay execution
+const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
-export async function GET() {
+async function fetchGNews(keyword: string) {
   try {
     const response = await fetch(
-      `https://newsdata.io/api/1/news?apikey=${process.env.NEXT_PUBLIC_NEWS_API_KEY}&language=en&category=technology&size=10&q=${encodeURIComponent(searchQuery)}`,
-      {
-        headers: {
-          'Accept': 'application/json'
-        }
+      `https://gnews.io/api/v4/search?` +
+      `q=${encodeURIComponent(keyword)}` +
+      `&lang=en` +
+      `&country=us` +
+      `&max=3` +
+      `&apikey=${process.env.GNEWS_API_KEY}`,
+      { 
+        next: { revalidate: 7200 }
       }
     );
 
     if (!response.ok) {
-      throw new Error(`API returned status: ${response.status}`);
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
 
     const data = await response.json();
-
-    interface TransformedData {
-      today: Array<{
-        title: string;
-        description: string;
-        url: string;
-        urlToImage: string;
-      }>;
-    }
-
-    if (!data?.results || !Array.isArray(data.results)) {
-      throw new Error('Invalid API response format');
-    }
-
-    // Transform API data to match frontend interface
-    const transformedData: TransformedData = {
-      today: data.results.map((article: NewsArticle) => ({
-        title: article.title || 'Breaking Tech News',
-        description: article.description || 'Click below to read more!',
-        url: article.link || 'https://www.bbc.com/',
-        urlToImage: article.image_url || '/images/news/news-placeholder.png'
-      })).filter((article: { title: string; url: string }) => article.title && article.url)
-    };
-
-    return new Response(JSON.stringify(transformedData), {
-      headers: { 'Content-Type': 'application/json' }
-    });
+    
+    return data.articles.map((item: any) => ({
+      title: item.title || '',
+      description: item.description || '',
+      url: item.url || '',
+      urlToImage: item.image || '/images/news/news-placeholder.png',
+      pubDate: item.publishedAt || new Date().toISOString()
+    }));
 
   } catch (error) {
-    console.error('Error fetching news:', error);
-    return new Response(JSON.stringify({
-      today: []
-    }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' }
-    });
+    console.error(`Error fetching news for ${keyword}:`, error);
+    return [];
+  }
+}
+
+export async function GET() {
+  if (!process.env.GNEWS_API_KEY) {
+    console.error('GNEWS_API_KEY is not set');
+    return NextResponse.json({ today: [] });
+  }
+
+  try {
+    // Stronger caching headers for production
+    const headers = {
+      'Cache-Control': 'public, s-maxage=7200, stale-while-revalidate=86400'
+    };
+
+    // Fetch articles sequentially to avoid rate limits
+    const allArticles = [];
+    for (const keyword of techKeywords) {
+      const articles = await fetchGNews(keyword);
+      allArticles.push(...articles);
+      await delay(1000); // Wait 1 second between keywords
+    }
+
+    const uniqueArticles = Array.from(new Map(allArticles.map(article => 
+      [article.url, article]
+    )).values());
+
+    const sortedArticles = uniqueArticles
+      .sort((a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime())
+      .slice(0, 10);
+
+    return NextResponse.json({
+      today: sortedArticles.map(article => ({
+        title: article.title,
+        description: article.description,
+        url: article.url,
+        urlToImage: article.urlToImage
+      }))
+    }, { headers });
+
+  } catch (error) {
+    console.error('Error in news route:', error);
+    return NextResponse.json({ today: [] });
   }
 }
