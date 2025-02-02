@@ -56,37 +56,49 @@ function isRelevantToKeywords(article: any, keywords: string[]): boolean {
 export async function GET() {
   try {
     const headers = {
-      'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=86400'
+      'Cache-Control': 'public, s-maxage=7200, stale-while-revalidate=86400'
     };
 
-    // Add timeout promise
-    const timeoutPromise = new Promise((_, reject) => {
-      setTimeout(() => reject(new Error('Timeout')), 9000); // 9 second timeout
-    });
-
-    // Fetch articles with timeout
-    const fetchPromise = Promise.race([
-      Promise.all(
-        techNewsFeeds.slice(0, 2).map(async (feedUrl) => { // Only fetch 2 feeds at a time
-          try {
-            const articles = await fetchRSSFeed(feedUrl);
-            await delay(500); // Reduce delay between feeds
-            return articles;
-          } catch (error) {
-            console.error(`Error fetching ${feedUrl}:`, error);
-            return [];
+    // Fetch articles from all feeds with proper error handling
+    const allArticles = [];
+    for (const feedUrl of techNewsFeeds) {
+      try {
+        const articles = await fetchRSSFeed(feedUrl);
+        if (articles.length > 0) {
+          // Group articles by keyword
+          for (const keyword of techKeywords) {
+            const keywordArticles = articles
+              .filter(article => isRelevantToKeywords(article, [keyword]))
+              .slice(0, 3); // Get top 3 articles for this keyword
+            
+            allArticles.push(...keywordArticles);
           }
-        })
-      ),
-      timeoutPromise
-    ]) as Promise<Array<Array<any>>>;
+        }
+      } catch (feedError) {
+        console.error(`Failed to process feed ${feedUrl}:`, feedError);
+        // Continue with other feeds even if one fails
+        continue;
+      }
+      
+      await delay(1000); // Polite delay between feeds
+    }
 
-    const feedResults = await fetchPromise;
-    const allArticles = feedResults.flat();
+    // Handle case when no articles are found
+    if (allArticles.length === 0) {
+      console.log('No articles found from any feed');
+      return NextResponse.json({ today: [] });
+    }
 
-    // Return results even if partial
+    // Remove duplicates and sort by date
+    const uniqueArticles = Array.from(
+      new Map(allArticles.map(article => [article.url, article])).values()
+    );
+
+    const sortedArticles = uniqueArticles
+      .sort((a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime());
+
     return NextResponse.json({
-      today: allArticles.slice(0, 10).map(article => ({
+      today: sortedArticles.map(article => ({
         title: article.title,
         description: article.description,
         url: article.url
