@@ -22,6 +22,21 @@ const techNewsFeeds = [
   'https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml',
   'https://feeds.arstechnica.com/arstechnica/technology-lab',
   'https://feeds.feedburner.com/venturebeat/SZYF',
+  'https://www.wired.com/feed/rss',
+  'https://www.theverge.com/rss/index.xml',
+  'https://www.engadget.com/rss.xml',
+  'https://www.zdnet.com/news/rss.xml',
+  'https://www.techradar.com/rss/news/latest-news',
+  'https://techcrunch.com/feed/',
+  'https://mashable.com/feeds/rss/all',
+  'https://gizmodo.com/feed',
+  'https://www.cnet.com/rss/news/',
+  'https://feeds.feedburner.com/venturebeat/SZYF',
+  'https://technosdata.com/feed/',
+  'https://tecuy.com/feed/',
+  'https://www.techwrix.com/feed/',
+  'https://www.businesstechworld.com/feeds/posts/default',
+  'https://ciente.io/feed/',
 ];
 
 // Helper function to delay execution
@@ -30,12 +45,20 @@ const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 async function fetchRSSFeed(feedUrl: string) {
   try {
     const feed = await parser.parseURL(feedUrl);
-    return feed.items.map(item => ({
-      title: item.title || '',
-      description: item.contentSnippet?.slice(0, 200) || '',
-      url: item.link || '',
-      pubDate: item.pubDate || new Date().toISOString()
-    }));
+    const oneWeekAgo = new Date();
+    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+
+    return feed.items
+      .filter(item => {
+        const pubDate = item.pubDate ? new Date(item.pubDate) : new Date();
+        return pubDate >= oneWeekAgo;
+      })
+      .map(item => ({
+        title: item.title || '',
+        description: item.contentSnippet?.slice(0, 200) || '',
+        url: item.link || '',
+        pubDate: item.pubDate || new Date().toISOString()
+      }));
   } catch (error) {
     console.error(`Error fetching RSS feed ${feedUrl}:`, error);
     return [];
@@ -50,7 +73,7 @@ function isRelevantToKeywords(article: any, keywords: string[]): boolean {
 export async function GET() {
   try {
     const headers = {
-      'Cache-Control': 'public, s-maxage=7200, stale-while-revalidate=86400'
+      'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=7200' // Cache for 1 hour, stale for 2 hours
     };
 
     // Fetch articles from all feeds with proper error handling
