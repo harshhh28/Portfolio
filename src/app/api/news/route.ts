@@ -22,12 +22,6 @@ const techNewsFeeds = [
   'https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml',
   'https://feeds.arstechnica.com/arstechnica/technology-lab',
   'https://feeds.feedburner.com/venturebeat/SZYF',
-  'https://www.theguardian.com/world/rss',
-  'https://www.wired.com/feed/rss',
-  'https://feeds.feedburner.com/TheNextWeb',
-  'https://www.engadget.com/rss.xml',
-  'https://rss.slashdot.org/Slashdot/slashdotMain',
-  'https://www.techmeme.com/feed.xml',
 ];
 
 // Helper function to delay execution
