@@ -57,7 +57,14 @@ export default function RecentNews() {
       setError(null);
     } catch (error) {
       console.error("❌ Error fetching news:", error);
-      setError(error instanceof Error ? error.message : "Failed to fetch news");
+      const errorMessage =
+        error instanceof Error ? error.message : "Failed to fetch news";
+      setError(
+        errorMessage.includes("timeout") ||
+          errorMessage.includes("Failed to fetch")
+          ? "News service is temporarily unavailable. Please try again later."
+          : errorMessage
+      );
       setTodayNews([]); // Fallback to empty array
     } finally {
       setIsLoading(false);
