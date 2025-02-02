@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Loader from "@/components/Loader";
 import LiveTime from "@/components/LiveTime";
 import NewsSection from "@/components/NewsSection";
+import { TypeAnimation } from "react-type-animation";
 
 interface NewsArticle {
   title: string;
@@ -99,23 +100,19 @@ export default function RecentNews() {
     };
   }, [currentDate, currentHour]);
 
-  if (isLoading) {
-    return <Loader />;
-  }
-
   return (
     <div className="min-h-screen pt-16 sm:pt-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         <div
           className="backdrop-blur-lg bg-gradient-to-br from-black/50 to-black/30 
-              rounded-3xl border border-white/10 p-6 sm:p-8 
-              mb-8 sm:mb-12 mt-8 sm:mt-0
-              animate-in slide-in-from-bottom
-              group relative overflow-hidden
-              hover:border-white/20 transition-all duration-500">
+            rounded-3xl border border-white/10 p-6 sm:p-8 
+            mb-8 sm:mb-12 mt-8 sm:mt-0
+            animate-in slide-in-from-bottom
+            group relative overflow-hidden
+            hover:border-white/20 transition-all duration-500">
           <div
             className="absolute inset-0 bg-gradient-to-r from-white/5 to-transparent 
-                opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+              opacity-0 group-hover:opacity-100 transition-opacity duration-500"
           />
 
           <div className="relative">
@@ -135,7 +132,26 @@ export default function RecentNews() {
           </div>
         </div>
 
-        <NewsSection title="Today's Headlines" articles={todayNews} />
+        {isLoading ? (
+          <div
+            className="backdrop-blur-lg bg-gradient-to-br from-black/50 to-black/30 
+              rounded-3xl border border-white/10 p-6 
+              transition-all duration-500 hover:border-white/20">
+            <div className="flex flex-col justify-center items-center min-h-[200px] gap-4">
+              <TypeAnimation
+                sequence={["please wait :)", 1000, ""]}
+                wrapper="p"
+                speed={50}
+                repeat={Infinity}
+                className="text-white/60 text-lg"
+                cursor={false}
+              />
+              <div className="loader"></div>
+            </div>
+          </div>
+        ) : (
+          <NewsSection title="Today's Headlines" articles={todayNews} />
+        )}
       </div>
     </div>
   );
