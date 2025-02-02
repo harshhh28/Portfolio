@@ -22,9 +22,11 @@ export default function RecentNews() {
   );
   const [currentHour, setCurrentHour] = useState<number>(new Date().getHours());
 
-  const fetchNews = async () => {
+  const fetchNews = async (retryCount = 0): Promise<void> => {
     const timestamp = new Date().toISOString();
-    console.log(`🔄 Starting news fetch at ${timestamp}`);
+    console.log(
+      `🔄 Starting news fetch at ${timestamp}, attempt ${retryCount + 1}`
+    );
 
     try {
       const response = await fetch("/api/news", {
@@ -36,15 +38,21 @@ export default function RecentNews() {
         next: { revalidate: 0 },
       });
 
-      if (!response.ok) throw new Error("Failed to fetch");
+      if (!response.ok) {
+        if (response.status === 504 && retryCount < 2) {
+          console.log(`Retrying fetch, attempt ${retryCount + 2}`);
+          await new Promise((resolve) => setTimeout(resolve, 2000));
+          return fetchNews(retryCount + 1);
+        }
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
       const data = await response.json();
 
-      // Validate data structure
       if (!data?.today || !Array.isArray(data.today)) {
         throw new Error("Invalid data format received");
       }
 
-      // Safe array shuffle with fallback
       const shuffledNews =
         data.today.length > 0
           ? [...data.today].sort(() => Math.random() - 0.5)
@@ -65,7 +73,7 @@ export default function RecentNews() {
           ? "News service is temporarily unavailable. Please try again later."
           : errorMessage
       );
-      setTodayNews([]); // Fallback to empty array
+      setTodayNews([]);
     } finally {
       setIsLoading(false);
     }
