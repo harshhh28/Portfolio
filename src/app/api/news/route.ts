@@ -2,40 +2,34 @@ import { NextResponse } from 'next/server';
 import Parser from 'rss-parser';
 
 const parser = new Parser({
-  timeout: 5000,  // 5 second timeout
+  timeout: process.env.RSS_PARSER_TIMEOUT ? parseInt(process.env.RSS_PARSER_TIMEOUT) : 5000,
   headers: {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
   }
 });
 
 const techKeywords = [
+  'ai agent',
   'artificial intelligence',
   'machine learning',
   'blockchain',
   'web development',
   'cloud computing',
   'app development',
+  'cybersecurity',
+  'technology',
 ];
 
 const techNewsFeeds = [
-  'https://feeds.feedburner.com/TechCrunch/',
   'https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml',
   'https://feeds.arstechnica.com/arstechnica/technology-lab',
   'https://feeds.feedburner.com/venturebeat/SZYF',
   'https://www.wired.com/feed/rss',
-  'https://www.theverge.com/rss/index.xml',
   'https://www.engadget.com/rss.xml',
-  'https://www.zdnet.com/news/rss.xml',
-  'https://www.techradar.com/rss/news/latest-news',
   'https://techcrunch.com/feed/',
   'https://mashable.com/feeds/rss/all',
   'https://gizmodo.com/feed',
-  'https://www.cnet.com/rss/news/',
   'https://feeds.feedburner.com/venturebeat/SZYF',
-  'https://technosdata.com/feed/',
-  'https://tecuy.com/feed/',
-  'https://www.techwrix.com/feed/',
-  'https://www.businesstechworld.com/feeds/posts/default',
   'https://ciente.io/feed/',
 ];
 
@@ -70,17 +64,36 @@ function isRelevantToKeywords(article: any, keywords: string[]): boolean {
   return keywords.some(keyword => text.includes(keyword.toLowerCase()));
 }
 
+const maxRetries = process.env.FETCH_RETRIES ? parseInt(process.env.FETCH_RETRIES) : 3;
+
+async function fetchWithRetries(feedUrl: string) {
+  for (let i = 0; i < maxRetries; i++) {
+    try {
+      const articles = await fetchRSSFeed(feedUrl);
+      return articles;
+    } catch (error) {
+      if (i === maxRetries - 1) throw error;
+      console.log(`Retry ${i + 1}/${maxRetries} for ${feedUrl}`);
+      await delay(1000 * (i + 1));
+    }
+  }
+  return [];
+}
+
 export async function GET() {
   try {
     const headers = {
-      'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=7200' // Cache for 1 hour, stale for 2 hours
+      'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=7200'
     };
 
-    // Fetch articles from all feeds with proper error handling
+    console.log('Starting news fetch...');
     const allArticles = [];
+    
     for (const feedUrl of techNewsFeeds) {
       try {
-        const articles = await fetchRSSFeed(feedUrl);
+        console.log(`Fetching from: ${feedUrl}`);
+        const articles = await fetchWithRetries(feedUrl);
+        console.log(`Retrieved ${articles.length} articles from ${feedUrl}`);
         if (articles.length > 0) {
           // Group articles by keyword
           for (const keyword of techKeywords) {
@@ -92,8 +105,7 @@ export async function GET() {
           }
         }
       } catch (feedError) {
-        console.error(`Failed to process feed ${feedUrl}:`, feedError);
-        // Continue with other feeds even if one fails
+        console.error(`Error fetching ${feedUrl}:`, feedError);
         continue;
       }
       
@@ -123,7 +135,18 @@ export async function GET() {
     }, { headers });
 
   } catch (error) {
-    console.error('Error in news route:', error);
-    return NextResponse.json({ today: [] });
+    console.error('Critical error in news route:', error);
+    return new NextResponse(
+      JSON.stringify({ 
+        error: 'Failed to fetch news',
+        details: error instanceof Error ? error.message : 'Unknown error'
+      }),
+      { 
+        status: 500,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+    );
   }
 }

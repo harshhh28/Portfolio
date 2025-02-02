@@ -150,7 +150,7 @@ export default function RecentNews() {
             </div>
           </div>
         ) : (
-          <NewsSection title="Today's Headlines" articles={todayNews} />
+          <NewsSection title="This Week's Headlines" articles={todayNews} />
         )}
       </div>
     </div>
