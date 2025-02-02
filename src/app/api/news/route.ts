@@ -1,4 +1,12 @@
 import { NextResponse } from 'next/server';
+import Parser from 'rss-parser';
+
+const parser = new Parser({
+  timeout: 5000,  // 5 second timeout
+  headers: {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+  }
+});
 
 const techKeywords = [
   'artificial intelligence',
@@ -9,77 +17,85 @@ const techKeywords = [
   'app development',
 ];
 
+const techNewsFeeds = [
+  'https://feeds.feedburner.com/TechCrunch/',
+  'https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml',
+  'https://feeds.arstechnica.com/arstechnica/technology-lab',
+  'https://feeds.feedburner.com/venturebeat/SZYF',
+];
+
 // Helper function to delay execution
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
-async function fetchGNews(keyword: string) {
+async function fetchRSSFeed(feedUrl: string) {
   try {
-    const response = await fetch(
-      `https://gnews.io/api/v4/search?` +
-      `q=${encodeURIComponent(keyword)}` +
-      `&lang=en` +
-      `&country=us` +
-      `&max=3` +
-      `&apikey=${process.env.GNEWS_API_KEY}`,
-      { 
-        next: { revalidate: 7200 }
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const data = await response.json();
-    
-    return data.articles.map((item: any) => ({
+    const feed = await parser.parseURL(feedUrl);
+    return feed.items.map(item => ({
       title: item.title || '',
-      description: item.description || '',
-      url: item.url || '',
-      urlToImage: item.image || '/images/news/news-placeholder.png',
-      pubDate: item.publishedAt || new Date().toISOString()
+      description: item.contentSnippet?.slice(0, 200) || '',
+      url: item.link || '',
+      pubDate: item.pubDate || new Date().toISOString()
     }));
-
   } catch (error) {
-    console.error(`Error fetching news for ${keyword}:`, error);
+    console.error(`Error fetching RSS feed ${feedUrl}:`, error);
     return [];
   }
 }
 
-export async function GET() {
-  if (!process.env.GNEWS_API_KEY) {
-    console.error('GNEWS_API_KEY is not set');
-    return NextResponse.json({ today: [] });
-  }
+function isRelevantToKeywords(article: any, keywords: string[]): boolean {
+  const text = `${article.title} ${article.description}`.toLowerCase();
+  return keywords.some(keyword => text.includes(keyword.toLowerCase()));
+}
 
+export async function GET() {
   try {
-    // Stronger caching headers for production
     const headers = {
       'Cache-Control': 'public, s-maxage=7200, stale-while-revalidate=86400'
     };
 
-    // Fetch articles sequentially to avoid rate limits
+    // Fetch articles from all feeds with proper error handling
     const allArticles = [];
-    for (const keyword of techKeywords) {
-      const articles = await fetchGNews(keyword);
-      allArticles.push(...articles);
-      await delay(1000); // Wait 1 second between keywords
+    for (const feedUrl of techNewsFeeds) {
+      try {
+        const articles = await fetchRSSFeed(feedUrl);
+        if (articles.length > 0) {
+          // Group articles by keyword
+          for (const keyword of techKeywords) {
+            const keywordArticles = articles
+              .filter(article => isRelevantToKeywords(article, [keyword]))
+              .slice(0, 3); // Get top 3 articles for this keyword
+            
+            allArticles.push(...keywordArticles);
+          }
+        }
+      } catch (feedError) {
+        console.error(`Failed to process feed ${feedUrl}:`, feedError);
+        // Continue with other feeds even if one fails
+        continue;
+      }
+      
+      await delay(1000); // Polite delay between feeds
     }
 
-    const uniqueArticles = Array.from(new Map(allArticles.map(article => 
-      [article.url, article]
-    )).values());
+    // Handle case when no articles are found
+    if (allArticles.length === 0) {
+      console.log('No articles found from any feed');
+      return NextResponse.json({ today: [] });
+    }
+
+    // Remove duplicates and sort by date
+    const uniqueArticles = Array.from(
+      new Map(allArticles.map(article => [article.url, article])).values()
+    );
 
     const sortedArticles = uniqueArticles
-      .sort((a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime())
-      .slice(0, 10);
+      .sort((a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime());
 
     return NextResponse.json({
       today: sortedArticles.map(article => ({
         title: article.title,
         description: article.description,
-        url: article.url,
-        urlToImage: article.urlToImage
+        url: article.url
       }))
     }, { headers });
 
