@@ -1,6 +1,12 @@
 "use client";
 
-import { SiGithub, SiHashnode, SiLinkedin, SiX } from "react-icons/si";
+import {
+  SiGithub,
+  SiHashnode,
+  SiInstagram,
+  SiLinkedin,
+  SiX,
+} from "react-icons/si";
 import Link from "next/link";
 import { TypeAnimation } from "react-type-animation";
 import Image from "next/image";
@@ -236,11 +242,37 @@ export default function About() {
             </h1>
 
             <p className="text-lg sm:text-xl text-white/80 leading-relaxed transform transition-all duration-300 group-hover:text-white/90">
-              A Full Stack Developer passionate about crafting beautiful and
-              functional web experiences. A Creative Blogger who enjoys sharing
-              knowledge and experiences with a touch of humor. A Lifelong
-              Learner, always curious to explore new technologies and ideas.
+              Full-stack developer specializing in MERN/PERN stack and modern
+              frameworks like Next.js. Passionate about AI/ML, I work on
+              prediction models and AI Agents while constantly exploring new
+              technologies to create impactful solutions.
             </p>
+
+            <div className="flex gap-4 sm:gap-6 items-center">
+              {[
+                { icon: SiGithub, href: "https://github.com/harshhh28" },
+                {
+                  icon: SiLinkedin,
+                  href: "https://linkedin.com/in/harsh-gajjar-936536209",
+                },
+                { icon: SiX, href: "https://x.com/harshgajjar_28" },
+                {
+                  icon: SiHashnode,
+                  href: "https://hashnode.com/@harshgajjar",
+                },
+              ].map((social, index) => (
+                <Link
+                  key={social.href}
+                  href={social.href}
+                  target="_blank"
+                  className="p-2 sm:p-3 hover:bg-white/10 rounded-lg transition-all duration-300
+                    border border-transparent hover:border-white/10
+                    hover:-translate-y-1"
+                  style={{ transitionDelay: `${index * 50}ms` }}>
+                  <social.icon size={20} className="sm:w-6 sm:h-6" />
+                </Link>
+              ))}
+            </div>
 
             <div className="space-y-8">
               <div>
@@ -360,32 +392,6 @@ export default function About() {
                   </div>
                 ))}
               </div>
-            </div>
-
-            <div className="flex gap-4 sm:gap-6 items-center">
-              {[
-                { icon: SiGithub, href: "https://github.com/harshhh28" },
-                {
-                  icon: SiLinkedin,
-                  href: "https://linkedin.com/in/harsh-gajjar-936536209",
-                },
-                { icon: SiX, href: "https://x.com/harshgajjar_28" },
-                {
-                  icon: SiHashnode,
-                  href: "https://hashnode.com/@harshgajjar",
-                },
-              ].map((social, index) => (
-                <Link
-                  key={social.href}
-                  href={social.href}
-                  target="_blank"
-                  className="p-2 sm:p-3 hover:bg-white/10 rounded-lg transition-all duration-300
-                    border border-transparent hover:border-white/10
-                    hover:-translate-y-1"
-                  style={{ transitionDelay: `${index * 50}ms` }}>
-                  <social.icon size={20} className="sm:w-6 sm:h-6" />
-                </Link>
-              ))}
             </div>
           </div>
         </div>
