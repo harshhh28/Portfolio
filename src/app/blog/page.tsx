@@ -95,20 +95,31 @@ export default function Blog() {
                 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500"
               />
 
-              <div className="relative p-4 sm:p-6">
-                <h2
-                  className="text-lg sm:text-xl md:text-2xl font-bold mb-2 bg-clip-text text-transparent 
-                  bg-gradient-to-r from-white to-white/70 
-                  group-hover/card:to-white transition-all duration-500">
-                  {post.title}
-                </h2>
-                <p
-                  className="text-sm sm:text-base text-white/60 mb-3 sm:mb-4 
-                  group-hover/card:text-white/90 transition-colors duration-300">
-                  {post.brief}
-                </p>
-                <div className="text-xs sm:text-sm text-white/40">
-                  {new Date(post.dateAdded).toLocaleDateString()}
+              <div className="relative p-4 sm:p-6 flex gap-4">
+                {post.coverImage && (
+                  <div className="flex-shrink-0 w-24 h-24 sm:w-32 sm:h-32">
+                    <img
+                      src={post.coverImage}
+                      alt={post.title}
+                      className="w-full h-full object-cover rounded-xl"
+                    />
+                  </div>
+                )}
+                <div className="flex-1">
+                  <h2
+                    className="text-lg sm:text-xl md:text-2xl font-bold mb-2 bg-clip-text text-transparent 
+                    bg-gradient-to-r from-white to-white/70 
+                    group-hover/card:to-white transition-all duration-500">
+                    {post.title}
+                  </h2>
+                  <p
+                    className="text-sm sm:text-base text-white/60 mb-3 sm:mb-4 
+                    group-hover/card:text-white/90 transition-colors duration-300">
+                    {post.brief}
+                  </p>
+                  <div className="text-xs sm:text-sm text-white/40">
+                    {new Date(post.dateAdded).toLocaleDateString()}
+                  </div>
                 </div>
               </div>
             </a>

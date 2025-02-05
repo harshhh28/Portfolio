@@ -11,7 +11,7 @@ export async function GET() {
       body: JSON.stringify({
         query: `
           {
-            publication(host: "blog.harshgajjar.xyz") {
+            publication(host: "harshgajjar.hashnode.dev") {
               posts(first: 10) {
                 edges {
                   node {
