@@ -116,9 +116,19 @@ const SKILLS = [
     url: "https://seaborn.pydata.org/api.html",
   },
   {
+    name: "Phidata",
+    url: "https://docs.phidata.com/",
+  },
+  {
+    name: "Agno",
+    url: "https://www.agno.com/",
+  },
+
+  {
     name: "C++",
     url: "https://cplusplus.com/doc/",
   },
+
   {
     name: "C",
     url: "https://devdocs.io/c/",
