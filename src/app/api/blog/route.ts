@@ -16,7 +16,7 @@ export async function GET() {
                 edges {
                   node {
                     title
-                    brief
+                    subtitle
                     slug
                     publishedAt
                     coverImage {
@@ -38,13 +38,16 @@ export async function GET() {
       throw new Error('Invalid response format');
     }
     
-    const posts = data.data.publication.posts.edges.map(({ node }: any) => ({
-      title: node.title,
-      brief: node.brief,
-      slug: node.slug,
-      dateAdded: node.publishedAt,
-      coverImage: node.coverImage?.url || ''
-    }));
+    const posts = data.data.publication.posts.edges.map(({ node }: any) => {
+    //   console.log('Node data:', node); // Debug log
+      return {
+        title: node.title,
+        subtitle: node.subtitle,
+        slug: node.slug,
+        dateAdded: node.publishedAt,
+        coverImage: node.coverImage?.url || ''
+      };
+    });
     
     return NextResponse.json(posts, {
       headers: {

@@ -5,7 +5,7 @@ import Loader from "@/components/Loader";
 
 interface BlogPost {
   title: string;
-  brief: string;
+  subtitle: string;
   slug: string;
   dateAdded: string;
   readTime: number;
@@ -57,16 +57,16 @@ export default function Blog() {
 
   return (
     <div className="min-h-screen pt-24 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         <div
           className="backdrop-blur-lg bg-gradient-to-br from-black/50 to-black/30 
-          rounded-3xl border border-white/10 p-6 sm:p-8 
-          mb-8 animate-in slide-in-from-bottom
-          group relative overflow-hidden
-          hover:border-white/20 transition-all duration-500">
+            rounded-3xl border border-white/10 p-6 sm:p-8 
+            mb-8 animate-in slide-in-from-bottom
+            group relative overflow-hidden
+            hover:border-white/20 transition-all duration-500">
           <div
             className="absolute inset-0 bg-gradient-to-r from-white/5 to-transparent 
-            opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+              opacity-0 group-hover:opacity-100 transition-opacity duration-500"
           />
           <div className="relative">
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500">
@@ -78,7 +78,7 @@ export default function Blog() {
           </div>
         </div>
 
-        <div className="grid gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           {posts.map((post, index) => (
             <a
               key={post.slug}
@@ -92,32 +92,32 @@ export default function Blog() {
               style={{ animationDelay: `${index * 100}ms` }}>
               <div
                 className="absolute inset-0 bg-gradient-to-r from-white/5 to-transparent 
-                opacity-0 group-hover/card:opacity-100 transition-opacity duration-500"
+                  opacity-0 group-hover/card:opacity-100 transition-opacity duration-500"
               />
 
-              <div className="relative p-4 sm:p-6 flex gap-4">
+              <div className="relative p-4 sm:p-6">
                 {post.coverImage && (
-                  <div className="flex-shrink-0 w-24 h-24 sm:w-32 sm:h-32">
+                  <div className="w-full h-48 mb-4 overflow-hidden rounded-xl">
                     <img
                       src={post.coverImage}
                       alt={post.title}
-                      className="w-full h-full object-cover rounded-xl"
+                      className="w-full h-full object-cover transform group-hover/card:scale-105 transition-transform duration-500"
                     />
                   </div>
                 )}
-                <div className="flex-1">
+                <div>
                   <h2
-                    className="text-lg sm:text-xl md:text-2xl font-bold mb-2 bg-clip-text text-transparent 
+                    className="text-lg sm:text-xl font-bold mb-2 bg-clip-text text-transparent 
                     bg-gradient-to-r from-white to-white/70 
                     group-hover/card:to-white transition-all duration-500">
                     {post.title}
                   </h2>
                   <p
-                    className="text-sm sm:text-base text-white/60 mb-3 sm:mb-4 
+                    className="text-sm text-white/60 mb-3
                     group-hover/card:text-white/90 transition-colors duration-300">
-                    {post.brief}
+                    {post.subtitle}
                   </p>
-                  <div className="text-xs sm:text-sm text-white/40">
+                  <div className="text-xs text-white/40">
                     {new Date(post.dateAdded).toLocaleDateString()}
                   </div>
                 </div>
