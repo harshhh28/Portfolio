@@ -223,13 +223,14 @@ export default function About() {
                   1000,
                   "",
                   100,
-                  "Full Stack Developer",
+                  "Software Developer",
                   1000,
                   "",
                   100,
                   "Creative Blogger",
                   1000,
                   "",
+
                   100,
                   "Lifelong Learner",
                   1000,
@@ -242,10 +243,10 @@ export default function About() {
             </h1>
 
             <p className="text-lg sm:text-xl text-white/80 leading-relaxed transform transition-all duration-300 group-hover:text-white/90">
-              Full-stack developer specializing in MERN/PERN stack and modern
-              frameworks like Next.js. Passionate about AI/ML, I work on
-              prediction models and AI Agents while constantly exploring new
-              technologies to create impactful solutions.
+              A developer crafting web solutions with modern tech stacks and
+              frameworks. Passionate about AI/ML, I work on prediction models
+              and AI agents while constantly exploring new technologies to
+              create impactful solutions.
             </p>
 
             <div className="flex gap-4 sm:gap-6 items-center">
