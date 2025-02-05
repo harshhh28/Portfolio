@@ -1,6 +1,6 @@
 "use client";
 
-import { SiGithub, SiLinkedin, SiX } from "react-icons/si";
+import { SiGithub, SiHashnode, SiLinkedin, SiX } from "react-icons/si";
 import Link from "next/link";
 import { TypeAnimation } from "react-type-animation";
 import Image from "next/image";
@@ -370,6 +370,10 @@ export default function About() {
                   href: "https://linkedin.com/in/harsh-gajjar-936536209",
                 },
                 { icon: SiX, href: "https://x.com/harshgajjar_28" },
+                {
+                  icon: SiHashnode,
+                  href: "https://hashnode.com/@harshgajjar",
+                },
               ].map((social, index) => (
                 <Link
                   key={social.href}

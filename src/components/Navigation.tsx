@@ -12,7 +12,7 @@ const Navigation = () => {
   const links = [
     { href: "/", label: "About" },
     { href: "/projects", label: "Projects" },
-    { href: "https://blog.harshgajjar.xyz", label: "Blog" },
+    { href: "/blog", label: "Blog" },
     { href: "/contact", label: "Contact" },
     { href: "/news", label: "Tech News" },
   ];
