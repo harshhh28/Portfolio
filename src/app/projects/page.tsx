@@ -9,6 +9,15 @@ import Loader from "@/components/Loader";
 
 const projects = [
   {
+    title: "HIA - Health Insights Agent",
+    description:
+      "AI Agent to analyze blood reports and provide detailed health insights using LLaMA-3.3-70B model.",
+    image: "/images/projects/hia.gif",
+    github: "https://github.com/harshhh28/hia",
+    demo: "https://hiahealth.streamlit.app",
+    tags: ["Python", "Streamlit", "Groq", "Supabase", "PDFPlumber"],
+  },
+  {
     title: "Spring Talk - AI Powered ChatApp",
     description:
       "A mobile chat app with Atomic Pattern Design, MVC model and Gemini API integration.",
