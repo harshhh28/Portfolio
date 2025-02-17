@@ -42,11 +42,11 @@ A responsive personal portfolio website built with Nextjs and TypeScript, showca
 
 ## :sparkles: Features
 
-:heavy_check_mark: Projects page showcasing my portfolio works;\
-:heavy_check_mark: Blog page for sharing technical insights;\
-:heavy_check_mark: Tech news page featuring latest industry updates;\
-:heavy_check_mark: About page with professional background;\
-:heavy_check_mark: Contact page for professional inquiries;
+:heavy_check_mark: Projects page showcasing my portfolio works\
+:heavy_check_mark: Blog page for sharing technical insights\
+:heavy_check_mark: Tech news page featuring latest industry updates\
+:heavy_check_mark: About page with professional background\
+:heavy_check_mark: Contact page for professional inquiries
 
 ## :rocket: Technologies
 
