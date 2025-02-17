@@ -183,6 +183,15 @@ const POSITIONS = [
       },
     ],
   },
+  {
+    title: "Team Member",
+    organization: "Hostel Management Committee, DA-IICT",
+    organizationUrl: null,
+    duration: "2025 - Present",
+    description:
+      "Managing hostel operations and coordinating events to enhance student life, working on improving facilities and organizing activities for resident satisfaction.",
+    events: null,
+  },
 ];
 
 export default function About() {
@@ -259,30 +268,59 @@ export default function About() {
               create impactful solutions.
             </p>
 
-            <div className="flex gap-4 sm:gap-6 items-center">
-              {[
-                { icon: SiGithub, href: "https://github.com/harshhh28" },
-                {
-                  icon: SiLinkedin,
-                  href: "https://linkedin.com/in/harsh-gajjar-936536209",
-                },
-                { icon: SiX, href: "https://x.com/harshgajjar_28" },
-                {
-                  icon: SiHashnode,
-                  href: "https://hashnode.com/@harshgajjar",
-                },
-              ].map((social, index) => (
-                <Link
-                  key={social.href}
-                  href={social.href}
-                  target="_blank"
-                  className="p-2 sm:p-3 hover:bg-white/10 rounded-lg transition-all duration-300
-                    border border-transparent hover:border-white/10
-                    hover:-translate-y-1"
-                  style={{ transitionDelay: `${index * 50}ms` }}>
-                  <social.icon size={20} className="sm:w-6 sm:h-6" />
-                </Link>
-              ))}
+            <div className="flex flex-col gap-4">
+              <div className="flex items-center gap-4">
+                {[
+                  { icon: SiGithub, href: "https://github.com/harshhh28" },
+                  {
+                    icon: SiLinkedin,
+                    href: "https://linkedin.com/in/harsh-gajjar-936536209",
+                  },
+                  { icon: SiX, href: "https://x.com/harshgajjar_28" },
+                  {
+                    icon: SiHashnode,
+                    href: "https://hashnode.com/@harshgajjar",
+                  },
+                ].map((social, index) => (
+                  <Link
+                    key={social.href}
+                    href={social.href}
+                    target="_blank"
+                    className="p-2 sm:p-3 hover:bg-white/10 rounded-lg transition-all duration-300
+                      border border-transparent hover:border-white/10
+                      hover:-translate-y-1"
+                    style={{ transitionDelay: `${index * 50}ms` }}>
+                    <social.icon size={20} className="sm:w-6 sm:h-6" />
+                  </Link>
+                ))}
+              </div>
+
+              <a
+                href="/docs/Harsh_Gajjar_CV.pdf"
+                download
+                className="w-fit px-3 sm:px-4 py-1.5 sm:py-2 bg-white/5 rounded-lg border border-white/10 
+                  hover:bg-white/10 hover:border-white/20 
+                  transition-all duration-300 hover:-translate-y-1
+                  backdrop-blur-sm
+                  text-sm sm:text-base
+                  flex items-center gap-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="sm:w-5 sm:h-5">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="7 10 12 15 17 10" />
+                  <line x1="12" y1="15" x2="12" y2="3" />
+                </svg>
+                Download CV
+              </a>
             </div>
 
             <div className="space-y-8">
@@ -327,13 +365,19 @@ export default function About() {
                   p-4 sm:p-6 hover:bg-white/10 hover:border-white/20 
                   transition-all duration-300 group/edu">
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 mb-2">
-                      <Link
-                        href={pos.organizationUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-lg sm:text-xl font-semibold hover:text-white/80 transition-colors">
-                        <h3>{pos.organization}</h3>
-                      </Link>
+                      {pos.organizationUrl ? (
+                        <Link
+                          href={pos.organizationUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-lg sm:text-xl font-semibold hover:text-white/80 transition-colors">
+                          <h3>{pos.organization}</h3>
+                        </Link>
+                      ) : (
+                        <h3 className="text-lg sm:text-xl font-semibold">
+                          {pos.organization}
+                        </h3>
+                      )}
                       <span className="text-white/60 text-sm">
                         {pos.duration}
                       </span>
