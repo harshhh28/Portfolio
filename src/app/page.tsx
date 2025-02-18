@@ -268,37 +268,38 @@ export default function About() {
               create impactful solutions.
             </p>
 
-            <div className="flex flex-col gap-4">
-              <div className="flex items-center gap-4">
-                {[
-                  { icon: SiGithub, href: "https://github.com/harshhh28" },
-                  {
-                    icon: SiLinkedin,
-                    href: "https://linkedin.com/in/harsh-gajjar-936536209",
-                  },
-                  { icon: SiX, href: "https://x.com/harshgajjar_28" },
-                  {
-                    icon: SiHashnode,
-                    href: "https://hashnode.com/@harshgajjar",
-                  },
-                ].map((social, index) => (
-                  <Link
-                    key={social.href}
-                    href={social.href}
-                    target="_blank"
-                    className="p-2 sm:p-3 hover:bg-white/10 rounded-lg transition-all duration-300
-                      border border-transparent hover:border-white/10
-                      hover:-translate-y-1"
-                    style={{ transitionDelay: `${index * 50}ms` }}>
-                    <social.icon size={20} className="sm:w-6 sm:h-6" />
-                  </Link>
-                ))}
-              </div>
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+              <Link
+                href="https://linktr.ee/harshgajjar"
+                target="_blank"
+                className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white/5 rounded-lg border border-white/10 
+                  hover:bg-white/10 hover:border-white/20 
+                  transition-all duration-300 hover:-translate-y-1
+                  backdrop-blur-sm group/skill
+                  text-sm sm:text-base
+                  flex items-center gap-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  shapeRendering="geometricPrecision"
+                  textRendering="geometricPrecision"
+                  imageRendering="optimizeQuality"
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  viewBox="0 0 417 512.238"
+                  className="sm:w-5 sm:h-5">
+                  <path
+                    fill="#ffffff"
+                    fillRule="nonzero"
+                    d="M171.274 344.942h74.09v167.296h-74.09V344.942zM0 173.468h126.068l-89.622-85.44 49.591-50.985 85.439 87.829V0h74.086v124.872L331 37.243l49.552 50.785-89.58 85.24H417v70.502H290.252l90.183 87.629L331 381.192 208.519 258.11 86.037 381.192l-49.591-49.591 90.218-87.631H0v-70.502z"
+                  />
+                </svg>
+                Linktree
+              </Link>
 
               <a
                 href="/docs/Harsh_Gajjar_CV.pdf"
                 download
-                className="w-fit px-3 sm:px-4 py-1.5 sm:py-2 bg-white/5 rounded-lg border border-white/10 
+                className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white/5 rounded-lg border border-white/10 
                   hover:bg-white/10 hover:border-white/20 
                   transition-all duration-300 hover:-translate-y-1
                   backdrop-blur-sm
