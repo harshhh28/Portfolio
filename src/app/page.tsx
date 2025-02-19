@@ -347,7 +347,7 @@ export default function About() {
                 </h2>
                 <div className="space-y-6">
                   <div>
-                    <h3 className="text-base sm:text-xl font-semibold mb-3 text-white/80">
+                    <h3 className="text-base sm:text-lg font-semibold mb-3 text-white/80">
                       Programming Languages
                     </h3>
                     <div className="flex flex-wrap gap-2 sm:gap-3">
