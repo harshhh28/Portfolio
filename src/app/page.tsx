@@ -251,31 +251,28 @@ export default function About() {
                 className="rounded-full"
               />
             </div>
-            <h1 className="text-3xl sm:text-5xl font-bold mb-2 sm:mb-8 min-h-[64px] bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500">
-              <TypeAnimation
-                sequence={[
-                  "Hello, I'm Harsh Gajjar",
-                  1000,
-                  "",
-                  100,
-                  "Software Developer",
-                  1000,
-                  "",
-                  100,
-                  "Creative Blogger",
-                  1000,
-                  "",
-
-                  100,
-                  "Lifelong Learner",
-                  1000,
-                ]}
-                wrapper="span"
-                cursor={true}
-                repeat={Infinity}
-                style={{ display: "inline-block", lineHeight: "1.2" }}
-              />
-            </h1>
+            <div className="space-y-2">
+              {/* <h1 className="text-3xl sm:text-5xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500"> */}
+              <h1 className="text-3xl sm:text-5xl font-bold pt-3 mb-2 text-center sm:mb-8 min-h-[64px] bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500">
+                नमस्ते, I'm Harsh Gajjar
+              </h1>
+              <div className="text-2xl sm:text-4xl font-bold text-center min-h-[48px] bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500">
+                <TypeAnimation
+                  sequence={[
+                    "Software Developer",
+                    1000,
+                    "Creative Blogger",
+                    1000,
+                    "Lifelong Learner",
+                    1000,
+                  ]}
+                  wrapper="span"
+                  cursor={true}
+                  repeat={Infinity}
+                  style={{ display: "inline-block", lineHeight: "1.2" }}
+                />
+              </div>
+            </div>
 
             <p className="text-lg sm:text-xl text-white/80 leading-relaxed transform transition-all duration-300 group-hover:text-white/90">
               A developer crafting web solutions with modern tech stacks and
