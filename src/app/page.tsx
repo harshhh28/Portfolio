@@ -251,12 +251,15 @@ export default function About() {
                 className="rounded-full"
               />
             </div>
-            <div className="space-y-2">
-              {/* <h1 className="text-3xl sm:text-5xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500"> */}
-              <h1 className="text-3xl sm:text-5xl font-bold pt-3 mb-2 text-center sm:mb-8 min-h-[64px] bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500">
+            <div className="space-y-2 sm:space-y-4">
+              <h1
+                className="text-2xl md:text-3xl lg:text-5xl font-bold pt-3 mb-2 text-center 
+                bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500">
                 नमस्ते, I'm Harsh Gajjar
               </h1>
-              <div className="text-2xl sm:text-4xl font-bold text-center min-h-[48px] bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500">
+              <div
+                className="text-xl md:text-2xl lg:text-4xl font-bold text-center min-h-[40px] md:min-h-[48px] 
+                bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500">
                 <TypeAnimation
                   sequence={[
                     "Software Developer",
@@ -274,7 +277,10 @@ export default function About() {
               </div>
             </div>
 
-            <p className="text-lg sm:text-xl text-white/80 leading-relaxed transform transition-all duration-300 group-hover:text-white/90">
+            <p
+              className="text-base md:text-lg lg:text-xl text-white/80 leading-relaxed md:leading-loose 
+              max-w-full sm:text-left px-2 sm:px-0
+              transform transition-all duration-300 group-hover:text-white/90">
               A developer crafting web solutions with modern tech stacks and
               frameworks. Passionate about AI/ML, I work on prediction models
               and AI agents while constantly exploring new technologies to
