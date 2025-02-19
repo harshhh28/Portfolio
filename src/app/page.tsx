@@ -148,6 +148,10 @@ const SKILLS = {
       name: "Groq",
       url: "https://console.groq.com/docs",
     },
+    {
+      name: "Streamlit",
+      url: "https://docs.streamlit.io/library",
+    },
   ],
 };
 
