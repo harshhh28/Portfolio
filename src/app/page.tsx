@@ -14,126 +14,142 @@ import { useEffect, useState } from "react";
 import Loader from "@/components/Loader";
 import { FaGoogle } from "react-icons/fa";
 
-const SKILLS = [
-  {
-    name: "Next.js",
-    url: "https://nextjs.org/docs",
-  },
-  {
-    name: "Node.js",
-    url: "https://nodejs.org/docs/latest/api/",
-  },
-  {
-    name: "Express.js",
-    url: "https://expressjs.com/",
-  },
-  {
-    name: "React.js",
-    url: "https://react.dev/",
-  },
-  {
-    name: "React Native",
-    url: "https://reactnative.dev/docs/getting-started",
-  },
-  {
-    name: "TypeScript",
-    url: "https://www.typescriptlang.org/docs/",
-  },
-  {
-    name: "JavaScript",
-    url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
-  },
-  {
-    name: "CSS",
-    url: "https://developer.mozilla.org/en-US/docs/Web/CSS",
-  },
-  {
-    name: "Tailwind CSS",
-    url: "https://tailwindcss.com/docs",
-  },
-  {
-    name: "HTML",
-    url: "https://developer.mozilla.org/en-US/docs/Web/HTML",
-  },
-  {
-    name: "Firebase",
-    url: "https://firebase.google.com/docs",
-  },
-  {
-    name: "MongoDB",
-    url: "https://www.mongodb.com/docs/",
-  },
-  {
-    name: "PostgreSQL",
-    url: "https://www.postgresql.org/docs/",
-  },
-  {
-    name: "Cloudinary",
-    url: "https://cloudinary.com/documentation",
-  },
-  {
-    name: "Google Cloud",
-    url: "https://cloud.google.com/docs",
-  },
-  {
-    name: "Vercel",
-    url: "https://vercel.com/docs",
-  },
-  {
-    name: "Machine Learning",
-    url: "https://developers.google.com/machine-learning",
-  },
-  {
-    name: "Python",
-    url: "https://docs.python.org/3/",
-  },
-  {
-    name: "NumPy",
-    url: "https://numpy.org/doc/",
-  },
-  {
-    name: "Pandas",
-    url: "https://pandas.pydata.org/docs/",
-  },
-  {
-    name: "Matplotlib",
-    url: "https://matplotlib.org/stable/contents.html",
-  },
-  {
-    name: "Scikit-learn",
-    url: "https://scikit-learn.org/stable/documentation.html",
-  },
-  {
-    name: "TensorFlow",
-    url: "https://www.tensorflow.org/api_docs",
-  },
-  {
-    name: "Keras",
-    url: "https://keras.io/api/",
-  },
-  {
-    name: "SeaBorn",
-    url: "https://seaborn.pydata.org/api.html",
-  },
-  {
-    name: "Phidata",
-    url: "https://docs.phidata.com/",
-  },
-  {
-    name: "Agno",
-    url: "https://www.agno.com/",
-  },
-
-  {
-    name: "C++",
-    url: "https://cplusplus.com/doc/",
-  },
-
-  {
-    name: "C",
-    url: "https://devdocs.io/c/",
-  },
-];
+const SKILLS = {
+  programmingLanguages: [
+    {
+      name: "TypeScript",
+      url: "https://www.typescriptlang.org/docs/",
+    },
+    {
+      name: "JavaScript",
+      url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
+    },
+    {
+      name: "Python",
+      url: "https://docs.python.org/3/",
+    },
+    {
+      name: "C++",
+      url: "https://cplusplus.com/doc/",
+    },
+    {
+      name: "C",
+      url: "https://devdocs.io/c/",
+    },
+  ],
+  frameworksAndTools: [
+    {
+      name: "Next.js",
+      url: "https://nextjs.org/docs",
+    },
+    {
+      name: "React",
+      url: "https://react.dev/",
+    },
+    {
+      name: "React Native",
+      url: "https://reactnative.dev/docs/getting-started",
+    },
+    {
+      name: "Node.js",
+      url: "https://nodejs.org/docs/latest/api/",
+    },
+    {
+      name: "Express.js",
+      url: "https://expressjs.com/",
+    },
+    {
+      name: "Tailwind CSS",
+      url: "https://tailwindcss.com/docs",
+    },
+    {
+      name: "Firebase",
+      url: "https://firebase.google.com/docs",
+    },
+    {
+      name: "Supabase",
+      url: "https://supabase.io/docs",
+    },
+    {
+      name: "MongoDB",
+      url: "https://www.mongodb.com/docs/",
+    },
+    {
+      name: "PostgreSQL",
+      url: "https://www.postgresql.org/docs/",
+    },
+    {
+      name: "HTML5",
+      url: "https://developer.mozilla.org/en-US/docs/Web/HTML",
+    },
+    {
+      name: "CSS3",
+      url: "https://developer.mozilla.org/en-US/docs/Web/CSS",
+    },
+    {
+      name: "Vercel",
+      url: "https://vercel.com/docs",
+    },
+    {
+      name: "VS Code",
+      url: "https://code.visualstudio.com/docs",
+    },
+    {
+      name: "Android Studio",
+      url: "https://developer.android.com/docs",
+    },
+    {
+      name: "Git",
+      url: "https://git-scm.com/doc",
+    },
+    {
+      name: "Cloudinary",
+      url: "https://cloudinary.com/documentation",
+    },
+    {
+      name: "Google Cloud Platform",
+      url: "https://cloud.google.com/docs",
+    },
+  ],
+  mlAndDataScience: [
+    {
+      name: "TensorFlow",
+      url: "https://www.tensorflow.org/api_docs",
+    },
+    {
+      name: "Keras",
+      url: "https://keras.io/api/",
+    },
+    {
+      name: "Scikit-learn",
+      url: "https://scikit-learn.org/stable/documentation.html",
+    },
+    {
+      name: "NumPy",
+      url: "https://numpy.org/doc/",
+    },
+    {
+      name: "Pandas",
+      url: "https://pandas.pydata.org/docs/",
+    },
+    {
+      name: "Matplotlib",
+      url: "https://matplotlib.org/stable/contents.html",
+    },
+    {
+      name: "SeaBorn",
+      url: "https://seaborn.pydata.org/api.html",
+    },
+    {
+      name: "Agno (Phidata)",
+      url: "https://docs.agno.com/introduction",
+    },
+    {
+      name: "Groq",
+      url: "https://console.groq.com/docs",
+    },
+  ],
+};
 
 const EDUCATION = [
   {
@@ -329,27 +345,90 @@ export default function About() {
                 <h2 className="text-xl sm:text-2xl font-bold mb-6 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
                   Skills & Technologies
                 </h2>
-                <div className="flex flex-wrap gap-2 sm:gap-3">
-                  {SKILLS.map((skill) => (
-                    <Link
-                      key={skill.name}
-                      href={skill.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white/5 rounded-lg border border-white/10 
-                        hover:bg-white/10 hover:border-white/20 
-                        transition-all duration-300 hover:-translate-y-1
-                        backdrop-blur-sm group/skill
-                        text-sm sm:text-base">
-                      <span className="relative">
-                        {skill.name}
-                        <span
-                          className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 
-                          opacity-0 group-hover/skill:opacity-100 transition-opacity duration-500"
-                        />
-                      </span>
-                    </Link>
-                  ))}
+                <div className="space-y-6">
+                  <div>
+                    <h3 className="text-base sm:text-xl font-semibold mb-3 text-white/80">
+                      Programming Languages
+                    </h3>
+                    <div className="flex flex-wrap gap-2 sm:gap-3">
+                      {SKILLS.programmingLanguages.map((skill) => (
+                        <Link
+                          key={skill.name}
+                          href={skill.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white/5 rounded-lg border border-white/10 
+                            hover:bg-white/10 hover:border-white/20 
+                            transition-all duration-300 hover:-translate-y-1
+                            backdrop-blur-sm group/skill
+                            text-sm sm:text-base">
+                          <span className="relative">
+                            {skill.name}
+                            <span
+                              className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 
+                              opacity-0 group-hover/skill:opacity-100 transition-opacity duration-500"
+                            />
+                          </span>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3 className="text-base sm:text-lg font-semibold mb-3 text-white/80">
+                      Frameworks, Libraries & Tools
+                    </h3>
+                    <div className="flex flex-wrap gap-2 sm:gap-3">
+                      {SKILLS.frameworksAndTools.map((skill) => (
+                        <Link
+                          key={skill.name}
+                          href={skill.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white/5 rounded-lg border border-white/10 
+                            hover:bg-white/10 hover:border-white/20 
+                            transition-all duration-300 hover:-translate-y-1
+                            backdrop-blur-sm group/skill
+                            text-sm sm:text-base">
+                          <span className="relative">
+                            {skill.name}
+                            <span
+                              className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 
+                              opacity-0 group-hover/skill:opacity-100 transition-opacity duration-500"
+                            />
+                          </span>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3 className="text-base sm:text-lg font-semibold mb-3 text-white/80">
+                      Machine Learning & Data Science
+                    </h3>
+                    <div className="flex flex-wrap gap-2 sm:gap-3">
+                      {SKILLS.mlAndDataScience.map((skill) => (
+                        <Link
+                          key={skill.name}
+                          href={skill.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white/5 rounded-lg border border-white/10 
+                            hover:bg-white/10 hover:border-white/20 
+                            transition-all duration-300 hover:-translate-y-1
+                            backdrop-blur-sm group/skill
+                            text-sm sm:text-base">
+                          <span className="relative">
+                            {skill.name}
+                            <span
+                              className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 
+                              opacity-0 group-hover/skill:opacity-100 transition-opacity duration-500"
+                            />
+                          </span>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
