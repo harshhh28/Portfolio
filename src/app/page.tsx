@@ -300,7 +300,7 @@ export default function About() {
                   fillRule="evenodd"
                   clipRule="evenodd"
                   viewBox="0 0 417 512.238"
-                  className="sm:w-5 sm:h-5">
+                  className="w-4 h-4 sm:w-5 sm:h-5">
                   <path
                     fill="#ffffff"
                     fillRule="nonzero"
