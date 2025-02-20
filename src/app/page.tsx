@@ -185,12 +185,12 @@ const POSITIONS = [
       "Contributing to the developer community as a core member of GDG, organizing technical events and workshops to foster learning and collaboration among students and various communities.",
     events: [
       {
-        name: "SLoP 4.0",
-        url: "https://slop.dscdaiict.in",
-      },
-      {
         name: "Dev-o-lution'25",
         url: "https://devolution.dscdaiict.in",
+      },
+      {
+        name: "SLoP 4.0",
+        url: "https://slop.dscdaiict.in",
       },
     ],
   },
