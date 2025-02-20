@@ -1,18 +1,10 @@
 "use client";
 
-import {
-  SiGithub,
-  SiHashnode,
-  SiInstagram,
-  SiLinkedin,
-  SiX,
-} from "react-icons/si";
 import Link from "next/link";
 import { TypeAnimation } from "react-type-animation";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import Loader from "@/components/Loader";
-import { FaGoogle } from "react-icons/fa";
 
 const SKILLS = {
   programmingLanguages: [
@@ -191,7 +183,6 @@ const POSITIONS = [
     duration: "2024 - Present",
     description:
       "Contributing to the developer community as a core member of GDG, organizing technical events and workshops to foster learning and collaboration among students and various communities.",
-    icon: <FaGoogle className="w-5 h-5" />,
     events: [
       {
         name: "SLoP 4.0",
