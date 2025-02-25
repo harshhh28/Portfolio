@@ -9,27 +9,73 @@ import Loader from "@/components/Loader";
 const SKILLS = {
   programmingLanguages: [
     {
-      name: "TypeScript",
-      url: "https://www.typescriptlang.org/docs/",
-    },
-    {
-      name: "JavaScript",
-      url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
-    },
-    {
-      name: "Python",
-      url: "https://docs.python.org/3/",
+      name: "C",
+      url: "https://devdocs.io/c/",
     },
     {
       name: "C++",
       url: "https://cplusplus.com/doc/",
     },
     {
-      name: "C",
-      url: "https://devdocs.io/c/",
+      name: "Python",
+      url: "https://docs.python.org/3/",
+    },
+    {
+      name: "JavaScript",
+      url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
+    },
+    {
+      name: "TypeScript",
+      url: "https://www.typescriptlang.org/docs/",
+    },
+    {
+      name: "SQL",
+      url: "https://www.w3schools.com/sql/",
+    },
+    {
+      name: "HTML",
+      url: "https://developer.mozilla.org/en-US/docs/Web/HTML",
+    },
+    {
+      name: "CSS",
+      url: "https://developer.mozilla.org/en-US/docs/Web/CSS",
+    },
+    {
+      name: "Verilog",
+      url: "https://sutherland-hdl.com/pdfs/verilog_2001_ref_guide.pdf",
     },
   ],
-  frameworksAndTools: [
+  developerTools: [
+    {
+      name: "VS Code",
+      url: "https://code.visualstudio.com/docs",
+    },
+    {
+      name: "Cursor",
+      url: "https://cursordocs.com/en/docs/get-started/",
+    },
+    {
+      name: "Google Cloud Platform",
+      url: "https://cloud.google.com/docs",
+    },
+    {
+      name: "Android Studio",
+      url: "https://developer.android.com/docs",
+    },
+    {
+      name: "Git",
+      url: "https://git-scm.com/doc",
+    },
+    {
+      name: "Vercel",
+      url: "https://vercel.com/docs",
+    },
+    {
+      name: "Postman",
+      url: "https://learning.postman.com/docs/",
+    },
+  ],
+  technologiesAndFrameworks: [
     {
       name: "Next.js",
       url: "https://nextjs.org/docs",
@@ -71,36 +117,8 @@ const SKILLS = {
       url: "https://www.postgresql.org/docs/",
     },
     {
-      name: "HTML5",
-      url: "https://developer.mozilla.org/en-US/docs/Web/HTML",
-    },
-    {
-      name: "CSS3",
-      url: "https://developer.mozilla.org/en-US/docs/Web/CSS",
-    },
-    {
-      name: "Vercel",
-      url: "https://vercel.com/docs",
-    },
-    {
-      name: "VS Code",
-      url: "https://code.visualstudio.com/docs",
-    },
-    {
-      name: "Android Studio",
-      url: "https://developer.android.com/docs",
-    },
-    {
-      name: "Git",
-      url: "https://git-scm.com/doc",
-    },
-    {
       name: "Cloudinary",
       url: "https://cloudinary.com/documentation",
-    },
-    {
-      name: "Google Cloud Platform",
-      url: "https://cloud.google.com/docs",
     },
   ],
   mlAndDataScience: [
@@ -374,10 +392,38 @@ export default function About() {
 
                   <div>
                     <h3 className="text-base sm:text-lg font-semibold mb-3 text-white/80">
-                      Frameworks, Libraries & Tools
+                      Developer Tools
                     </h3>
                     <div className="flex flex-wrap gap-2 sm:gap-3">
-                      {SKILLS.frameworksAndTools.map((skill) => (
+                      {SKILLS.developerTools.map((skill) => (
+                        <Link
+                          key={skill.name}
+                          href={skill.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white/5 rounded-lg border border-white/10 
+                            hover:bg-white/10 hover:border-white/20 
+                            transition-all duration-300 hover:-translate-y-1
+                            backdrop-blur-sm group/skill
+                            text-sm sm:text-base">
+                          <span className="relative">
+                            {skill.name}
+                            <span
+                              className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 
+                              opacity-0 group-hover/skill:opacity-100 transition-opacity duration-500"
+                            />
+                          </span>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3 className="text-base sm:text-lg font-semibold mb-3 text-white/80">
+                      Technologies & Frameworks
+                    </h3>
+                    <div className="flex flex-wrap gap-2 sm:gap-3">
+                      {SKILLS.technologiesAndFrameworks.map((skill) => (
                         <Link
                           key={skill.name}
                           href={skill.url}
