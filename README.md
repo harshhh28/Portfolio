@@ -72,6 +72,28 @@ Before starting :checkered_flag:, you need to have the following requirements:
 - Basic knowledge of TypeScript and React
 - A code editor like [VS Code](https://code.visualstudio.com/) (recommended)
 
+## :key: Environment Variables
+
+Before running the project, you need to set up the following environment variables in your `.env` file:
+
+```env
+NEXT_PUBLIC_DISCORD_WEBHOOK_URL=your_discord_webhook_url
+HASHNODE_TOKEN=your_hashnode_api_token
+```
+
+To get these values:
+
+1. For Discord webhook URL:
+
+   - Create a Discord server
+   - Go to Server Settings > Integrations > Webhooks
+   - Create a new webhook and copy the URL
+
+2. For Hashnode token:
+   - Log in to Hashnode
+   - Go to Account Settings > Developer Settings
+   - Generate a new access token
+
 ## :checkered_flag: Starting
 
 ```bash

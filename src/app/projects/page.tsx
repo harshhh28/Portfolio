@@ -18,9 +18,18 @@ const projects = [
     tags: ["Python", "Streamlit", "Groq", "Supabase", "PDFPlumber"],
   },
   {
+    title: "Portfolio Website",
+    description:
+      "Integrated Discord Webhook, shadcn/ui, RSS Parser, and custom domain DNS for a dynamic and polished website.",
+    image: "/images/projects/portfolio.gif",
+    github: "https://github.com/harshhh28/portfolio",
+    demo: "https://harshgajjar.vercel.app",
+    tags: ["Next.js", "TypeScript", "Tailwind CSS", "Zod", "Webhooks"],
+  },
+  {
     title: "Spring Talk - AI Powered ChatApp",
     description:
-      "A mobile chat app with Atomic Pattern Design, MVC model and Gemini API integration.",
+      "Implemented personal and group chats, Firebase for real-time data and auth, and Gemini API for enhanced chat interactions.",
     image: "/images/projects/chatApp.gif",
     github: "https://github.com/harshhh28/G12_Chat_Application",
     demo: "https://youtu.be/UtoEn-mm9b0",
