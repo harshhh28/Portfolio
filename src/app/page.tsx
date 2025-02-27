@@ -266,7 +266,7 @@ export default function About() {
             </div>
             <div className="space-y-2 sm:space-y-4">
               <h1
-                className="text-2xl md:text-3xl lg:text-5xl font-bold pt-3 mb-2 text-center 
+                className="text-2xl md:text-3xl lg:text-5xl font-bold py-3 mb-2 text-center 
                 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500">
                 नमस्ते, I'm Harsh Gajjar
               </h1>
