@@ -11,7 +11,7 @@ const projects = [
   {
     title: "HIA - Health Insights Agent",
     description:
-      "AI Agent to analyze blood reports and provide detailed health insights using LLaMA-3.3-70B model.",
+      "AI Agent to analyze blood reports and provide detailed health insights using multi-model architechture.",
     image: "/images/projects/hia.gif",
     github: "https://github.com/harshhh28/hia",
     demo: "https://hiahealth.streamlit.app",
