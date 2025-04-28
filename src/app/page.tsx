@@ -173,6 +173,7 @@ const EDUCATION = [
     degree:
       "Bachelor of Technology in Information and Communication Technology (ICT)",
     duration: "2022 - Present",
+    location: "Gandhinagar, Gujarat, India",
     courses: [
       "Machine Learning",
       "Augmented and Virtual Reality Systems",
@@ -189,6 +190,7 @@ const EDUCATION = [
     schoolUrl: "https://www.hbkapadia.com",
     degree: "Higher Secondary Education (XII) - Science",
     duration: "2021 - 2022",
+    location: "Ahmedabad, Gujarat, India",
     courses: ["Physics", "Chemistry", "Mathematics", "Computer Science"],
   },
 ];
@@ -199,6 +201,7 @@ const POSITIONS = [
     organization: "Google Developer Group on Campus, DA-IICT",
     organizationUrl: "https://dscdaiict.in/",
     duration: "2024 - Present",
+    location: "Gandhinagar, Gujarat, India",
     description:
       "Contributing to the developer community as a core member of GDG, organizing technical events and workshops to foster learning and collaboration among students and various communities.",
     events: [
@@ -217,9 +220,21 @@ const POSITIONS = [
     organization: "Hostel Management Committee, DA-IICT",
     organizationUrl: null,
     duration: "2025 - Present",
+    location: "Gandhinagar, Gujarat, India",
     description:
       "Managing hostel operations and coordinating events to enhance student life, working on improving facilities and organizing activities for resident satisfaction.",
     events: null,
+  },
+];
+
+const EXPERIENCE = [
+  {
+    title: "Product Developer Intern",
+    organization: "HiDevs",
+    organizationUrl: "https://hidevs.xyz",
+    duration: "Mar 2025 - Present",
+    location: "San Francisco, California, United States · (Remote)",
+    description: "Contributed to the development lifecycle of key projects, including dashboard enhancements, LinkedIn integrations, and the creation of new dashboard functionalities. Responsibilities included front-end and back-end development, focusing on delivering functional and user-friendly solutions while addressing technical issues. Integrated over 20+ APIs and developed features for both front-end and back-end.",
   },
 ];
 
@@ -479,6 +494,47 @@ export default function About() {
 
             <div className="space-y-8">
               <h2 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+                Experience
+              </h2>
+              <div className="space-y-4 sm:space-y-6">
+                {EXPERIENCE.map((exp) => (
+                  <div
+                    key={exp.title}
+                    className="backdrop-blur-sm bg-white/5 rounded-2xl border border-white/10 
+                      p-4 sm:p-6 hover:bg-white/10 hover:border-white/20 
+                      transition-all duration-300 group/exp">
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 mb-2">
+                      {exp.organizationUrl ? (
+                        <Link
+                          href={exp.organizationUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-lg sm:text-xl font-semibold hover:text-white/80 transition-colors">
+                          <h3>{exp.organization}</h3>
+                        </Link>
+                      ) : (
+                        <h3 className="text-lg sm:text-xl font-semibold">
+                          {exp.organization}
+                        </h3>
+                      )}
+                      <span className="text-white/60 text-sm">
+                        {exp.duration}
+                      </span>
+                    </div>
+                    <p className="text-base sm:text-lg text-white/80 mb-2">
+                      {exp.title}
+                    </p>
+                    <p className="text-sm text-white/60 mb-3">
+                      {exp.location}
+                    </p>
+                    <p className="text-sm text-white/70">{exp.description}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="space-y-8">
+              <h2 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
                 Positions of Responsibility
               </h2>
               <div className="space-y-4 sm:space-y-6">
@@ -486,8 +542,8 @@ export default function About() {
                   <div
                     key={pos.title}
                     className="backdrop-blur-sm bg-white/5 rounded-2xl border border-white/10 
-                  p-4 sm:p-6 hover:bg-white/10 hover:border-white/20 
-                  transition-all duration-300 group/edu">
+                    p-4 sm:p-6 hover:bg-white/10 hover:border-white/20 
+                    transition-all duration-300 group/edu">
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 mb-2">
                       {pos.organizationUrl ? (
                         <Link
@@ -506,8 +562,11 @@ export default function About() {
                         {pos.duration}
                       </span>
                     </div>
-                    <p className="text-base sm:text-lg text-white/80 mb-3">
+                    <p className="text-base sm:text-lg text-white/80 mb-2">
                       {pos.title}
+                    </p>
+                    <p className="text-sm text-white/60 mb-3">
+                      {pos.location}
                     </p>
                     <p className="text-sm text-white/70">{pos.description}</p>
                     {pos.events && pos.events.length > 0 && (
@@ -554,8 +613,11 @@ export default function About() {
                         {edu.duration}
                       </span>
                     </div>
-                    <p className="text-base sm:text-lg text-white/80 mb-3">
+                    <p className="text-base sm:text-lg text-white/80 mb-2">
                       {edu.degree}
+                    </p>
+                    <p className="text-sm text-white/60 mb-3">
+                      {edu.location}
                     </p>
                     <div className="flex flex-wrap gap-1.5 sm:gap-2">
                       {edu.courses.map((course) => (
