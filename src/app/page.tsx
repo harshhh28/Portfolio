@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import Loader from "@/components/Loader";
 
 const SKILLS = {
-  programmingLanguages: [
+  languages: [
     {
       name: "C",
       url: "https://devdocs.io/c/",
@@ -47,42 +47,54 @@ const SKILLS = {
   ],
   developerTools: [
     {
+      name: "Git",
+      url: "https://git-scm.com/doc",
+    },
+    {
+      name: "GitHub",
+      url: "https://docs.github.com/",
+    },
+    {
+      name: "Docker",
+      url: "https://docs.docker.com/",
+    },
+    {
+      name: "Postman",
+      url: "https://learning.postman.com/docs/",
+    },
+    {
+      name: "pgAdmin",
+      url: "https://www.pgadmin.org/docs/",
+    },
+    {
       name: "VS Code",
       url: "https://code.visualstudio.com/docs",
-    },
-    {
-      name: "Cursor",
-      url: "https://cursordocs.com/en/docs/get-started/",
-    },
-    {
-      name: "Google Cloud Platform",
-      url: "https://cloud.google.com/docs",
     },
     {
       name: "Android Studio",
       url: "https://developer.android.com/docs",
     },
     {
-      name: "Git",
-      url: "https://git-scm.com/doc",
+      name: "Cursor",
+      url: "https://docs.cursor.com/introduction",
     },
     {
-      name: "Vercel",
-      url: "https://vercel.com/docs",
+      name: "MATLAB",
+      url: "https://www.mathworks.com/help/matlab/",
     },
     {
-      name: "Postman",
-      url: "https://learning.postman.com/docs/",
+      name: "Jupyter Notebook",
+      url: "https://jupyter-notebook.readthedocs.io/",
     },
   ],
-  technologiesAndFrameworks: [
-    {
-      name: "Next.js",
-      url: "https://nextjs.org/docs",
-    },
+  frameworks: [
     {
       name: "React",
       url: "https://react.dev/",
+    },
+    {
+      name: "Next.js",
+      url: "https://nextjs.org/docs",
     },
     {
       name: "React Native",
@@ -97,28 +109,12 @@ const SKILLS = {
       url: "https://expressjs.com/",
     },
     {
+      name: "Vite",
+      url: "https://vitejs.dev/guide/",
+    },
+    {
       name: "Tailwind CSS",
       url: "https://tailwindcss.com/docs",
-    },
-    {
-      name: "Firebase",
-      url: "https://firebase.google.com/docs",
-    },
-    {
-      name: "Supabase",
-      url: "https://supabase.io/docs",
-    },
-    {
-      name: "MongoDB",
-      url: "https://www.mongodb.com/docs/",
-    },
-    {
-      name: "PostgreSQL",
-      url: "https://www.postgresql.org/docs/",
-    },
-    {
-      name: "Cloudinary",
-      url: "https://cloudinary.com/documentation",
     },
   ],
   mlAndDataScience: [
@@ -147,7 +143,7 @@ const SKILLS = {
       url: "https://matplotlib.org/stable/contents.html",
     },
     {
-      name: "SeaBorn",
+      name: "Seaborn",
       url: "https://seaborn.pydata.org/api.html",
     },
     {
@@ -161,6 +157,100 @@ const SKILLS = {
     {
       name: "Streamlit",
       url: "https://docs.streamlit.io/library",
+    },
+  ],
+  cloudDatabases: [
+    {
+      name: "GCP",
+      url: "https://cloud.google.com/docs",
+    },
+    {
+      name: "AWS",
+      url: "https://docs.aws.amazon.com/",
+    },
+    {
+      name: "Vercel",
+      url: "https://vercel.com/docs",
+    },
+    {
+      name: "Render",
+      url: "https://render.com/docs",
+    },
+    {
+      name: "Supabase",
+      url: "https://supabase.io/docs",
+    },
+    {
+      name: "Firebase",
+      url: "https://firebase.google.com/docs",
+    },
+    {
+      name: "MongoDB",
+      url: "https://www.mongodb.com/docs/",
+    },
+    {
+      name: "PostgreSQL",
+      url: "https://www.postgresql.org/docs/",
+    },
+    {
+      name: "Cloudinary",
+      url: "https://cloudinary.com/documentation",
+    },
+  ],
+  coursework: [
+    {
+      name: "Machine Learning",
+      url: null,
+    },
+    {
+      name: "Software Engineering",
+      url: null,
+    },
+    {
+      name: "Computer Networks",
+      url: null,
+    },
+    {
+      name: "Database Management System",
+      url: null,
+    },
+    {
+      name: "Object Oriented Programming",
+      url: null,
+    },
+    {
+      name: "Data Structures",
+      url: null,
+    },
+    {
+      name: "Design and Analysis of Algorithms",
+      url: null,
+    },
+    {
+      name: "Computer System Programming",
+      url: null,
+    },
+    {
+      name: "Augmented Reality and Virtual Reality Systems",
+      url: null,
+    },
+  ],
+  areasOfInterest: [
+    {
+      name: "Scalable Backend Systems",
+      url: null,
+    },
+    {
+      name: "API & Microservices Design",
+      url: null,
+    },
+    {
+      name: "DevOps & CI/CD",
+      url: null,
+    },
+    {
+      name: "MLOps",
+      url: null,
     },
   ],
 };
@@ -379,10 +469,10 @@ export default function About() {
                 <div className="space-y-6">
                   <div>
                     <h3 className="text-base sm:text-lg font-semibold mb-3 text-white/80">
-                      Programming Languages
+                      Languages
                     </h3>
                     <div className="flex flex-wrap gap-2 sm:gap-3">
-                      {SKILLS.programmingLanguages.map((skill) => (
+                      {SKILLS.languages.map((skill) => (
                         <Link
                           key={skill.name}
                           href={skill.url}
@@ -435,10 +525,10 @@ export default function About() {
 
                   <div>
                     <h3 className="text-base sm:text-lg font-semibold mb-3 text-white/80">
-                      Technologies & Frameworks
+                      Frameworks
                     </h3>
                     <div className="flex flex-wrap gap-2 sm:gap-3">
-                      {SKILLS.technologiesAndFrameworks.map((skill) => (
+                      {SKILLS.frameworks.map((skill) => (
                         <Link
                           key={skill.name}
                           href={skill.url}
@@ -463,7 +553,7 @@ export default function About() {
 
                   <div>
                     <h3 className="text-base sm:text-lg font-semibold mb-3 text-white/80">
-                      Machine Learning & Data Science
+                      Machine Learning/Data Science
                     </h3>
                     <div className="flex flex-wrap gap-2 sm:gap-3">
                       {SKILLS.mlAndDataScience.map((skill) => (
@@ -485,6 +575,84 @@ export default function About() {
                             />
                           </span>
                         </Link>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3 className="text-base sm:text-lg font-semibold mb-3 text-white/80">
+                      Cloud/Databases
+                    </h3>
+                    <div className="flex flex-wrap gap-2 sm:gap-3">
+                      {SKILLS.cloudDatabases.map((skill) => (
+                        <Link
+                          key={skill.name}
+                          href={skill.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white/5 rounded-lg border border-white/10 
+                            hover:bg-white/10 hover:border-white/20 
+                            transition-all duration-300 hover:-translate-y-1
+                            backdrop-blur-sm group/skill
+                            text-sm sm:text-base">
+                          <span className="relative">
+                            {skill.name}
+                            <span
+                              className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 
+                              opacity-0 group-hover/skill:opacity-100 transition-opacity duration-500"
+                            />
+                          </span>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3 className="text-base sm:text-lg font-semibold mb-3 text-white/80">
+                      Coursework
+                    </h3>
+                    <div className="flex flex-wrap gap-2 sm:gap-3">
+                      {SKILLS.coursework.map((skill) => (
+                        <span
+                          key={skill.name}
+                          className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white/5 rounded-lg border border-white/10 
+                            hover:bg-white/10 hover:border-white/20 
+                            transition-all duration-300 hover:-translate-y-1
+                            backdrop-blur-sm group/skill
+                            text-sm sm:text-base">
+                          <span className="relative">
+                            {skill.name}
+                            <span
+                              className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 
+                              opacity-0 group-hover/skill:opacity-100 transition-opacity duration-500"
+                            />
+                          </span>
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3 className="text-base sm:text-lg font-semibold mb-3 text-white/80">
+                      Areas of Interest
+                    </h3>
+                    <div className="flex flex-wrap gap-2 sm:gap-3">
+                      {SKILLS.areasOfInterest.map((skill) => (
+                        <span
+                          key={skill.name}
+                          className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white/5 rounded-lg border border-white/10 
+                            hover:bg-white/10 hover:border-white/20 
+                            transition-all duration-300 hover:-translate-y-1
+                            backdrop-blur-sm group/skill
+                            text-sm sm:text-base">
+                          <span className="relative">
+                            {skill.name}
+                            <span
+                              className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 
+                              opacity-0 group-hover/skill:opacity-100 transition-opacity duration-500"
+                            />
+                          </span>
+                        </span>
                       ))}
                     </div>
                   </div>
@@ -640,3 +808,4 @@ export default function About() {
     </div>
   );
 }
+
