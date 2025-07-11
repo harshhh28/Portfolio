@@ -324,8 +324,16 @@ const EXPERIENCE = [
     organizationUrl: "https://hidevs.xyz",
     duration: "Mar 2025 - Jul 2025",
     location: "San Francisco, California, United States · (Remote)",
-    description: "Contributed to the development lifecycle of key projects, including dashboard enhancements, LinkedIn integrations, and the creation of new dashboard functionalities. Responsibilities included front-end and back-end development, focusing on delivering functional and user-friendly solutions while addressing technical issues. Integrated over 20+ APIs and developed features for both front-end and back-end.",
+    description: "Independently led the design and deployment of scalable APIs and data pipelines, reducing API latency by 30% and supporting 1,500+ concurrent users. Spearheaded React modules for dashboards, global leaderboards, and personalized roadmaps, driving an 80% boost in user engagement."
   },
+  {
+    title: "Full Stack Developer",
+    organization: "Information Retrieval Lab, DA-IICT",
+    organizationUrl: "https://irlab.daiict.ac.in",
+    duration: "May 2025 - Present",
+    location: "Gandhinagar, Gujarat, India",
+    description: "Built a full-stack machine translation evaluation platform enabling users to submit translations, compute BLEU and other NLP metrics and view real-time leaderboards. Engineered secure APIs, dynamic dashboards and managed complete deployment in collaboration with lab researchers."
+  }  
 ];
 
 export default function About() {
@@ -382,9 +390,9 @@ export default function About() {
                   sequence={[
                     "Software Developer",
                     1000,
-                    "Creative Blogger",
+                    "Lazy blogger",
                     1000,
-                    "Lifelong Learner",
+                    "Hardcore tweeter",
                     1000,
                   ]}
                   wrapper="span"
