@@ -322,7 +322,7 @@ const EXPERIENCE = [
     title: "Product Developer Intern",
     organization: "HiDevs",
     organizationUrl: "https://hidevs.xyz",
-    duration: "Mar 2025 - Present",
+    duration: "Mar 2025 - Jul 2025",
     location: "San Francisco, California, United States · (Remote)",
     description: "Contributed to the development lifecycle of key projects, including dashboard enhancements, LinkedIn integrations, and the creation of new dashboard functionalities. Responsibilities included front-end and back-end development, focusing on delivering functional and user-friendly solutions while addressing technical issues. Integrated over 20+ APIs and developed features for both front-end and back-end.",
   },
