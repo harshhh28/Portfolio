@@ -1,12 +1,12 @@
-import { NextResponse } from 'next/server';
+import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    const response = await fetch('https://gql.hashnode.com/', {
-      method: 'POST',
+    const response = await fetch("https://gql.hashnode.com/", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.HASHNODE_TOKEN}`
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.HASHNODE_TOKEN}`,
       },
       body: JSON.stringify({
         query: `
@@ -19,6 +19,8 @@ export async function GET() {
                     subtitle
                     slug
                     publishedAt
+                    readTimeInMinutes
+                    views
                     coverImage {
                       url
                     }
@@ -27,38 +29,39 @@ export async function GET() {
               }
             }
           }
-        `
+        `,
       }),
     });
 
     const data = await response.json();
-    console.log('API Response:', data); // For debugging
-    
+    console.log("API Response:", data); // For debugging
+
     if (!data.data?.publication?.posts?.edges) {
-      throw new Error('Invalid response format');
+      throw new Error("Invalid response format");
     }
-    
+
     const posts = data.data.publication.posts.edges.map(({ node }: any) => {
-    //   console.log('Node data:', node); // Debug log
       return {
         title: node.title,
         subtitle: node.subtitle,
         slug: node.slug,
         dateAdded: node.publishedAt,
-        coverImage: node.coverImage?.url || ''
+        readTimeInMinutes: node.readTimeInMinutes || 4,
+        views: node.views || 17,
+        coverImage: node.coverImage?.url || "",
       };
     });
-    
+
     return NextResponse.json(posts, {
       headers: {
-        'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=7200'
-      }
+        "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=7200",
+      },
     });
   } catch (error) {
-    console.error('Blog fetch error:', error);
+    console.error("Blog fetch error:", error);
     return NextResponse.json(
-      { error: 'Failed to fetch blog posts' },
+      { error: "Failed to fetch blog posts" },
       { status: 500 }
     );
   }
-} 
+}
