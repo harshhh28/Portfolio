@@ -322,7 +322,7 @@ const EXPERIENCE = [
     title: "Product Developer Intern",
     organization: "HiDevs",
     organizationUrl: "https://hidevs.xyz",
-    duration: "Mar 2025 - June 2025",
+    duration: "Mar 2025 - Jun 2025",
     location: "San Francisco, California, United States · (Remote)",
     description:
       "Independently led the design and deployment of scalable APIs and data pipelines, reducing API latency by 30% and supporting 1,500+ concurrent users. Spearheaded React modules for dashboards, global leaderboards, and personalized roadmaps, driving an 80% boost in user engagement.",
