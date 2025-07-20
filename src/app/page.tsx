@@ -328,7 +328,7 @@ const EXPERIENCE = [
       "Independently led the design and deployment of scalable APIs and data pipelines, reducing API latency by 30% and supporting 1,500+ concurrent users. Spearheaded React modules for dashboards, global leaderboards, and personalized roadmaps, driving an 80% boost in user engagement.",
   },
   {
-    title: "Full Stack Developer",
+    title: "Full Stack Developer (Freelance)",
     organization: "Information Retrieval Lab, DA-IICT",
     organizationUrl: "https://irlab.daiict.ac.in",
     duration: "May 2025 - Present",
