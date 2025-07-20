@@ -322,9 +322,10 @@ const EXPERIENCE = [
     title: "Product Developer Intern",
     organization: "HiDevs",
     organizationUrl: "https://hidevs.xyz",
-    duration: "Mar 2025 - Jul 2025",
+    duration: "Mar 2025 - June 2025",
     location: "San Francisco, California, United States · (Remote)",
-    description: "Independently led the design and deployment of scalable APIs and data pipelines, reducing API latency by 30% and supporting 1,500+ concurrent users. Spearheaded React modules for dashboards, global leaderboards, and personalized roadmaps, driving an 80% boost in user engagement."
+    description:
+      "Independently led the design and deployment of scalable APIs and data pipelines, reducing API latency by 30% and supporting 1,500+ concurrent users. Spearheaded React modules for dashboards, global leaderboards, and personalized roadmaps, driving an 80% boost in user engagement.",
   },
   {
     title: "Full Stack Developer",
@@ -332,8 +333,9 @@ const EXPERIENCE = [
     organizationUrl: "https://irlab.daiict.ac.in",
     duration: "May 2025 - Present",
     location: "Gandhinagar, Gujarat, India",
-    description: "Built a full-stack machine translation evaluation platform enabling users to submit translations, compute BLEU and other NLP metrics and view real-time leaderboards. Engineered secure APIs, dynamic dashboards and managed complete deployment in collaboration with lab researchers."
-  }  
+    description:
+      "Built a full-stack machine translation evaluation platform enabling users to submit translations, compute BLEU and other NLP metrics and view real-time leaderboards. Engineered secure APIs, dynamic dashboards and managed complete deployment in collaboration with lab researchers.",
+  },
 ];
 
 export default function About() {
@@ -359,7 +361,8 @@ export default function About() {
             rounded-3xl border border-white/10 p-8 
             hover:border-white/20 transition-all duration-500 
             group relative overflow-hidden
-            animate-in slide-in-from-bottom">
+            animate-in slide-in-from-bottom"
+        >
           {/* Gradient overlay effect */}
           <div
             className="absolute inset-0 bg-gradient-to-r from-white/5 to-transparent 
@@ -380,12 +383,14 @@ export default function About() {
             <div className="space-y-2 sm:space-y-4">
               <h1
                 className="text-2xl md:text-3xl lg:text-5xl font-bold py-3 mb-2 text-center 
-                bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500">
+                bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500"
+              >
                 नमस्ते, I'm Harsh Gajjar
               </h1>
               <div
                 className="text-xl md:text-2xl lg:text-4xl font-bold text-center min-h-[40px] md:min-h-[48px] 
-                bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500">
+                bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500"
+              >
                 <TypeAnimation
                   sequence={[
                     "Software Developer",
@@ -406,7 +411,8 @@ export default function About() {
             <p
               className="text-base md:text-lg lg:text-xl text-white/80 leading-relaxed md:leading-loose 
               max-w-full sm:text-left px-2 sm:px-0
-              transform transition-all duration-300 group-hover:text-white/90">
+              transform transition-all duration-300 group-hover:text-white/90"
+            >
               A developer crafting web solutions with modern tech stacks and
               frameworks. Passionate about AI/ML, I work on prediction models
               and AI agents while constantly exploring new technologies to
@@ -422,7 +428,8 @@ export default function About() {
                   transition-all duration-300 hover:-translate-y-1
                   backdrop-blur-sm group/skill
                   text-sm sm:text-base
-                  flex items-center gap-2">
+                  flex items-center gap-2"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   shapeRendering="geometricPrecision"
@@ -431,7 +438,8 @@ export default function About() {
                   fillRule="evenodd"
                   clipRule="evenodd"
                   viewBox="0 0 417 512.238"
-                  className="w-4 h-4 sm:w-5 sm:h-5">
+                  className="w-4 h-4 sm:w-5 sm:h-5"
+                >
                   <path
                     fill="#ffffff"
                     fillRule="nonzero"
@@ -449,7 +457,8 @@ export default function About() {
                   transition-all duration-300 hover:-translate-y-1
                   backdrop-blur-sm
                   text-sm sm:text-base
-                  flex items-center gap-2">
+                  flex items-center gap-2"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -460,7 +469,8 @@ export default function About() {
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="sm:w-5 sm:h-5">
+                  className="sm:w-5 sm:h-5"
+                >
                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                   <polyline points="7 10 12 15 17 10" />
                   <line x1="12" y1="15" x2="12" y2="3" />
@@ -490,7 +500,8 @@ export default function About() {
                             hover:bg-white/10 hover:border-white/20 
                             transition-all duration-300 hover:-translate-y-1
                             backdrop-blur-sm group/skill
-                            text-sm sm:text-base">
+                            text-sm sm:text-base"
+                        >
                           <span className="relative">
                             {skill.name}
                             <span
@@ -518,7 +529,8 @@ export default function About() {
                             hover:bg-white/10 hover:border-white/20 
                             transition-all duration-300 hover:-translate-y-1
                             backdrop-blur-sm group/skill
-                            text-sm sm:text-base">
+                            text-sm sm:text-base"
+                        >
                           <span className="relative">
                             {skill.name}
                             <span
@@ -546,7 +558,8 @@ export default function About() {
                             hover:bg-white/10 hover:border-white/20 
                             transition-all duration-300 hover:-translate-y-1
                             backdrop-blur-sm group/skill
-                            text-sm sm:text-base">
+                            text-sm sm:text-base"
+                        >
                           <span className="relative">
                             {skill.name}
                             <span
@@ -574,7 +587,8 @@ export default function About() {
                             hover:bg-white/10 hover:border-white/20 
                             transition-all duration-300 hover:-translate-y-1
                             backdrop-blur-sm group/skill
-                            text-sm sm:text-base">
+                            text-sm sm:text-base"
+                        >
                           <span className="relative">
                             {skill.name}
                             <span
@@ -602,7 +616,8 @@ export default function About() {
                             hover:bg-white/10 hover:border-white/20 
                             transition-all duration-300 hover:-translate-y-1
                             backdrop-blur-sm group/skill
-                            text-sm sm:text-base">
+                            text-sm sm:text-base"
+                        >
                           <span className="relative">
                             {skill.name}
                             <span
@@ -627,7 +642,8 @@ export default function About() {
                             hover:bg-white/10 hover:border-white/20 
                             transition-all duration-300 hover:-translate-y-1
                             backdrop-blur-sm group/skill
-                            text-sm sm:text-base">
+                            text-sm sm:text-base"
+                        >
                           <span className="relative">
                             {skill.name}
                             <span
@@ -652,7 +668,8 @@ export default function About() {
                             hover:bg-white/10 hover:border-white/20 
                             transition-all duration-300 hover:-translate-y-1
                             backdrop-blur-sm group/skill
-                            text-sm sm:text-base">
+                            text-sm sm:text-base"
+                        >
                           <span className="relative">
                             {skill.name}
                             <span
@@ -678,14 +695,16 @@ export default function About() {
                     key={exp.title}
                     className="backdrop-blur-sm bg-white/5 rounded-2xl border border-white/10 
                       p-4 sm:p-6 hover:bg-white/10 hover:border-white/20 
-                      transition-all duration-300 group/exp">
+                      transition-all duration-300 group/exp"
+                  >
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 mb-2">
                       {exp.organizationUrl ? (
                         <Link
                           href={exp.organizationUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-lg sm:text-xl font-semibold hover:text-white/80 transition-colors">
+                          className="text-lg sm:text-xl font-semibold hover:text-white/80 transition-colors"
+                        >
                           <h3>{exp.organization}</h3>
                         </Link>
                       ) : (
@@ -700,9 +719,7 @@ export default function About() {
                     <p className="text-base sm:text-lg text-white/80 mb-2">
                       {exp.title}
                     </p>
-                    <p className="text-sm text-white/60 mb-3">
-                      {exp.location}
-                    </p>
+                    <p className="text-sm text-white/60 mb-3">{exp.location}</p>
                     <p className="text-sm text-white/70">{exp.description}</p>
                   </div>
                 ))}
@@ -719,14 +736,16 @@ export default function About() {
                     key={pos.title}
                     className="backdrop-blur-sm bg-white/5 rounded-2xl border border-white/10 
                     p-4 sm:p-6 hover:bg-white/10 hover:border-white/20 
-                    transition-all duration-300 group/edu">
+                    transition-all duration-300 group/edu"
+                  >
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 mb-2">
                       {pos.organizationUrl ? (
                         <Link
                           href={pos.organizationUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-lg sm:text-xl font-semibold hover:text-white/80 transition-colors">
+                          className="text-lg sm:text-xl font-semibold hover:text-white/80 transition-colors"
+                        >
                           <h3>{pos.organization}</h3>
                         </Link>
                       ) : (
@@ -741,9 +760,7 @@ export default function About() {
                     <p className="text-base sm:text-lg text-white/80 mb-2">
                       {pos.title}
                     </p>
-                    <p className="text-sm text-white/60 mb-3">
-                      {pos.location}
-                    </p>
+                    <p className="text-sm text-white/60 mb-3">{pos.location}</p>
                     <p className="text-sm text-white/70">{pos.description}</p>
                     {pos.events && pos.events.length > 0 && (
                       <div className="mt-3 flex flex-wrap gap-1.5 sm:gap-2">
@@ -755,7 +772,8 @@ export default function About() {
                             rel="noopener noreferrer"
                             className="px-2 sm:px-3 py-1 text-xs sm:text-sm bg-white/5 border border-white/10 
                               rounded-full group-hover/edu:bg-white/10 
-                              group-hover/edu:border-white/20 transition-all duration-300 hover:text-white/80">
+                              group-hover/edu:border-white/20 transition-all duration-300 hover:text-white/80"
+                          >
                             {event.name}
                           </Link>
                         ))}
@@ -776,13 +794,15 @@ export default function About() {
                     key={edu.school}
                     className="backdrop-blur-sm bg-white/5 rounded-2xl border border-white/10 
                       p-4 sm:p-6 hover:bg-white/10 hover:border-white/20 
-                      transition-all duration-300 group/edu rounded-2xl">
+                      transition-all duration-300 group/edu rounded-2xl"
+                  >
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 mb-2">
                       <Link
                         href={edu.schoolUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-lg sm:text-xl font-semibold hover:text-white/80 transition-colors">
+                        className="text-lg sm:text-xl font-semibold hover:text-white/80 transition-colors"
+                      >
                         <h3>{edu.school}</h3>
                       </Link>
                       <span className="text-white/60 text-sm">
@@ -792,16 +812,15 @@ export default function About() {
                     <p className="text-base sm:text-lg text-white/80 mb-2">
                       {edu.degree}
                     </p>
-                    <p className="text-sm text-white/60 mb-3">
-                      {edu.location}
-                    </p>
+                    <p className="text-sm text-white/60 mb-3">{edu.location}</p>
                     <div className="flex flex-wrap gap-1.5 sm:gap-2">
                       {edu.courses.map((course) => (
                         <span
                           key={course}
                           className="px-2 sm:px-3 py-1 text-xs sm:text-sm bg-white/5 border border-white/10 
                             rounded-full group-hover/edu:bg-white/10 
-                            group-hover/edu:border-white/20 transition-all duration-300">
+                            group-hover/edu:border-white/20 transition-all duration-300"
+                        >
                           {course}
                         </span>
                       ))}
@@ -816,4 +835,3 @@ export default function About() {
     </div>
   );
 }
-
