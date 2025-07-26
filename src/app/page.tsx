@@ -288,9 +288,19 @@ const EDUCATION = [
 const POSITIONS = [
   {
     title: "Core Member",
+    organization: "Hostel Management Committee, DA-IICT",
+    organizationUrl: null,
+    duration: "Feb 2025 - Present",
+    location: "Gandhinagar, Gujarat, India",
+    description:
+      "Managing hostel operations and coordinating events to enhance student life, working on improving facilities and organizing activities for resident satisfaction.",
+    events: null,
+  },
+  {
+    title: "Core Member",
     organization: "Google Developer Group on Campus, DA-IICT",
     organizationUrl: "https://dscdaiict.in/",
-    duration: "2024 - Present",
+    duration: "Feb 2024 - Jul 2025",
     location: "Gandhinagar, Gujarat, India",
     description:
       "Contributing to the developer community as a core member of GDG, organizing technical events and workshops to foster learning and collaboration among students and various communities.",
@@ -304,16 +314,6 @@ const POSITIONS = [
         url: "https://slop.dscdaiict.in",
       },
     ],
-  },
-  {
-    title: "Team Member",
-    organization: "Hostel Management Committee, DA-IICT",
-    organizationUrl: null,
-    duration: "2025 - Present",
-    location: "Gandhinagar, Gujarat, India",
-    description:
-      "Managing hostel operations and coordinating events to enhance student life, working on improving facilities and organizing activities for resident satisfaction.",
-    events: null,
   },
 ];
 
@@ -331,7 +331,7 @@ const EXPERIENCE = [
     title: "Full Stack Developer (Freelance)",
     organization: "Information Retrieval Lab, DA-IICT",
     organizationUrl: "https://irlab.daiict.ac.in",
-    duration: "May 2025 - Present",
+    duration: "May 2025 - Jul 2025",
     location: "Gandhinagar, Gujarat, India",
     description:
       "Built a full-stack machine translation evaluation platform enabling users to submit translations, compute BLEU and other NLP metrics and view real-time leaderboards. Engineered secure APIs, dynamic dashboards and managed complete deployment in collaboration with lab researchers.",
