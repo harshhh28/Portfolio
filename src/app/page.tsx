@@ -89,16 +89,8 @@ const SKILLS = {
   ],
   frameworks: [
     {
-      name: "React",
-      url: "https://react.dev/",
-    },
-    {
       name: "Next.js",
       url: "https://nextjs.org/docs",
-    },
-    {
-      name: "React Native",
-      url: "https://reactnative.dev/docs/getting-started",
     },
     {
       name: "Node.js",
@@ -107,6 +99,22 @@ const SKILLS = {
     {
       name: "Express.js",
       url: "https://expressjs.com/",
+    },
+    {
+      name: "FastAPI",
+      url: "https://fastapi.tiangolo.com/"
+    },
+    {
+      name: "Flask",
+      url: "https://flask.palletsprojects.com/"
+    },
+    {
+      name: "React",
+      url: "https://react.dev/",
+    },
+    {
+      name: "React Native",
+      url: "https://reactnative.dev/docs/getting-started",
     },
     {
       name: "Vite",
@@ -191,6 +199,10 @@ const SKILLS = {
     {
       name: "PostgreSQL",
       url: "https://www.postgresql.org/docs/",
+    },
+    {
+      name: "Docker",
+      url: "https://docs.docker.com/"
     },
     {
       name: "Cloudinary",
