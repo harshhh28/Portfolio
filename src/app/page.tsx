@@ -299,6 +299,7 @@ const EDUCATION = [
 
 const POSITIONS = [
   {
+    id: "hmc-core",  // Add unique id
     title: "Core Member",
     organization: "Hostel Management Committee, DA-IICT",
     organizationUrl: null,
@@ -309,6 +310,7 @@ const POSITIONS = [
     events: null,
   },
   {
+    id: "gdg-core",  // Add unique id
     title: "Core Member",
     organization: "Google Developer Group on Campus, DA-IICT",
     organizationUrl: "https://dscdaiict.in/",
@@ -385,7 +387,7 @@ export default function About() {
           <div className="relative space-y-8">
             <div className="flex justify-center">
               <Image
-                src="/images/about/profilePic.jpg"
+                src="/images/about/profilePic.jpeg"
                 alt="Profile Picture"
                 width={150}
                 height={150}
@@ -745,7 +747,7 @@ export default function About() {
               <div className="space-y-4 sm:space-y-6">
                 {POSITIONS.map((pos) => (
                   <div
-                    key={pos.title}
+                    key={pos.id}  // Change from title to id
                     className="backdrop-blur-sm bg-white/5 rounded-2xl border border-white/10 
                     p-4 sm:p-6 hover:bg-white/10 hover:border-white/20 
                     transition-all duration-300 group/edu"
