@@ -169,20 +169,16 @@ const SKILLS = {
   ],
   cloudDatabases: [
     {
-      name: "GCP",
-      url: "https://cloud.google.com/docs",
-    },
-    {
       name: "AWS",
       url: "https://docs.aws.amazon.com/",
     },
     {
-      name: "Vercel",
-      url: "https://vercel.com/docs",
+      name: "GCP",
+      url: "https://cloud.google.com/docs",
     },
     {
-      name: "Render",
-      url: "https://render.com/docs",
+      name: "Redis",
+      url: "https://redis.io/docs/",
     },
     {
       name: "Supabase",
@@ -201,8 +197,16 @@ const SKILLS = {
       url: "https://www.postgresql.org/docs/",
     },
     {
-      name: "Docker",
-      url: "https://docs.docker.com/",
+      name: "Vercel",
+      url: "https://vercel.com/docs",
+    },
+    {
+      name: "Railway",
+      url: "https://docs.railway.com/",
+    },
+    {
+      name: "Render",
+      url: "https://render.com/docs",
     },
     {
       name: "Cloudinary",
