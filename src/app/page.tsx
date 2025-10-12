@@ -303,17 +303,6 @@ const EDUCATION = [
 
 const POSITIONS = [
   {
-    id: "hmc-core", // Add unique id
-    title: "Core Member",
-    organization: "Hostel Management Committee, DA-IICT",
-    organizationUrl: null,
-    duration: "Feb 2025 - Present",
-    location: "Gandhinagar, Gujarat, India",
-    description:
-      "Managing hostel operations and coordinating events to enhance student life, working on improving facilities and organizing activities for resident satisfaction.",
-    events: null,
-  },
-  {
     id: "gdg-core", // Add unique id
     title: "Core Member",
     organization: "Google Developer Group on Campus, DA-IICT",
@@ -333,11 +322,22 @@ const POSITIONS = [
       },
     ],
   },
+  {
+    id: "hmc-core", // Add unique id
+    title: "Core Member",
+    organization: "Hostel Management Committee, DA-IICT",
+    organizationUrl: null,
+    duration: "Feb 2025 - Present",
+    location: "Gandhinagar, Gujarat, India",
+    description:
+      "Managing hostel operations and coordinating events to enhance student life, working on improving facilities and organizing activities for resident satisfaction.",
+    events: null,
+  },
 ];
 
 const EXPERIENCE = [
   {
-    title: "Product Developer Intern",
+    title: "Software Developer Intern",
     organization: "HiDevs",
     organizationUrl: "https://hidevs.xyz",
     duration: "Mar 2025 - Jun 2025",
@@ -346,7 +346,7 @@ const EXPERIENCE = [
       "Designed and deployed scalable APIs with Node.js, MongoDB, and AWS, reducing latency by 30% for 2,500+ users. Built React and Next.js dashboards, global leaderboards, and personalized roadmaps, increasing engagement by 80%. Mentored junior developers on Node.js and system design  practices while collaborating with cross-functional teams.",
   },
   {
-    title: "Full Stack Developer (Freelance)",
+    title: "Software Developer (Freelance)",
     organization: "Information Retrieval Lab, DA-IICT",
     organizationUrl: "https://irlab.daiict.ac.in",
     duration: "May 2025 - Jul 2025",
