@@ -337,6 +337,17 @@ const POSITIONS = [
 
 const EXPERIENCE = [
   {
+    id: "hidevs-2026",
+    title: "Software Developer Intern",
+    organization: "HiDevs",
+    organizationUrl: "https://hidevs.xyz",
+    duration: "Jan 2026 - Present",
+    location: "San Francisco, California, United States · (Remote)",
+    description:
+      "Leading backend development using Node.js, MongoDB, and AWS for 2,800+ users. Implementing observability with Sentry and dockerizing backend infrastructure. Owning and managing ClickUp tickets and sprints to ensure timely delivery. Building React and Next.js dashboards, leaderboards, and personalized roadmaps. Mentoring junior developers and collaborating with cross-functional teams.",
+  },
+  {
+    id: "hidevs-2025",
     title: "Software Developer Intern",
     organization: "HiDevs",
     organizationUrl: "https://hidevs.xyz",
@@ -695,7 +706,10 @@ export default function About() {
               <div className="space-y-4 sm:space-y-6">
                 {EXPERIENCE.map((exp) => (
                   <div
-                    key={exp.title}
+                    key={
+                      exp.id ||
+                      `${exp.title}-${exp.organization}-${exp.duration}`
+                    }
                     className="backdrop-blur-sm bg-white/5 rounded-2xl border border-white/10 
                       p-4 sm:p-6 hover:bg-white/10 hover:border-white/20 
                       transition-all duration-300 group/exp">
