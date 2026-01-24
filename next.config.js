@@ -15,16 +15,6 @@ const nextConfig = {
     // Number of pages that should be kept simultaneously without being disposed
     pagesBufferLength: 2,
   },
-  webpack: (config, { isServer }) => {
-    // Ensure React is resolved correctly
-    if (!isServer) {
-      config.resolve.fallback = {
-        ...config.resolve.fallback,
-        fs: false,
-      };
-    }
-    return config;
-  },
 };
 
 module.exports = nextConfig;
