@@ -5,11 +5,12 @@ import { enIN } from "date-fns/locale";
 import { useEffect, useState } from "react";
 
 export default function LiveTime() {
-  const [currentTime, setCurrentTime] = useState<string>(
-    format(new Date(), "EEEE, MMM d • h:mm a", { locale: enIN })
-  );
+  const [currentTime, setCurrentTime] = useState<string>("");
 
   useEffect(() => {
+    // Set initial time
+    setCurrentTime(format(new Date(), "EEEE, MMM d • h:mm a", { locale: enIN }));
+
     const timer = setInterval(() => {
       setCurrentTime(
         format(new Date(), "EEEE, MMM d • h:mm:ss a", { locale: enIN })
@@ -19,9 +20,11 @@ export default function LiveTime() {
     return () => clearInterval(timer);
   }, []);
 
+  if (!currentTime) return null;
+
   return (
-    <p className="text-base sm:text-lg text-white/60 font-medium group-hover:text-white/80 transition-colors">
+    <span className="text-sm font-medium text-muted-foreground min-w-[140px]">
       {currentTime}
-    </p>
+    </span>
   );
 }

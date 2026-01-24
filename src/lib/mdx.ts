@@ -1,0 +1,73 @@
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
+import { BlogPost } from '@/types';
+
+const postsDirectory = path.join(process.cwd(), 'src/content/blog');
+
+export function getPostSlugs(): string[] {
+  if (!fs.existsSync(postsDirectory)) {
+    return [];
+  }
+  return fs.readdirSync(postsDirectory)
+    .filter((file) => file.endsWith('.mdx'))
+    .map((file) => file.replace(/\.mdx$/, ''));
+}
+
+export function getPostBySlug(slug: string): BlogPost | null {
+  try {
+    const fullPath = path.join(postsDirectory, `${slug}.mdx`);
+    if (!fs.existsSync(fullPath)) {
+      return null;
+    }
+    
+    const fileContents = fs.readFileSync(fullPath, 'utf8');
+    const { data, content } = matter(fileContents);
+    
+    // Calculate read time (average reading speed: 200 words per minute)
+    const wordsPerMinute = 200;
+    const wordCount = content.split(/\s+/).length;
+    const readTime = Math.ceil(wordCount / wordsPerMinute);
+    
+    return {
+      slug,
+      title: data.title || '',
+      subtitle: data.subtitle || '',
+      dateAdded: data.date || new Date().toISOString(),
+      readTimeInMinutes: readTime,
+      coverImage: data.coverImage || '',
+      tags: data.tags || [],
+      author: data.author || 'Harsh Gajjar',
+    };
+  } catch (error) {
+    console.error(`Error reading post ${slug}:`, error);
+    return null;
+  }
+}
+
+export function getAllPosts(): BlogPost[] {
+  const slugs = getPostSlugs();
+  const posts = slugs
+    .map((slug) => getPostBySlug(slug))
+    .filter((post): post is BlogPost => post !== null)
+    .sort((a, b) => {
+      return new Date(b.dateAdded).getTime() - new Date(a.dateAdded).getTime();
+    });
+  
+  return posts;
+}
+
+export function getPostContent(slug: string): string | null {
+  try {
+    const fullPath = path.join(postsDirectory, `${slug}.mdx`);
+    if (!fs.existsSync(fullPath)) {
+      return null;
+    }
+    const fileContents = fs.readFileSync(fullPath, 'utf8');
+    const { content } = matter(fileContents);
+    return content;
+  } catch (error) {
+    console.error(`Error reading post content ${slug}:`, error);
+    return null;
+  }
+}

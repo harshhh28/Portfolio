@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import Parser from 'rss-parser';
+import type { NewsArticle } from '@/types';
 
 const parser = new Parser({
   timeout: 10000,
@@ -14,13 +15,6 @@ const techNewsFeeds = [
   'https://feeds.feedburner.com/TechCrunch/',
   'https://www.theverge.com/rss/index.xml'
 ];
-
-interface NewsArticle {
-  title: string;
-  description: string;
-  url: string;
-  pubDate: string;
-}
 
 async function fetchRSSFeed(feedUrl: string) {
   try {

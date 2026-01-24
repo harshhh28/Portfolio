@@ -3,844 +3,202 @@
 import Link from "next/link";
 import { TypeAnimation } from "react-type-animation";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import Loader from "@/components/Loader";
+import { SKILLS } from "@/data/skills";
+import { EXPERIENCE } from "@/data/experience";
+import { POSITIONS } from "@/data/community-leadership";
+import { EDUCATION } from "@/data/education";
 
-const SKILLS = {
-  languages: [
-    {
-      name: "C",
-      url: "https://devdocs.io/c/",
-    },
-    {
-      name: "C++",
-      url: "https://cplusplus.com/doc/",
-    },
-    {
-      name: "Python",
-      url: "https://docs.python.org/3/",
-    },
-    {
-      name: "JavaScript",
-      url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
-    },
-    {
-      name: "TypeScript",
-      url: "https://www.typescriptlang.org/docs/",
-    },
-    {
-      name: "SQL",
-      url: "https://www.w3schools.com/sql/",
-    },
-    {
-      name: "HTML",
-      url: "https://developer.mozilla.org/en-US/docs/Web/HTML",
-    },
-    {
-      name: "CSS",
-      url: "https://developer.mozilla.org/en-US/docs/Web/CSS",
-    },
-    {
-      name: "Verilog",
-      url: "https://sutherland-hdl.com/pdfs/verilog_2001_ref_guide.pdf",
-    },
-  ],
-  developerTools: [
-    {
-      name: "Git",
-      url: "https://git-scm.com/doc",
-    },
-    {
-      name: "GitHub",
-      url: "https://docs.github.com/",
-    },
-    {
-      name: "Docker",
-      url: "https://docs.docker.com/",
-    },
-    {
-      name: "Postman",
-      url: "https://learning.postman.com/docs/",
-    },
-    {
-      name: "pgAdmin",
-      url: "https://www.pgadmin.org/docs/",
-    },
-    {
-      name: "VS Code",
-      url: "https://code.visualstudio.com/docs",
-    },
-    {
-      name: "Android Studio",
-      url: "https://developer.android.com/docs",
-    },
-    {
-      name: "Cursor",
-      url: "https://docs.cursor.com/introduction",
-    },
-    {
-      name: "MATLAB",
-      url: "https://www.mathworks.com/help/matlab/",
-    },
-    {
-      name: "Jupyter Notebook",
-      url: "https://jupyter-notebook.readthedocs.io/",
-    },
-  ],
-  frameworks: [
-    {
-      name: "Next.js",
-      url: "https://nextjs.org/docs",
-    },
-    {
-      name: "Node.js",
-      url: "https://nodejs.org/docs/latest/api/",
-    },
-    {
-      name: "Express.js",
-      url: "https://expressjs.com/",
-    },
-    {
-      name: "FastAPI",
-      url: "https://fastapi.tiangolo.com/",
-    },
-    {
-      name: "Flask",
-      url: "https://flask.palletsprojects.com/",
-    },
-    {
-      name: "React",
-      url: "https://react.dev/",
-    },
-    {
-      name: "React Native",
-      url: "https://reactnative.dev/docs/getting-started",
-    },
-    {
-      name: "Vite",
-      url: "https://vitejs.dev/guide/",
-    },
-    {
-      name: "Tailwind CSS",
-      url: "https://tailwindcss.com/docs",
-    },
-  ],
-  mlAndDataScience: [
-    {
-      name: "TensorFlow",
-      url: "https://www.tensorflow.org/api_docs",
-    },
-    {
-      name: "Keras",
-      url: "https://keras.io/api/",
-    },
-    {
-      name: "Scikit-learn",
-      url: "https://scikit-learn.org/stable/documentation.html",
-    },
-    {
-      name: "NumPy",
-      url: "https://numpy.org/doc/",
-    },
-    {
-      name: "Pandas",
-      url: "https://pandas.pydata.org/docs/",
-    },
-    {
-      name: "Matplotlib",
-      url: "https://matplotlib.org/stable/contents.html",
-    },
-    {
-      name: "Seaborn",
-      url: "https://seaborn.pydata.org/api.html",
-    },
-    {
-      name: "Agno (Phidata)",
-      url: "https://docs.agno.com/introduction",
-    },
-    {
-      name: "Groq",
-      url: "https://console.groq.com/docs",
-    },
-    {
-      name: "Streamlit",
-      url: "https://docs.streamlit.io/library",
-    },
-  ],
-  cloudDatabases: [
-    {
-      name: "AWS",
-      url: "https://docs.aws.amazon.com/",
-    },
-    {
-      name: "GCP",
-      url: "https://cloud.google.com/docs",
-    },
-    {
-      name: "Redis",
-      url: "https://redis.io/docs/",
-    },
-    {
-      name: "Supabase",
-      url: "https://supabase.io/docs",
-    },
-    {
-      name: "Firebase",
-      url: "https://firebase.google.com/docs",
-    },
-    {
-      name: "MongoDB",
-      url: "https://www.mongodb.com/docs/",
-    },
-    {
-      name: "PostgreSQL",
-      url: "https://www.postgresql.org/docs/",
-    },
-    {
-      name: "Vercel",
-      url: "https://vercel.com/docs",
-    },
-    {
-      name: "Railway",
-      url: "https://docs.railway.com/",
-    },
-    {
-      name: "Render",
-      url: "https://render.com/docs",
-    },
-    {
-      name: "Cloudinary",
-      url: "https://cloudinary.com/documentation",
-    },
-  ],
-  coursework: [
-    {
-      name: "Machine Learning",
-      url: null,
-    },
-    {
-      name: "Software Engineering",
-      url: null,
-    },
-    {
-      name: "Computer Networks",
-      url: null,
-    },
-    {
-      name: "Database Management System",
-      url: null,
-    },
-    {
-      name: "Object Oriented Programming",
-      url: null,
-    },
-    {
-      name: "Data Structures",
-      url: null,
-    },
-    {
-      name: "Design and Analysis of Algorithms",
-      url: null,
-    },
-    {
-      name: "Computer System Programming",
-      url: null,
-    },
-    {
-      name: "Augmented Reality and Virtual Reality Systems",
-      url: null,
-    },
-  ],
-  areasOfInterest: [
-    {
-      name: "Scalable Backend Systems",
-      url: null,
-    },
-    {
-      name: "API & Microservices Design",
-      url: null,
-    },
-    {
-      name: "DevOps & CI/CD",
-      url: null,
-    },
-    {
-      name: "MLOps",
-      url: null,
-    },
-  ],
-};
-
-const EDUCATION = [
-  {
-    school:
-      "Dhirubhai Ambani Institute of Information and Communication Technology (DA-IICT)",
-    schoolUrl: "https://www.daiict.ac.in",
-    degree:
-      "Bachelor of Technology in Information and Communication Technology (ICT)",
-    duration: "2022 - Present",
-    location: "Gandhinagar, Gujarat, India",
-    courses: [
-      "Machine Learning",
-      "Augmented and Virtual Reality Systems",
-      "Software Engineering",
-      "Computer Networks",
-      "System Programming",
-      "Design and Analysis of Algorithms",
-      "Data Structures",
-      "Object Oriented Programming",
-    ],
-  },
-  {
-    school: "The H. B. Kapadia New High School",
-    schoolUrl: "https://www.hbkapadia.com",
-    degree: "Higher Secondary Education (XII) - Science",
-    duration: "2021 - 2022",
-    location: "Ahmedabad, Gujarat, India",
-    courses: ["Physics", "Chemistry", "Mathematics", "Computer Science"],
-  },
-];
-
-const POSITIONS = [
-  {
-    id: "gdg-core", // Add unique id
-    title: "Core Member",
-    organization: "Google Developer Group on Campus, DA-IICT",
-    organizationUrl: "https://dscdaiict.in/",
-    duration: "Feb 2024 - Jul 2025",
-    location: "Gandhinagar, Gujarat, India",
-    description:
-      "Contributing to the developer community as a core member of GDG, organizing technical events and workshops to foster learning and collaboration among students and various communities.",
-    events: [
-      {
-        name: "Dev-o-lution'25",
-        url: "https://devolution.dscdaiict.in",
-      },
-      {
-        name: "SLoP 4.0",
-        url: "https://slop.dscdaiict.in",
-      },
-    ],
-  },
-  {
-    id: "hmc-core", // Add unique id
-    title: "Core Member",
-    organization: "Hostel Management Committee, DA-IICT",
-    organizationUrl: null,
-    duration: "Feb 2025 - Present",
-    location: "Gandhinagar, Gujarat, India",
-    description:
-      "Managing hostel operations and coordinating events to enhance student life, working on improving facilities and organizing activities for resident satisfaction.",
-    events: null,
-  },
-];
-
-const EXPERIENCE = [
-  {
-    id: "hidevs-2026",
-    title: "Software Developer Intern",
-    organization: "HiDevs",
-    organizationUrl: "https://hidevs.xyz",
-    duration: "Jan 2026 - Present",
-    location: "San Francisco, California, United States · (Remote)",
-    description:
-      "Leading backend development using Node.js, MongoDB, and AWS for 2,800+ users. Implementing observability with Sentry and dockerizing backend infrastructure. Owning and managing ClickUp tickets and sprints to ensure timely delivery. Building React and Next.js dashboards, leaderboards, and personalized roadmaps. Mentoring junior developers and collaborating with cross-functional teams.",
-  },
-  {
-    id: "hidevs-2025",
-    title: "Software Developer Intern",
-    organization: "HiDevs",
-    organizationUrl: "https://hidevs.xyz",
-    duration: "Mar 2025 - Jun 2025",
-    location: "San Francisco, California, United States · (Remote)",
-    description:
-      "Designed and deployed scalable APIs with Node.js, MongoDB, and AWS, reducing latency by 30% for 2,500+ users. Built React and Next.js dashboards, global leaderboards, and personalized roadmaps, increasing engagement by 80%. Mentored junior developers on Node.js and system design  practices while collaborating with cross-functional teams.",
-  },
-  {
-    title: "Software Developer (Freelance)",
-    organization: "Information Retrieval Lab, DA-IICT",
-    organizationUrl: "https://irlab.daiict.ac.in",
-    duration: "May 2025 - Jul 2025",
-    location: "Gandhinagar, Gujarat, India",
-    description:
-      "Built a full-stack machine translation platform with React, Vite, and Supabase for BLEU and NLP metric evaluations. Developed secure REST APIs, dashboards, and cloud deployment using PostgreSQL and system design principles. Collaborated with IR researchers to align platform features with academic and research goals.",
-  },
-];
-
-export default function About() {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  if (isLoading) {
-    return <Loader />;
-  }
-
+export default function Home() {
   return (
-    <div className="min-h-screen pt-24 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto">
-        <div
-          className="backdrop-blur-lg bg-gradient-to-br from-black/50 to-black/30 
-            rounded-3xl border border-white/10 p-8 
-            hover:border-white/20 transition-all duration-500 
-            group relative overflow-hidden
-            animate-in slide-in-from-bottom">
-          {/* Gradient overlay effect */}
-          <div
-            className="absolute inset-0 bg-gradient-to-r from-white/5 to-transparent 
-              opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+    <div className="min-h-screen pt-24 px-4 sm:px-6 lg:px-8 pb-16 max-w-4xl mx-auto space-y-16">
+      
+      {/* Header / Intro */}
+      <section className="flex flex-col items-center text-center space-y-6">
+        <div className="relative w-32 h-32 md:w-40 md:h-40 overflow-hidden rounded-full border-2 border-muted">
+           <Image
+            src="/images/about/profilePic.jpeg"
+            alt="Harsh Gajjar"
+            fill
+            className="object-cover"
+            priority
           />
-
-          {/* Content container */}
-          <div className="relative space-y-8">
-            <div className="flex justify-center">
-              <Image
-                src="/images/about/profilePic.jpeg"
-                alt="Profile Picture"
-                width={150}
-                height={150}
-                className="rounded-full"
-              />
-            </div>
-            <div className="space-y-2 sm:space-y-4">
-              <h1
-                className="text-2xl md:text-3xl lg:text-5xl font-bold py-3 mb-2 text-center 
-                bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500">
-                नमस्ते, I'm Harsh Gajjar
-              </h1>
-              <div
-                className="text-xl md:text-2xl lg:text-4xl font-bold text-center min-h-[40px] md:min-h-[48px] 
-                bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500">
-                <TypeAnimation
-                  sequence={[
-                    "Software Developer",
-                    1000,
-                    "Lazy blogger",
-                    1000,
-                    "Hardcore tweeter",
-                    1000,
-                  ]}
-                  wrapper="span"
-                  cursor={true}
-                  repeat={Infinity}
-                  style={{ display: "inline-block", lineHeight: "1.2" }}
-                />
-              </div>
-            </div>
-
-            <p
-              className="text-base md:text-lg lg:text-xl text-white/80 leading-relaxed md:leading-loose 
-              max-w-full sm:text-left px-2 sm:px-0
-              transform transition-all duration-300 group-hover:text-white/90">
-              A developer crafting web solutions with modern tech stacks and
-              frameworks. Passionate about AI/ML, I work on prediction models
-              and AI agents while constantly exploring new technologies to
-              create impactful solutions.
-            </p>
-
-            <div className="flex flex-wrap items-center gap-2 sm:gap-3">
-              <Link
+        </div>
+        
+        <div className="space-y-4">
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">
+            Harsh Gajjar
+          </h1>
+          <div className="text-xl md:text-2xl text-muted-foreground font-medium h-8">
+            <TypeAnimation
+              sequence={[
+                "Software Developer",
+                2000,
+                "Lazy Blogger",
+                2000,
+                "Tech Enthusiast",
+                2000,
+              ]}
+              wrapper="span"
+              cursor={true}
+              repeat={Infinity}
+            />
+          </div>
+          <p className="max-w-xl mx-auto text-lg text-muted-foreground leading-relaxed">
+            A developer crafting web solutions with modern tech stacks. 
+            Passionate about AI/ML, distributed systems, and building impactful products.
+          </p>
+          
+          <div className="flex justify-center gap-4 pt-4">
+             <Link
                 href="https://linktr.ee/harshgajjar"
                 target="_blank"
-                className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white/5 rounded-lg border border-white/10 
-                  hover:bg-white/10 hover:border-white/20 
-                  transition-all duration-300 hover:-translate-y-1
-                  backdrop-blur-sm group/skill
-                  text-sm sm:text-base
-                  flex items-center gap-2">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  shapeRendering="geometricPrecision"
-                  textRendering="geometricPrecision"
-                  imageRendering="optimizeQuality"
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  viewBox="0 0 417 512.238"
-                  className="w-4 h-4 sm:w-5 sm:h-5">
-                  <path
-                    fill="#ffffff"
-                    fillRule="nonzero"
-                    d="M171.274 344.942h74.09v167.296h-74.09V344.942zM0 173.468h126.068l-89.622-85.44 49.591-50.985 85.439 87.829V0h74.086v124.872L331 37.243l49.552 50.785-89.58 85.24H417v70.502H290.252l90.183 87.629L331 381.192 208.519 258.11 86.037 381.192l-49.591-49.591 90.218-87.631H0v-70.502z"
-                  />
-                </svg>
+                className="px-6 py-2 rounded-full bg-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity"
+              >
                 Linktree
               </Link>
-
               <a
                 href="/docs/Harsh_Gajjar_CV.pdf"
                 download
-                className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white/5 rounded-lg border border-white/10 
-                  hover:bg-white/10 hover:border-white/20 
-                  transition-all duration-300 hover:-translate-y-1
-                  backdrop-blur-sm
-                  text-sm sm:text-base
-                  flex items-center gap-2">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="sm:w-5 sm:h-5">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                  <polyline points="7 10 12 15 17 10" />
-                  <line x1="12" y1="15" x2="12" y2="3" />
-                </svg>
+                className="px-6 py-2 rounded-full border border-border hover:bg-muted transition-colors font-medium"
+              >
                 Download CV
               </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Experience */}
+      <section>
+        <h2 className="text-2xl font-bold mb-8 border-b border-border pb-2">Experience</h2>
+        <div className="space-y-8">
+          {EXPERIENCE.map((exp) => (
+            <div key={exp.id} className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <div className="col-span-1 text-sm text-muted-foreground pt-1">
+                {exp.duration}
+              </div>
+              <div className="col-span-3 space-y-2">
+                <h3 className="font-semibold text-lg">
+                  {exp.title} 
+                  <span className="text-muted-foreground font-normal"> @ </span>
+                  {exp.organizationUrl ? (
+                    <Link href={exp.organizationUrl} target="_blank" className="hover:underline">
+                      {exp.organization}
+                    </Link>
+                  ) : (
+                    exp.organization
+                  )}
+                </h3>
+                <p className="text-sm text-muted-foreground">{exp.location}</p>
+                <p className="text-muted-foreground leading-relaxed">
+                  {exp.description}
+                </p>
+              </div>
             </div>
+          ))}
+        </div>
+      </section>
 
-            <div className="space-y-8">
-              <div>
-                <h2 className="text-xl sm:text-2xl font-bold mb-6 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
-                  Skills & Technologies
-                </h2>
-                <div className="space-y-6">
-                  <div>
-                    <h3 className="text-base sm:text-lg font-semibold mb-3 text-white/80">
-                      Languages
-                    </h3>
-                    <div className="flex flex-wrap gap-2 sm:gap-3">
-                      {SKILLS.languages.map((skill) => (
-                        <Link
-                          key={skill.name}
-                          href={skill.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white/5 rounded-lg border border-white/10 
-                            hover:bg-white/10 hover:border-white/20 
-                            transition-all duration-300 hover:-translate-y-1
-                            backdrop-blur-sm group/skill
-                            text-sm sm:text-base">
-                          <span className="relative">
-                            {skill.name}
-                            <span
-                              className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 
-                              opacity-0 group-hover/skill:opacity-100 transition-opacity duration-500"
-                            />
-                          </span>
-                        </Link>
-                      ))}
-                    </div>
+      {/* Positions of Responsibility */}
+      <section>
+        <h2 className="text-2xl font-bold mb-8 border-b border-border pb-2">Community & Leadership</h2>
+        <div className="space-y-8">
+          {POSITIONS.map((pos) => (
+            <div key={pos.id} className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <div className="col-span-1 text-sm text-muted-foreground pt-1">
+                {pos.duration}
+              </div>
+              <div className="col-span-3 space-y-2">
+                <h3 className="font-semibold text-lg">
+                  {pos.title}
+                  <span className="text-muted-foreground font-normal"> @ </span>
+                   {pos.organizationUrl ? (
+                    <Link href={pos.organizationUrl} target="_blank" className="hover:underline">
+                      {pos.organization}
+                    </Link>
+                  ) : (
+                    pos.organization
+                  )}
+                </h3>
+                 <p className="text-muted-foreground leading-relaxed">
+                  {pos.description}
+                </p>
+                {pos.events && (
+                  <div className="flex gap-2 pt-2">
+                    {pos.events.map(ev => (
+                      <Link key={ev.name} href={ev.url} target="_blank" className="text-xs px-2 py-1 bg-muted rounded hover:bg-muted/80">
+                        {ev.name}
+                      </Link>
+                    ))}
                   </div>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
 
-                  <div>
-                    <h3 className="text-base sm:text-lg font-semibold mb-3 text-white/80">
-                      Developer Tools
-                    </h3>
-                    <div className="flex flex-wrap gap-2 sm:gap-3">
-                      {SKILLS.developerTools.map((skill) => (
-                        <Link
-                          key={skill.name}
-                          href={skill.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white/5 rounded-lg border border-white/10 
-                            hover:bg-white/10 hover:border-white/20 
-                            transition-all duration-300 hover:-translate-y-1
-                            backdrop-blur-sm group/skill
-                            text-sm sm:text-base">
-                          <span className="relative">
-                            {skill.name}
-                            <span
-                              className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 
-                              opacity-0 group-hover/skill:opacity-100 transition-opacity duration-500"
-                            />
-                          </span>
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div>
-                    <h3 className="text-base sm:text-lg font-semibold mb-3 text-white/80">
-                      Frameworks
-                    </h3>
-                    <div className="flex flex-wrap gap-2 sm:gap-3">
-                      {SKILLS.frameworks.map((skill) => (
-                        <Link
-                          key={skill.name}
-                          href={skill.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white/5 rounded-lg border border-white/10 
-                            hover:bg-white/10 hover:border-white/20 
-                            transition-all duration-300 hover:-translate-y-1
-                            backdrop-blur-sm group/skill
-                            text-sm sm:text-base">
-                          <span className="relative">
-                            {skill.name}
-                            <span
-                              className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 
-                              opacity-0 group-hover/skill:opacity-100 transition-opacity duration-500"
-                            />
-                          </span>
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div>
-                    <h3 className="text-base sm:text-lg font-semibold mb-3 text-white/80">
-                      Machine Learning/Data Science
-                    </h3>
-                    <div className="flex flex-wrap gap-2 sm:gap-3">
-                      {SKILLS.mlAndDataScience.map((skill) => (
-                        <Link
-                          key={skill.name}
-                          href={skill.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white/5 rounded-lg border border-white/10 
-                            hover:bg-white/10 hover:border-white/20 
-                            transition-all duration-300 hover:-translate-y-1
-                            backdrop-blur-sm group/skill
-                            text-sm sm:text-base">
-                          <span className="relative">
-                            {skill.name}
-                            <span
-                              className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 
-                              opacity-0 group-hover/skill:opacity-100 transition-opacity duration-500"
-                            />
-                          </span>
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div>
-                    <h3 className="text-base sm:text-lg font-semibold mb-3 text-white/80">
-                      Cloud/Databases
-                    </h3>
-                    <div className="flex flex-wrap gap-2 sm:gap-3">
-                      {SKILLS.cloudDatabases.map((skill) => (
-                        <Link
-                          key={skill.name}
-                          href={skill.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white/5 rounded-lg border border-white/10 
-                            hover:bg-white/10 hover:border-white/20 
-                            transition-all duration-300 hover:-translate-y-1
-                            backdrop-blur-sm group/skill
-                            text-sm sm:text-base">
-                          <span className="relative">
-                            {skill.name}
-                            <span
-                              className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 
-                              opacity-0 group-hover/skill:opacity-100 transition-opacity duration-500"
-                            />
-                          </span>
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div>
-                    <h3 className="text-base sm:text-lg font-semibold mb-3 text-white/80">
-                      Coursework
-                    </h3>
-                    <div className="flex flex-wrap gap-2 sm:gap-3">
-                      {SKILLS.coursework.map((skill) => (
-                        <span
-                          key={skill.name}
-                          className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white/5 rounded-lg border border-white/10 
-                            hover:bg-white/10 hover:border-white/20 
-                            transition-all duration-300 hover:-translate-y-1
-                            backdrop-blur-sm group/skill
-                            text-sm sm:text-base">
-                          <span className="relative">
-                            {skill.name}
-                            <span
-                              className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 
-                              opacity-0 group-hover/skill:opacity-100 transition-opacity duration-500"
-                            />
-                          </span>
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div>
-                    <h3 className="text-base sm:text-lg font-semibold mb-3 text-white/80">
-                      Areas of Interest
-                    </h3>
-                    <div className="flex flex-wrap gap-2 sm:gap-3">
-                      {SKILLS.areasOfInterest.map((skill) => (
-                        <span
-                          key={skill.name}
-                          className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white/5 rounded-lg border border-white/10 
-                            hover:bg-white/10 hover:border-white/20 
-                            transition-all duration-300 hover:-translate-y-1
-                            backdrop-blur-sm group/skill
-                            text-sm sm:text-base">
-                          <span className="relative">
-                            {skill.name}
-                            <span
-                              className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 
-                              opacity-0 group-hover/skill:opacity-100 transition-opacity duration-500"
-                            />
-                          </span>
-                        </span>
-                      ))}
-                    </div>
-                  </div>
+      {/* Education */}
+      <section>
+        <h2 className="text-2xl font-bold mb-8 border-b border-border pb-2">Education</h2>
+        <div className="space-y-8">
+          {EDUCATION.map((edu) => (
+            <div key={edu.school} className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <div className="col-span-1 text-sm text-muted-foreground pt-1">
+                {edu.duration}
+              </div>
+              <div className="col-span-3 space-y-2">
+                <h3 className="font-semibold text-lg">
+                  {edu.schoolUrl ? (
+                    <Link href={edu.schoolUrl} target="_blank" className="hover:underline">
+                      {edu.school}
+                    </Link>
+                  ) : (
+                    edu.school
+                  )}
+                </h3>
+                <p className="text-base text-muted-foreground">{edu.degree}</p>
+                <p className="text-sm text-muted-foreground">{edu.location}</p>
+                <div className="flex flex-wrap gap-2 pt-2">
+                  {edu.courses.map((course) => (
+                    <span
+                      key={course}
+                      className="text-xs px-2 py-1 bg-muted rounded hover:bg-muted/80"
+                    >
+                      {course}
+                    </span>
+                  ))}
                 </div>
               </div>
             </div>
-
-            <div className="space-y-8">
-              <h2 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
-                Experience
-              </h2>
-              <div className="space-y-4 sm:space-y-6">
-                {EXPERIENCE.map((exp) => (
-                  <div
-                    key={
-                      exp.id ||
-                      `${exp.title}-${exp.organization}-${exp.duration}`
-                    }
-                    className="backdrop-blur-sm bg-white/5 rounded-2xl border border-white/10 
-                      p-4 sm:p-6 hover:bg-white/10 hover:border-white/20 
-                      transition-all duration-300 group/exp">
-                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 mb-2">
-                      {exp.organizationUrl ? (
-                        <Link
-                          href={exp.organizationUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-lg sm:text-xl font-semibold hover:text-white/80 transition-colors">
-                          <h3>{exp.organization}</h3>
-                        </Link>
-                      ) : (
-                        <h3 className="text-lg sm:text-xl font-semibold">
-                          {exp.organization}
-                        </h3>
-                      )}
-                      <span className="text-white/60 text-sm">
-                        {exp.duration}
-                      </span>
-                    </div>
-                    <p className="text-base sm:text-lg text-white/80 mb-2">
-                      {exp.title}
-                    </p>
-                    <p className="text-sm text-white/60 mb-3">{exp.location}</p>
-                    <p className="text-sm text-white/70">{exp.description}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="space-y-8">
-              <h2 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
-                Positions of Responsibility
-              </h2>
-              <div className="space-y-4 sm:space-y-6">
-                {POSITIONS.map((pos) => (
-                  <div
-                    key={pos.id} // Change from title to id
-                    className="backdrop-blur-sm bg-white/5 rounded-2xl border border-white/10 
-                    p-4 sm:p-6 hover:bg-white/10 hover:border-white/20 
-                    transition-all duration-300 group/edu">
-                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 mb-2">
-                      {pos.organizationUrl ? (
-                        <Link
-                          href={pos.organizationUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-lg sm:text-xl font-semibold hover:text-white/80 transition-colors">
-                          <h3>{pos.organization}</h3>
-                        </Link>
-                      ) : (
-                        <h3 className="text-lg sm:text-xl font-semibold">
-                          {pos.organization}
-                        </h3>
-                      )}
-                      <span className="text-white/60 text-sm">
-                        {pos.duration}
-                      </span>
-                    </div>
-                    <p className="text-base sm:text-lg text-white/80 mb-2">
-                      {pos.title}
-                    </p>
-                    <p className="text-sm text-white/60 mb-3">{pos.location}</p>
-                    <p className="text-sm text-white/70">{pos.description}</p>
-                    {pos.events && pos.events.length > 0 && (
-                      <div className="mt-3 flex flex-wrap gap-1.5 sm:gap-2">
-                        {pos.events.map((event) => (
-                          <Link
-                            key={event.name}
-                            href={event.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="px-2 sm:px-3 py-1 text-xs sm:text-sm bg-white/5 border border-white/10 
-                              rounded-full group-hover/edu:bg-white/10 
-                              group-hover/edu:border-white/20 transition-all duration-300 hover:text-white/80">
-                            {event.name}
-                          </Link>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="space-y-8">
-              <h2 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
-                Education
-              </h2>
-              <div className="space-y-4 sm:space-y-6">
-                {EDUCATION.map((edu) => (
-                  <div
-                    key={edu.school}
-                    className="backdrop-blur-sm bg-white/5 rounded-2xl border border-white/10 
-                      p-4 sm:p-6 hover:bg-white/10 hover:border-white/20 
-                      transition-all duration-300 group/edu rounded-2xl">
-                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 mb-2">
-                      <Link
-                        href={edu.schoolUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-lg sm:text-xl font-semibold hover:text-white/80 transition-colors">
-                        <h3>{edu.school}</h3>
-                      </Link>
-                      <span className="text-white/60 text-sm">
-                        {edu.duration}
-                      </span>
-                    </div>
-                    <p className="text-base sm:text-lg text-white/80 mb-2">
-                      {edu.degree}
-                    </p>
-                    <p className="text-sm text-white/60 mb-3">{edu.location}</p>
-                    <div className="flex flex-wrap gap-1.5 sm:gap-2">
-                      {edu.courses.map((course) => (
-                        <span
-                          key={course}
-                          className="px-2 sm:px-3 py-1 text-xs sm:text-sm bg-white/5 border border-white/10 
-                            rounded-full group-hover/edu:bg-white/10 
-                            group-hover/edu:border-white/20 transition-all duration-300">
-                          {course}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
-      </div>
+      </section>
+
+      {/* Skills */}
+      <section>
+        <h2 className="text-2xl font-bold mb-8 border-b border-border pb-2">Skills</h2>
+        <div className="space-y-6">
+          {Object.entries(SKILLS).map(([category, items]) => (
+            <div key={category}>
+              <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-3">
+                {category.replace(/([A-Z])/g, ' $1').trim()}
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {items.map((skill: any) => (
+                  <Link 
+                    key={skill.name} 
+                    href={skill.url || '#'} 
+                    target={skill.url ? "_blank" : undefined}
+                    className="px-3 py-1 bg-muted/50 border border-border rounded-md text-sm hover:bg-muted transition-colors"
+                  >
+                    {skill.name}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }

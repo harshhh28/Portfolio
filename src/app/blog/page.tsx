@@ -1,167 +1,104 @@
-"use client";
+import Link from "next/link";
+import Image from "next/image";
+import { getAllPosts } from "@/lib/mdx";
+import { format } from "date-fns";
+import { Calendar, Clock, Tag } from "lucide-react";
 
-import { useEffect, useState } from "react";
-import Loader from "@/components/Loader";
+export const metadata = {
+  title: "Blog | Harsh Gajjar",
+  description: "Thoughts, tutorials, and insights on software development, architecture, and technology.",
+};
 
-interface BlogPost {
-  title: string;
-  subtitle: string;
-  slug: string;
-  dateAdded: string;
-  readTimeInMinutes: number;
-  views: number;
-  coverImage: string;
-}
-
-export default function Blog() {
-  const [posts, setPosts] = useState<BlogPost[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response = await fetch("/api/blog");
-        const data = await response.json();
-
-        if (!response.ok) {
-          throw new Error(data.error || "Failed to fetch blog posts");
-        }
-
-        setPosts(data);
-      } catch (err) {
-        setError("Failed to fetch blog posts");
-        console.error("Error fetching blog posts:", err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchPosts();
-  }, []);
-
-  if (isLoading) {
-    return <Loader />;
-  }
-
-  if (error) {
-    return (
-      <div className="min-h-screen pt-24 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
-          <div className="backdrop-blur-lg bg-black/40 rounded-3xl border border-white/10 p-6">
-            <p className="text-red-400">{error}</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
+export default function BlogPage() {
+  const posts = getAllPosts();
 
   return (
-    <div className="min-h-screen pt-24 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-6xl mx-auto">
-        <div
-          className="backdrop-blur-lg bg-gradient-to-br from-black/50 to-black/30 
-            rounded-3xl border border-white/10 p-6 sm:p-8 
-            mb-8 animate-in slide-in-from-bottom
-            group relative overflow-hidden
-            hover:border-white/20 transition-all duration-500"
-        >
-          <div
-            className="absolute inset-0 bg-gradient-to-r from-white/5 to-transparent 
-              opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-          />
-          <div className="relative">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500">
-              My Blog Posts
-            </h1>
-            <p className="text-sm sm:text-base text-white/60">
-              Thoughts, tutorials, and tech insights
-            </p>
-          </div>
+    <div className="min-h-screen pt-24 px-4 sm:px-6 lg:px-8 pb-16">
+      <div className="max-w-5xl mx-auto space-y-12">
+        {/* Header */}
+        <div className="space-y-4 border-b border-border pb-8">
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">
+            Blog
+          </h1>
+          <p className="text-lg text-muted-foreground max-w-2xl">
+            Thoughts, tutorials, and insights on software development, architecture, and technology.
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-          {posts.map((post, index) => (
-            <a
-              key={post.slug}
-              href={`https://blog.harshgajjar.xyz/${post.slug}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group/card relative backdrop-blur-lg bg-gradient-to-br from-black/50 to-black/30 
-                rounded-3xl border border-white/10 overflow-hidden
-                hover:border-white/20 hover:scale-[1.01] transition-all duration-500
-                animate-in slide-in-from-bottom"
-              style={{ animationDelay: `${index * 100}ms` }}
-            >
-              <div
-                className="absolute inset-0 bg-gradient-to-r from-white/5 to-transparent 
-                  opacity-0 group-hover/card:opacity-100 transition-opacity duration-500"
-              />
-
-              <div className="relative p-4 sm:p-6">
+        {/* Blog Posts Grid */}
+        {posts.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {posts.map((post) => (
+              <Link
+                key={post.slug}
+                href={`/blog/${post.slug}`}
+                className="group flex flex-col bg-card border border-border rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 hover:border-primary/50"
+              >
+                {/* Cover Image */}
                 {post.coverImage && (
-                  <div className="w-full h-48 mb-4 overflow-hidden rounded-xl">
-                    <img
+                  <div className="relative h-48 w-full overflow-hidden bg-muted">
+                    <Image
                       src={post.coverImage}
                       alt={post.title}
-                      className="w-full h-full object-cover transform group-hover/card:scale-105 transition-transform duration-500"
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                   </div>
                 )}
-                <div>
-                  <h2
-                    className="text-lg sm:text-xl font-bold mb-2 bg-clip-text text-transparent 
-                    bg-gradient-to-r from-white to-white/70 
-                    group-hover/card:to-white transition-all duration-500"
-                  >
-                    {post.title}
-                  </h2>
-                  <p
-                    className="text-sm text-white/60 mb-3
-                    group-hover/card:text-white/90 transition-colors duration-300"
-                  >
-                    {post.subtitle}
-                  </p>
-                  <div className="text-xs text-white/40 flex items-center gap-2">
-                    <span>{new Date(post.dateAdded).toLocaleDateString()}</span>
-                    <span>•</span>
-                    <span>{post.readTimeInMinutes} min read</span>
-                    <span>•</span>
-                    <span>{post.views} views</span>
+
+                {/* Content */}
+                <div className="flex flex-col flex-1 p-6 space-y-4">
+                  {/* Tags */}
+                  {post.tags && post.tags.length > 0 && (
+                    <div className="flex flex-wrap gap-2">
+                      {post.tags.slice(0, 3).map((tag) => (
+                        <span
+                          key={tag}
+                          className="inline-flex items-center gap-1 px-2.5 py-0.5 bg-secondary text-secondary-foreground text-xs font-medium rounded-md"
+                        >
+                          <Tag className="w-3 h-3" />
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Title and Subtitle */}
+                  <div className="space-y-2">
+                    <h2 className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors line-clamp-2">
+                      {post.title}
+                    </h2>
+                    {post.subtitle && (
+                      <p className="text-muted-foreground text-sm leading-relaxed line-clamp-2">
+                        {post.subtitle}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Metadata */}
+                  <div className="flex items-center gap-4 text-xs text-muted-foreground pt-2 mt-auto">
+                    <div className="flex items-center gap-1.5">
+                      <Calendar className="w-4 h-4" />
+                      <time dateTime={post.dateAdded}>
+                        {format(new Date(post.dateAdded), "MMM d, yyyy")}
+                      </time>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <Clock className="w-4 h-4" />
+                      <span>{post.readTimeInMinutes} min read</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </a>
-          ))}
-        </div>
-        <div
-          className="mt-8 backdrop-blur-lg bg-gradient-to-br from-black/50 to-black/30 
-          rounded-3xl border border-white/10 p-6 
-          group relative overflow-hidden text-center
-          hover:border-white/20 transition-all duration-500"
-        >
-          <div
-            className="absolute inset-0 bg-gradient-to-r from-white/5 to-transparent 
-            opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-          />
-          <div className="relative">
-            <p className="text-white/60 mb-4">
-              Follow me on Hashnode for more updates!
-            </p>
-            <a
-              href="https://hashnode.com/@harshgajjar"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 
-                bg-white/5 rounded-lg border border-white/10
-                hover:bg-white/10 hover:border-white/20 hover:translate-x-2
-                transition-all duration-300"
-            >
-              <span className="text-white/80">@harshgajjar</span>
-              <span className="text-lg">→</span>
-            </a>
+              </Link>
+            ))}
           </div>
-        </div>
+        ) : (
+          <div className="border border-dashed border-border rounded-lg p-12 text-center">
+            <p className="text-muted-foreground">
+              No blog posts available yet. Check back soon!
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );
