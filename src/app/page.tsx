@@ -31,11 +31,11 @@ export default function Home() {
           <div className="text-xl md:text-2xl text-muted-foreground font-medium h-8">
             <TypeAnimation
               sequence={[
-                "Software Developer",
+                "Writes Code",
                 2000,
-                "Lazy Blogger",
+                "Breaks Code",
                 2000,
-                "Tech Enthusiast",
+                "Fixes Code",
                 2000,
               ]}
               wrapper="span"
@@ -44,8 +44,7 @@ export default function Home() {
             />
           </div>
           <p className="max-w-xl mx-auto text-lg text-muted-foreground leading-relaxed">
-            A developer crafting web solutions with modern tech stacks. 
-            Passionate about AI/ML, distributed systems, and building impactful products.
+            Hi. My favorite programming language is Humor. I leave code for you to fix. But don't worry, I'll be there to help you :)
           </p>
           
           <div className="flex justify-center gap-4 pt-4">
