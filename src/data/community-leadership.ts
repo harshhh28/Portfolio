@@ -7,7 +7,7 @@ export const POSITIONS: Position[] = [
     organization: "Google Developer Group on Campus",
     organizationUrl: "https://dscdaiict.in/",
     duration: "Feb 2024 - Jul 2025",
-    description: "Organizing technical events and workshops.",
+    description: "Contributed as a core member of GDG by organizing technical events and workshops, fostering learning and collaboration across student and developer communities.",
     events: [
       { name: "Dev-o-lution'25", url: "https://devolution.dscdaiict.in" },
       { name: "SLoP 4.0", url: "https://slop.dscdaiict.in" },
@@ -19,6 +19,6 @@ export const POSITIONS: Position[] = [
     organization: "Hostel Management Committee",
     organizationUrl: null,
     duration: "Feb 2025 - Present",
-    description: "Managing hostel operations and student facilities.",
+    description: "Managed hostel operations and coordinated student events, improving facilities and enhancing overall resident experience and satisfaction.",
   },
 ];

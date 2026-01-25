@@ -16,7 +16,6 @@ const Navigation = () => {
     { href: "/projects", label: "Projects" },
     { href: "/blog", label: "Blog" },
     { href: "/contact", label: "Contact" },
-    { href: "/news", label: "Tech News" },
   ];
 
   return (

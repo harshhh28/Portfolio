@@ -51,15 +51,6 @@ export interface Project {
   tags: string[];
 }
 
-// News Types
-export interface NewsArticle {
-  title: string;
-  description: string;
-  url: string;
-  urlToImage?: string;
-  pubDate?: string;
-}
-
 // Blog Types
 export interface BlogPost {
   title: string;

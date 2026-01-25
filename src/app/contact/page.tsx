@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import { Send } from "react-feather";
-import { useWebhook } from "../../hooks/useWebhook";
 import { cn } from "@/lib/utils";
 
 const ContactPage = () => {
@@ -13,23 +12,36 @@ const ContactPage = () => {
     error: "",
   });
 
-  const { sendWebhook, error } = useWebhook();
   const [isMessageSent, setIsMessageSent] = useState(false);
   const [isSending, setIsSending] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSending(true);
+    setFormData((prev) => ({ ...prev, error: "" }));
 
     const formDataObj = new FormData(e.target as HTMLFormElement);
     const payload = {
-      content: `New contact form submission:\nName: ${formDataObj.get(
-        "name"
-      )}\nEmail: ${formDataObj.get("email")}\nMessage: ${formDataObj.get("message")}`,
+      name: formDataObj.get("name") as string,
+      email: formDataObj.get("email") as string,
+      message: formDataObj.get("message") as string,
     };
 
     try {
-      await sendWebhook(payload);
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to send message");
+      }
+
       setIsMessageSent(true);
       setFormData({
         name: "",
@@ -39,15 +51,15 @@ const ContactPage = () => {
       });
       setTimeout(() => {
         setIsMessageSent(false);
-      }, 3000); 
+      }, 3000);
     } catch (err) {
       console.error("Error sending message:", err);
       setFormData((prev) => ({
         ...prev,
-        error: "Failed to send message. Please try again later.",
+        error: err instanceof Error ? err.message : "Failed to send message. Please try again later.",
       }));
     } finally {
-        setIsSending(false);
+      setIsSending(false);
     }
   };
 
