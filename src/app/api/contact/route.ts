@@ -59,11 +59,11 @@ ${message}
     // Check if Resend API key is available (preferred method)
     const resendApiKey = process.env.RESEND_API_KEY;
     const resendFromEmail = process.env.RESEND_FROM_EMAIL;
-    const recipientEmail = process.env.EMAIL_RECIPIENT || resendFromEmail;
 
     if (resendApiKey && resendFromEmail) {
       // Use Resend API
       const resend = new Resend(resendApiKey);
+      const recipientEmail = process.env.EMAIL_RECIPIENT || resendFromEmail;
 
       await resend.emails.send({
         from: resendFromEmail,
