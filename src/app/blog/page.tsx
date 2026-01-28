@@ -20,7 +20,7 @@ export default function BlogPage() {
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">
             Blog
           </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl">
+          <p className="text-lg text-muted-foreground">
             Thoughts, tutorials, and insights on software development, architecture, and technology.
           </p>
         </div>

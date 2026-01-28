@@ -10,11 +10,11 @@ export default function Projects() {
   return (
     <div className="min-h-screen pt-24 px-4 sm:px-6 lg:px-8 pb-16">
       <div className="max-w-6xl mx-auto space-y-12">
-        <div className="space-y-4 text-center sm:text-left">
-          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
+        <div className="space-y-4 text-center sm:text-left border-b border-border pb-8">
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">
             My Projects
           </h1>
-          <p className="text-muted-foreground text-lg max-w-2xl leading-relaxed">
+          <p className="text-muted-foreground text-lg leading-relaxed">
             A collection of my work spanning web/app development, machine
             learning, and hardware projects. Each project represents a unique
             challenge and learning experience.

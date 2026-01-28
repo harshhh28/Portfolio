@@ -34,9 +34,7 @@ I made a small change to my CSS—nothing major, just adjusting some font sizes 
 At this point, I was convinced the issue was either with my Django project or my browser. So, I tried some things that many of you may have also attempted in a fit of frustration:
 
 * **Adding** `STATICFILES_STORAGE` to settings: Maybe Django's static files storage was the culprit! Nope, still no luck.
-    
 * **Tweaking MIDDLEWARES to update cache**: I tried all sorts of caching strategies, hoping Django would realize that there had been a CSS revolution. Nothing.
-    
 
 It was as if the browser had made a deal with the cache gods to keep the old CSS version forever.
 
@@ -77,9 +75,7 @@ Happy coding, my fellow developers! And remember: when in doubt, just add `` `?v
 ### References
 
 1. **Django Documentation on Static Files**: [https://docs.djangoproject.com/en/stable/ref/contrib/staticfiles/](https://docs.djangoproject.com/en/stable/ref/contrib/staticfiles/)
-    
 2. **Stack Overflow Discussion on Cache Busting with Django**: [https://stackoverflow.com/questions/18153785/cache-busting-django-static-files](https://stackoverflow.com/questions/18153785/cache-busting-django-static-files)
-    
 3. **Browser Caching Explained**: [https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching](https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching)
     
 

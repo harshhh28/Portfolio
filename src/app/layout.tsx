@@ -32,7 +32,7 @@ export default function RootLayout({
           inter.className,
           "bg-background text-foreground overflow-x-hidden min-h-screen flex flex-col antialiased"
         )}>
-        <ThemeProvider defaultTheme="light" storageKey="portfolio-theme">
+        <ThemeProvider defaultTheme="dark" storageKey="portfolio-theme">
           {/* BackgroundAnimation removed for minimalist theme */}
           <Navigation />
           <main className="relative z-10 flex-1">{children}</main>
