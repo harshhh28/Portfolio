@@ -28,24 +28,34 @@ export function ThemeProvider({
   storageKey = "portfolio-theme",
   ...props
 }: ThemeProviderProps) {
-  const [theme, setTheme] = React.useState<Theme>(() => {
-    if (typeof window === "undefined") return defaultTheme;
+  // Always start with defaultTheme to match server render
+  const [theme, setTheme] = React.useState<Theme>(defaultTheme);
+  const [mounted, setMounted] = React.useState(false);
+
+  // Read from localStorage/system preference after mount to avoid hydration mismatch
+  React.useEffect(() => {
+    setMounted(true);
     
     const stored = localStorage.getItem(storageKey) as Theme;
     if (stored && (stored === "dark" || stored === "light")) {
-      return stored;
+      setTheme(stored);
+      return;
     }
     
     // Check system preference
     const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    return systemPrefersDark ? "dark" : defaultTheme;
-  });
+    if (systemPrefersDark) {
+      setTheme("dark");
+    }
+  }, [storageKey]);
 
   React.useEffect(() => {
+    if (!mounted) return;
+    
     const root = window.document.documentElement;
     root.classList.remove("light", "dark");
     root.classList.add(theme);
-  }, [theme]);
+  }, [theme, mounted]);
 
   const value = {
     theme,
