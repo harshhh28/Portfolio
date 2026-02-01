@@ -1,6 +1,11 @@
 import { PROJECTS } from "@/data/projects";
 import ProjectFolder from "@/components/projects/ProjectFolder";
 
+export const metadata = {
+  title: "Workbench | Harsh Gajjar",
+  description: "Active development environments and archived repositories.",
+};
+
 export default function WorkbenchPage() {
   return (
     <div className="min-h-screen pt-24 px-4 pb-16 max-w-4xl mx-auto">

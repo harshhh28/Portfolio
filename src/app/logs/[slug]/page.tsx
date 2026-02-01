@@ -24,11 +24,33 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 
   return {
-    title: `${post.title} | Harsh Gajjar's Logs`,
+    title: `${post.title} | Harsh Gajjar`,
     description: post.subtitle || post.title,
+    keywords: post.tags ? `Harsh Gajjar, software engineer, ${post.tags.join(", ")}` : "Harsh Gajjar, software engineer, blog",
     openGraph: {
-      title: post.title,
+      title: `${post.title} | Harsh Gajjar`,
       description: post.subtitle || post.title,
+      url: `https://harshgajjar.dev/logs/${slug}`,
+      siteName: "Harsh Gajjar",
+      images: [
+        {
+          url: "https://harshgajjar.dev/assets/images/og/og.webp",
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
+      type: "article",
+      publishedTime: post.dateAdded,
+      authors: ["Harsh Gajjar"],
+      tags: post.tags,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${post.title} | Harsh Gajjar`,
+      description: post.subtitle || post.title,
+      images: ["https://harshgajjar.dev/assets/images/og/og.webp"],
+      creator: "@harshgajjar_28",
     },
   };
 }
