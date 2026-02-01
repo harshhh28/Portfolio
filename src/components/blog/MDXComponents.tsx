@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
+import { CodeBlock } from '@/components/blog/CodeBlock';
 
 export const MDXComponents = {
   h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
@@ -94,34 +95,41 @@ export const MDXComponents = {
       {...props}
     />
   ),
-  code: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
-    <code
-      className={cn(
-        'relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm text-foreground',
-        className
-      )}
+  code: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => {
+    const isBlock = className?.includes("language-");
+    const hasHljs = className?.includes("hljs");
+    return (
+      <code
+        className={cn(
+          "font-mono text-sm",
+          isBlock
+            ? "block py-0 px-0 rounded-lg [&.hljs]:bg-transparent"
+            : "relative rounded bg-muted px-[0.3rem] py-[0.2rem] text-foreground",
+          isBlock && !hasHljs && "text-foreground",
+          className
+        )}
+        {...props}
+      />
+    );
+  },
+  pre: ({ className, children, ...props }: React.HTMLAttributes<HTMLPreElement>) => (
+    <CodeBlock
+      className={className}
       {...props}
-    />
-  ),
-  pre: ({ className, ...props }: React.HTMLAttributes<HTMLPreElement>) => (
-    <pre
-      className={cn(
-        'overflow-x-auto rounded-lg bg-muted p-4 mb-4 border border-border',
-        className
-      )}
-      {...props}
-    />
+    >
+      {children}
+    </CodeBlock>
   ),
   hr: ({ ...props }: React.HTMLAttributes<HTMLHRElement>) => (
     <hr className="my-8 border-border" {...props} />
   ),
   img: ({ src, alt, ...props }: React.ImgHTMLAttributes<HTMLImageElement>) => {
     if (!src) return null;
-    
+    // Use span (not div) so when MDX wraps the image in a <p>, we don't get invalid <p><div></div></p>
     return (
-      <div className="my-8 rounded-lg overflow-hidden border border-border">
+      <span className="my-8 block rounded-lg overflow-hidden border border-border">
         <img src={src} alt={alt || ''} className="w-full h-auto" {...props} />
-      </div>
+      </span>
     );
   },
   table: ({ className, ...props }: React.HTMLAttributes<HTMLTableElement>) => (

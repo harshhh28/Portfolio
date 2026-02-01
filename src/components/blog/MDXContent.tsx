@@ -11,7 +11,9 @@ export async function MDXContent({ source }: MDXContentProps) {
   const compiled = await compile(source, {
     outputFormat: "function-body",
     remarkPlugins: [remarkGfm],
-    rehypePlugins: [rehypeHighlight],
+    rehypePlugins: [
+      [rehypeHighlight, { detect: true, ignoreMissing: true }],
+    ],
   });
 
   const runtime = (await import("react/jsx-runtime")) as unknown as Record<string, unknown>;

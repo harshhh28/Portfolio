@@ -9,72 +9,72 @@ import { PROJECTS } from "@/data/projects";
 export default function Projects() {
   return (
     <div className="min-h-screen pt-24 px-4 sm:px-6 lg:px-8 pb-16">
-      <div className="max-w-6xl mx-auto space-y-12">
-        <div className="space-y-4 text-center sm:text-left border-b border-border pb-8">
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">
-            My Projects
-          </h1>
-          <p className="text-muted-foreground text-lg leading-relaxed">
-            A collection of my work spanning web/app development, machine
-            learning, and hardware projects. Each project represents a unique
-            challenge and learning experience.
-          </p>
-        </div>
+      <div className="max-w-3xl mx-auto space-y-8">
+        {/* Header removed for minimalist view */}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="flex flex-col space-y-4">
           {PROJECTS.map((project) => (
             <div
               key={project.title}
-              className="group flex flex-col bg-card border border-border rounded-xl overflow-hidden hover:shadow-md transition-all duration-300"
+              className="group flex flex-col sm:flex-row sm:items-start justify-between gap-4 p-5 rounded-lg border border-border/40 hover:border-primary/20 bg-card/30 hover:bg-card/60 transition-all duration-300"
             >
-              <div className="relative h-48 w-full overflow-hidden border-b border-border bg-muted">
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-              </div>
-
-              <div className="flex flex-col flex-1 p-6 space-y-4">
-                <div className="space-y-2">
-                  <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors">
+              <div className="space-y-2 flex-1">
+                <div className="flex items-center gap-3">
+                  <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
                     {project.title}
                   </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    {project.description}
-                  </p>
+                  <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-y-1 group-hover:translate-y-0">
+                    <Link
+                      href={project.github}
+                      target="_blank"
+                      className="text-muted-foreground hover:text-foreground transition-colors"
+                      title="View Code"
+                    >
+                      <SiGithub size={16} />
+                    </Link>
+                    <Link
+                      href={project.demo}
+                      target="_blank"
+                      className="text-muted-foreground hover:text-foreground transition-colors"
+                      title="View Demo"
+                    >
+                      <ExternalLink size={16} />
+                    </Link>
+                  </div>
                 </div>
-
-                <div className="flex flex-wrap gap-2 mt-auto">
+                <p className="text-sm text-muted-foreground leading-relaxed max-w-2xl">
+                  {project.description}
+                </p>
+                <div className="flex flex-wrap gap-2 pt-1">
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-2.5 py-0.5 bg-secondary text-secondary-foreground text-xs font-medium rounded-md"
+                      className="text-[10px] uppercase tracking-wider font-medium text-muted-foreground/80"
                     >
                       {tag}
                     </span>
                   ))}
                 </div>
+              </div>
 
-                <div className="flex gap-4 pt-2">
-                  <Link
+              {/* Mobile-only visible links (kept accessible) */}
+              <div className="flex sm:hidden gap-4 mt-2">
+                 <Link
                     href={project.github}
                     target="_blank"
-                    className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                    className="flex items-center gap-2 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors"
                   >
-                    <SiGithub size={18} />
+                    <SiGithub size={14} />
                     <span>Code</span>
                   </Link>
                   <Link
                     href={project.demo}
                     target="_blank"
-                    className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                    className="flex items-center gap-2 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors"
                   >
-                    <ExternalLink size={18} />
+                    <ExternalLink size={14} />
                     <span>Demo</span>
                   </Link>
-                </div>
               </div>
             </div>
           ))}

@@ -35,7 +35,7 @@ export function getPostBySlug(slug: string): BlogPost | null {
       subtitle: data.subtitle || '',
       dateAdded: data.date || new Date().toISOString(),
       readTimeInMinutes: readTime,
-      coverImage: data.coverImage || '',
+      views: typeof data.views === 'number' ? data.views : (data.views ? Number(data.views) : 0),
       tags: data.tags || [],
       author: data.author || 'Harsh Gajjar',
     };

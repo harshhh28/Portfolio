@@ -1,3 +1,5 @@
+@import "highlight.js/styles/github-dark.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -80,6 +82,14 @@
   .transition-default {
     @apply transition-all duration-300 ease-in-out;
   }
+  
+  .subtle-border {
+    @apply border border-border/40;
+  }
+  
+  .glass-premium {
+    @apply bg-background/60 backdrop-blur-md border border-border/40 shadow-sm;
+  }
 }
 
 /* Loading animation (kept simple or removed if unused, keeping simple one just in case) */
@@ -156,7 +166,12 @@ body {
   }
 
   .prose pre code {
-    @apply bg-transparent p-0;
+    @apply p-0 bg-transparent;
+  }
+
+  /* Don't override syntax-highlighted code so .hljs span colors show */
+  .prose pre code:not(.hljs) {
+    @apply bg-transparent text-foreground;
   }
 
   .prose blockquote {
@@ -190,36 +205,14 @@ body {
     @apply overflow-x-auto;
   }
 
-  .prose pre code {
-    @apply block p-4 text-sm;
-    background: hsl(var(--muted)) !important;
-    color: hsl(var(--foreground)) !important;
+  .prose pre code.hljs {
+    @apply block py-0 px-0 text-sm leading-relaxed;
+    background: transparent !important;
   }
 
+  /* Let highlight.js theme colors show; only override background to match our pre */
   .hljs {
-    background: hsl(var(--muted)) !important;
-    color: hsl(var(--foreground)) !important;
-  }
-
-  .hljs-keyword,
-  .hljs-selector-tag,
-  .hljs-built_in,
-  .hljs-name {
-    color: hsl(var(--primary));
-  }
-
-  .hljs-string,
-  .hljs-title,
-  .hljs-section,
-  .hljs-attribute {
-    color: hsl(var(--primary));
-    opacity: 0.9;
-  }
-
-  .hljs-comment,
-  .hljs-quote {
-    color: hsl(var(--muted-foreground));
-    font-style: italic;
+    background: transparent !important;
   }
 }
 

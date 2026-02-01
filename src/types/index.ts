@@ -42,10 +42,10 @@ export interface Position {
 }
 
 // Projects Types
+// Projects Types
 export interface Project {
   title: string;
   description: string;
-  image: string;
   github: string;
   demo: string;
   tags: string[];
@@ -58,7 +58,8 @@ export interface BlogPost {
   slug: string;
   dateAdded: string;
   readTimeInMinutes: number;
-  coverImage?: string;
+  views?: number;
+
   tags?: string[];
   author?: string;
 }
