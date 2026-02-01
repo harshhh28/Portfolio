@@ -10,13 +10,26 @@ import { Analytics } from "@vercel/analytics/react";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Harsh Gajjar's Portfolio",
-  description:
-    "Harsh Gajjar's personal portfolio showcasing projects, education, experience, learnings and blogs.",
+  title: "Harsh Gajjar - Software Engineer",
+  description: "Harsh Gajjar is a software engineer specializing in backend architecture, system design, and infrastructure. He builds fast, scalable, and reliable systems.",
+  keywords: "Harsh Gajjar, backend engineer, system design, infrastructure engineer, software engineer portfolio, scalable systems",
+  openGraph: {
+    title: "Harsh Gajjar - Software Engineer",
+    description: "Harsh Gajjar is a software engineer specializing in backend architecture, system design, and infrastructure. He builds fast, scalable, and reliable systems.",
+    url: "https://harshgajjar.dev",
+    siteName: "Harsh Gajjar",
+    images: [
+      {
+        url: "https://harshgajjar.dev/assets/images/og/og.webp",
+        width: 1200,
+        height: 630,
+        alt: "Harsh Gajjar - Software Engineer",
+      },
+    ],
+    type: "website",
+  },
   icons: {
-    icon: ["/favicon.ico?v=4"],
-    apple: ["/apple-touch-icon.png?v=4"],
-    shortcut: ["/apple-touch-icon.png"],
+    icon: "/terminal.ico",
   },
 };
 

@@ -32,7 +32,7 @@ const ProjectFolder = ({ project }: ProjectFolderProps) => {
         <div className="flex items-center gap-4 text-xs text-muted-foreground">
            {/* Fake Metadata */}
            <span className="hidden sm:inline-block">drwxr-xr-x</span>
-           <span>4.0K</span>
+           <span>{(project.title.length % 8) + 2}.0K</span>
            <span className="hidden sm:inline-block">admin</span>
         </div>
       </button>

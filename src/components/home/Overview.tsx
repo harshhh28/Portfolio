@@ -18,8 +18,8 @@ const Overview = () => {
              User Identity
            </h3>
            <p className="text-foreground leading-relaxed">
-             Hello! I'm <span className="font-bold text-primary">Harsh Gajjar</span>, a Software Engineer and Full Stack Developer.
-             I design and build rigorous, fast, and scalable systems. My work focuses on backend architecture, system design, and creating tools that empower users.
+             Hello! I'm <span className="font-bold text-primary">Harsh Gajjar</span>, a Software Engineer.
+             I design and build fast, scalable systems. Most of my time goes into backend architecture, system design, infrastructure, and making sure things don&apos;t break in production.
            </p>
         </div>
 
@@ -36,11 +36,13 @@ const Overview = () => {
         
         <div className="space-y-2">
             <h3 className="text-sm font-mono font-bold text-muted-foreground uppercase tracking-wider">
-             Philosophy
+             Changelog
            </h3>
-           <blockquote className="border-l-2 border-primary pl-4 italic text-muted-foreground">
-             "Function over form, but form follows function. Code should be clean, documentation should be clear, and systems should be resilient."
-           </blockquote>
+           <div className="font-mono text-sm space-y-1 text-muted-foreground border-l-2 border-border pl-4">
+              <p><span className="text-foreground font-bold">v1.3</span> - Learned to love observability</p>
+              <p><span className="text-foreground font-bold">v1.2</span> - Stopped overengineering</p>
+              <p><span className="text-foreground font-bold">v1.1</span> - Broke prod, fixed prod</p>
+           </div>
         </div>
         
         <div className="pt-4 flex gap-4">

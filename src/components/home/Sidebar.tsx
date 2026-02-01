@@ -1,7 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Terminal, Cpu, Archive, FileText, Book, Users } from "lucide-react";
+import { SOCIALS } from "@/data/socials";
 
 interface SidebarProps {
   activeSection: string;
@@ -47,24 +49,31 @@ const Sidebar = ({ activeSection, setActiveSection }: SidebarProps) => {
         })}
       </div>
       
-      <div className="mt-8 p-4 border-t border-border">
-         <div className="space-y-2">
-            <div className="flex justify-between text-xs font-mono text-muted-foreground">
-                <span>CPU Usage</span>
-                <span>12%</span>
-            </div>
-            <div className="w-full h-1 bg-secondary rounded-full overflow-hidden">
-                <div className="h-full bg-green-500/50 w-[12%]" />
-            </div>
-            
-            <div className="flex justify-between text-xs font-mono text-muted-foreground pt-2">
-                <span>Memory</span>
-                <span>46%</span>
-            </div>
-             <div className="w-full h-1 bg-secondary rounded-full overflow-hidden">
-                <div className="h-full bg-blue-500/50 w-[46%]" />
-            </div>
-         </div>
+      <div className="mt-8 p-4 border-t border-border bg-muted/20">
+        <div className="text-xs font-mono text-muted-foreground mb-3 flex items-center gap-2">
+           <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+           <span>ACTIVE_CONNECTIONS</span>
+        </div>
+        <div className="space-y-3">
+          {SOCIALS.map((social) => (
+             <Link
+               key={social.name}
+               href={social.url}
+               target="_blank"
+               className="flex items-center justify-between group"
+             >
+                <div className="flex items-center gap-2">
+                   <social.icon size={14} className="text-muted-foreground group-hover:text-primary transition-colors" />
+                   <span className="text-xs font-mono text-muted-foreground group-hover:text-foreground transition-colors">
+                      {social.name}
+                   </span>
+                </div>
+                <span className="text-[10px] font-mono text-muted-foreground/50 group-hover:text-primary/70 transition-colors">
+                   {social.handle}
+                </span>
+             </Link>
+          ))}
+        </div>
       </div>
     </div>
   );

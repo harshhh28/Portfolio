@@ -18,7 +18,7 @@ export default function WorkbenchPage() {
         
         {/* Placeholder for empty space/directory listing feel */}
         <div className="pt-2 text-xs font-mono text-muted-foreground opacity-50 px-4">
-           0 directories, {PROJECTS.length} files
+           {PROJECTS.length} directories, 0 files
         </div>
       </div>
     </div>
