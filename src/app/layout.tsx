@@ -10,11 +10,11 @@ import { Analytics } from "@vercel/analytics/react";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Harsh Gajjar - Software Engineer | Backend & System Architect",
+  title: "Harsh Gajjar - SWE | Backend & System Architecture",
   description: "Harsh Gajjar is a software engineer specializing in backend architecture, system design, and infrastructure. He builds fast, scalable, and reliable systems.",
   keywords: "Harsh Gajjar, backend engineer, system design, infrastructure engineer, software engineer portfolio, scalable systems",
   openGraph: {
-    title: "Harsh Gajjar - Software Engineer | Backend & System Architect",
+    title: "Harsh Gajjar - SWE | Backend & System Architecture",
     description: "Harsh Gajjar is a software engineer specializing in backend architecture, system design, and infrastructure. He builds fast, scalable, and reliable systems.",
     url: "https://harshgajjar.dev",
     siteName: "Harsh Gajjar",
