@@ -44,7 +44,7 @@ export const ResearchLog = ({ posts }: ResearchLogProps) => {
               -rw-r--r--
             </div>
             <div className="hidden md:block col-span-2 text-muted-foreground text-xs">
-              {format(new Date(post.dateAdded), "MMM dd HH:mm")}
+              {format(new Date(post.dateAdded), "MMM dd")} {(post.slug.length % 12 + 1).toString().padStart(2, '0')}:{(post.slug.charCodeAt(0) % 60).toString().padStart(2, '0')}
             </div>
             <div className="hidden md:block col-span-1 text-yellow-500/80 text-xs">
               root

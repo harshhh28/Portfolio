@@ -24,6 +24,18 @@ export function getPostBySlug(slug: string): BlogPost | null {
     const fileContents = fs.readFileSync(fullPath, 'utf8');
     const { data, content } = matter(fileContents);
     
+    // Parse date: support DD-MM-YYYY or standard YYYY-MM-DD
+    let dateAddedStr = data.date || new Date().toISOString();
+    
+    // Check if date is in DD-MM-YYYY format (e.g. 01-02-2026)
+    const ddmmyyyyRegex = /^(\d{2})-(\d{2})-(\d{4})$/;
+    const match = dateAddedStr.match(ddmmyyyyRegex);
+    if (match) {
+      // Convert to YYYY-MM-DD for Date parsing
+      const [, day, month, year] = match;
+      dateAddedStr = `${year}-${month}-${day}`;
+    }
+
     // Calculate read time (average reading speed: 200 words per minute)
     const wordsPerMinute = 200;
     const wordCount = content.split(/\s+/).length;
@@ -33,7 +45,7 @@ export function getPostBySlug(slug: string): BlogPost | null {
       slug,
       title: data.title || '',
       subtitle: data.subtitle || '',
-      dateAdded: data.date || new Date().toISOString(),
+      dateAdded: dateAddedStr,
       readTimeInMinutes: readTime,
       views: typeof data.views === 'number' ? data.views : (data.views ? Number(data.views) : 0),
       tags: data.tags || [],

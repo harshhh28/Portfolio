@@ -70,6 +70,13 @@ export function BlogViewCount({ slug }: { slug: string }) {
     };
   }, [slug]);
 
-  if (views === null) return <span>— views</span>;
+  if (views === null) {
+    return (
+      <span className="inline-flex items-center">
+        <span className="animate-pulse">...</span>
+        <span className="ml-1">views</span>
+      </span>
+    );
+  }
   return <span>{views.toLocaleString()} views</span>;
 }

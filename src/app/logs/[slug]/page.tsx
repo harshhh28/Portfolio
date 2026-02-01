@@ -76,7 +76,7 @@ export default async function LogEntryPage({ params }: { params: Promise<{ slug:
             <div className="flex gap-2 sm:gap-4 overflow-x-auto max-w-full">
                 <span className="truncate max-w-[200px]">{slug}.md</span>
                 <span className="opacity-50">|</span>
-                <span className="whitespace-nowrap">{format(new Date(post.dateAdded), "yyyy-MM-dd")}</span>
+                <span className="whitespace-nowrap">{format(new Date(post.dateAdded), "dd-MM-yyyy")}</span>
             </div>
         </div>
 
