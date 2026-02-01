@@ -26,35 +26,42 @@ export async function POST(request: NextRequest) {
 
     // Email content (shared between both methods)
     const emailHtml = `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-        <h2 style="color: #333; border-bottom: 2px solid #4F46E5; padding-bottom: 10px;">
-          New Contact Form Submission
+      <div style="font-family: 'Courier New', monospace; max-width: 600px; margin: 0 auto; background-color: #09090b; color: #e4e4e7; padding: 20px; border: 1px solid #27272a;">
+        <h2 style="color: #22c55e; border-bottom: 1px solid #27272a; padding-bottom: 10px; font-size: 18px;">
+          > New Transmission
         </h2>
-        <div style="background-color: #f9fafb; padding: 20px; border-radius: 8px; margin-top: 20px;">
-          <p style="margin: 10px 0;"><strong>Name:</strong> ${name}</p>
-          <p style="margin: 10px 0;"><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
-          <p style="margin: 10px 0;"><strong>Message:</strong></p>
-          <div style="background-color: white; padding: 15px; border-radius: 4px; margin-top: 10px; border-left: 4px solid #4F46E5;">
-            ${message.replace(/\n/g, '<br>')}
+        <div style="margin-top: 20px; font-size: 14px;">
+          <p style="margin: 5px 0;"><span style="color: #71717a;">To:</span> me@harshgajjar.dev</p>
+          <p style="margin: 5px 0;"><span style="color: #71717a;">From:</span> <a href="mailto:${email}" style="color: #60a5fa; text-decoration: none;">${email}</a></p>
+          <p style="margin: 5px 0;"><span style="color: #71717a;">Subject:</span> ${name}</p>
+          
+          <div style="border-top: 1px solid #27272a; margin-top: 15px; padding-top: 15px;">
+            <p style="margin-bottom: 10px; color: #a1a1aa;">&gt; Message:</p>
+            <div style="color: #e4e4e7; line-height: 1.6;">
+              ${message.replace(/\n/g, '<br>')}
+            </div>
           </div>
         </div>
-        <p style="margin-top: 20px; color: #666; font-size: 12px;">
-          This email was sent from your portfolio contact form.
+        <p style="margin-top: 30px; border-top: 1px solid #27272a; pt: 10px; color: #52525b; font-size: 10px;">
+          -- end of transmission --
         </p>
       </div>
     `;
 
     const emailText = `
-New Contact Form Submission
+> New Transmission
 
-Name: ${name}
-Email: ${email}
+To: me@harshgajjar.dev
+From: ${email}
+Subject: ${name}
 
-Message:
+> Message:
 ${message}
+
+-- end of transmission --
     `;
 
-    const subject = `New Contact Form Submission from ${name}`;
+    const subject = `${name} [via Portfolio]`;
 
     // Check if Resend API key is available (preferred method)
     const resendApiKey = process.env.RESEND_API_KEY;

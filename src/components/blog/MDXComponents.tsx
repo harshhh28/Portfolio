@@ -6,7 +6,7 @@ export const MDXComponents = {
   h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h1
       className={cn(
-        'text-4xl font-bold tracking-tight text-foreground mt-8 mb-4',
+        'text-2xl font-bold tracking-tight text-foreground mt-6 mb-3',
         className
       )}
       {...props}
@@ -15,7 +15,7 @@ export const MDXComponents = {
   h2: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h2
       className={cn(
-        'text-3xl font-semibold tracking-tight text-foreground mt-8 mb-4',
+        'text-xl font-semibold tracking-tight text-foreground mt-6 mb-3',
         className
       )}
       {...props}
@@ -24,7 +24,7 @@ export const MDXComponents = {
   h3: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h3
       className={cn(
-        'text-2xl font-semibold tracking-tight text-foreground mt-6 mb-3',
+        'text-lg font-semibold tracking-tight text-foreground mt-4 mb-2',
         className
       )}
       {...props}
@@ -33,7 +33,7 @@ export const MDXComponents = {
   h4: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h4
       className={cn(
-        'text-xl font-semibold tracking-tight text-foreground mt-4 mb-2',
+        'text-base font-semibold tracking-tight text-foreground mt-4 mb-2',
         className
       )}
       {...props}
@@ -41,7 +41,7 @@ export const MDXComponents = {
   ),
   p: ({ className, ...props }: React.HTMLAttributes<HTMLParagraphElement>) => (
     <p
-      className={cn('text-base leading-7 text-foreground mb-4', className)}
+      className={cn('text-sm leading-6 text-foreground mb-4', className)}
       {...props}
     />
   ),
@@ -84,7 +84,7 @@ export const MDXComponents = {
     />
   ),
   li: ({ className, ...props }: React.HTMLAttributes<HTMLLIElement>) => (
-    <li className={cn('text-base leading-7', className)} {...props} />
+    <li className={cn('text-sm leading-6', className)} {...props} />
   ),
   blockquote: ({ className, ...props }: React.HTMLAttributes<HTMLQuoteElement>) => (
     <blockquote
@@ -101,10 +101,10 @@ export const MDXComponents = {
     return (
       <code
         className={cn(
-          "font-mono text-sm",
+          "font-mono",
           isBlock
-            ? "block py-0 px-0 rounded-lg [&.hljs]:bg-transparent"
-            : "relative rounded bg-muted px-[0.3rem] py-[0.2rem] text-foreground",
+            ? "block py-0 px-0 text-xs rounded-lg [&.hljs]:bg-transparent"
+            : "relative rounded bg-muted px-[0.3rem] py-[0.2rem] text-xs text-foreground",
           isBlock && !hasHljs && "text-foreground",
           className
         )}
@@ -127,8 +127,8 @@ export const MDXComponents = {
     if (!src) return null;
     // Use span (not div) so when MDX wraps the image in a <p>, we don't get invalid <p><div></div></p>
     return (
-      <span className="my-8 block rounded-lg overflow-hidden border border-border">
-        <img src={src} alt={alt || ''} className="w-full h-auto" {...props} />
+      <span className="my-5 block max-w-2xl mx-auto rounded-lg overflow-hidden border border-border">
+        <img src={src} alt={alt || ''} className="w-full h-auto max-h-[320px] object-contain" {...props} />
       </span>
     );
   },

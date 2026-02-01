@@ -18,7 +18,7 @@ export const POSITIONS: Position[] = [
     title: "Core Member",
     organization: "Hostel Management Committee",
     organizationUrl: null,
-    duration: "Feb 2025 - Present",
+    duration: "Feb 2025 - Dec 2025",
     description: "Managed hostel operations and coordinated student events, improving facilities and enhancing overall resident experience and satisfaction.",
   },
 ];

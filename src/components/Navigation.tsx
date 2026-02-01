@@ -5,87 +5,77 @@ import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { ThemeToggle } from "./ThemeToggle";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
 
+  // "System" metaphors for links
   const links = [
-    { href: "/", label: "About" },
-    { href: "/projects", label: "Projects" },
-    { href: "/blog", label: "Blog" },
-    { href: "/contact", label: "Contact" },
+    { href: "/", label: "/system" },
+    { href: "/workbench", label: "/workbench" },
+    { href: "/logs", label: "/logs" },
+    { href: "/mail", label: "/mail" },
   ];
 
   return (
-    <nav className="fixed w-full z-50 bg-background/80 backdrop-blur-md border-b border-border/40 transition-all duration-300">
-      <div className="max-w-3xl mx-auto px-4 py-3">
-        <div className="flex justify-between items-center">
-          <Link href="/" className="text-lg font-bold tracking-tight text-foreground hover:text-primary transition-colors capitalize">
-            {pathname === "/" ? "harsh." : pathname.split("/")[1].replace(/-/g, " ")}
+    <nav className="fixed w-full z-50 bg-background border-b border-border shadow-none">
+      <div className="max-w-screen-xl mx-auto">
+        <div className="flex justify-between items-center h-12 px-4">
+          {/* Brand / Root */}
+          <Link href="/" className="text-sm font-mono font-bold text-foreground hover:text-primary transition-colors">
+            ~/harsh.gajjar
           </Link>
 
-          <div className="flex items-center gap-4">
-            {/* Desktop Navigation */}
-            <div className="hidden lg:flex gap-6 items-center">
-              {links.map((link) => {
-                const isExternal = link.href.startsWith("http");
-                const isActive = pathname === link.href;
-                return (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    {...(isExternal && {
-                      target: "_blank",
-                      rel: "noopener noreferrer",
-                    })}
-                    className={cn(
-                      "text-xs font-medium transition-colors hover:text-primary",
-                      isActive ? "text-foreground" : "text-muted-foreground"
-                    )}
-                  >
-                    {link.label}
-                  </Link>
-                );
-              })}
-              <ThemeToggle />
-            </div>
+          {/* Desktop "Dock" */}
+          <div className="hidden md:flex items-center gap-1">
+            {links.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={cn(
+                    "px-3 py-1.5 text-xs font-mono transition-colors relative group",
+                    isActive ? "text-foreground bg-secondary/50" : "text-muted-foreground hover:text-foreground hover:bg-secondary/30"
+                  )}
+                >
+                  <span className={cn("opacity-50 group-hover:opacity-100 transition-opacity", isActive && "opacity-100")}>[</span>
+                  <span className="mx-1">{link.label}</span>
+                  <span className={cn("opacity-50 group-hover:opacity-100 transition-opacity", isActive && "opacity-100")}>]</span>
+                </Link>
+              );
+            })}
+          </div>
 
-            {/* Mobile Menu Button */}
-            <div className="lg:hidden flex items-center gap-2">
-              <ThemeToggle />
-              <button
-                onClick={() => setIsOpen(!isOpen)}
-                className="p-1.5 text-foreground hover:bg-muted/50 rounded-md transition-colors"
-              >
-                {isOpen ? <X size={20} /> : <Menu size={20} />}
-              </button>
-            </div>
+          {/* Mobile Menu Button */}
+          <div className="md:hidden flex items-center gap-4">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="text-foreground hover:bg-secondary/50 p-1 rounded-sm"
+            >
+              {isOpen ? <X size={18} /> : <Menu size={18} />}
+            </button>
           </div>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile "Terminal" Menu */}
         {isOpen && (
-          <div className="lg:hidden pt-3 pb-3 border-t border-border/40 mt-3 animate-in slide-in-from-top-2">
-            <div className="flex flex-col gap-3">
+          <div className="md:hidden border-b border-border bg-background">
+            <div className="flex flex-col p-2 space-y-1">
               {links.map((link) => {
-                const isExternal = link.href.startsWith("http");
                 const isActive = pathname === link.href;
                 return (
                   <Link
                     key={link.href}
                     href={link.href}
                     onClick={() => setIsOpen(false)}
-                    {...(isExternal && {
-                      target: "_blank",
-                      rel: "noopener noreferrer",
-                    })}
                     className={cn(
-                      "text-sm font-medium transition-colors hover:text-primary px-2 py-1.5 rounded-md hover:bg-muted/50",
-                      isActive ? "text-foreground bg-muted/30" : "text-muted-foreground"
+                      "flex items-center gap-2 px-3 py-2 text-sm font-mono transition-colors",
+                      isActive ? "bg-secondary/50 text-foreground" : "text-muted-foreground hover:bg-secondary/20"
                     )}
                   >
+                    <span className="text-accent-foreground">{">"}</span>
                     {link.label}
                   </Link>
                 );

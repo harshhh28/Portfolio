@@ -7,7 +7,7 @@ export const EDUCATION: Education[] = [
     schoolUrl: "https://www.daiict.ac.in",
     degree:
       "Bachelor of Technology in Information and Communication Technology (ICT)",
-    duration: "2022 - Present",
+    duration: "2022 - 2026",
     location: "Gandhinagar, Gujarat, India",
     courses: [
       "Machine Learning",
