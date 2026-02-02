@@ -9,7 +9,7 @@ const Modules = () => {
   const groups = [
     { name: "Languages", items: SKILLS.languages },
     { name: "Frameworks", items: SKILLS.frameworks },
-    { name: "Databases", items: SKILLS.cloudDatabases }, // Merging cloud & db for simplicity or keeping separate
+    { name: "Cloud & Data", items: SKILLS.cloudDatabases },
     { name: "Tools", items: SKILLS.developerTools },
     { name: "AI/ML", items: SKILLS.mlAndDataScience },
   ];

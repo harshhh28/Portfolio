@@ -7,17 +7,18 @@ export const EDUCATION: Education[] = [
     schoolUrl: "https://www.daiict.ac.in",
     degree:
       "Bachelor of Technology in Information and Communication Technology (ICT)",
-    duration: "2022 - 2026",
+    duration: "2022 - Present",
     location: "Gandhinagar, Gujarat, India",
     courses: [
       "Machine Learning",
-      "Augmented and Virtual Reality Systems",
       "Software Engineering",
+      "Database Management System",
       "Computer Networks",
-      "System Programming",
-      "Design and Analysis of Algorithms",
+      "Systems Programming",
       "Data Structures",
       "Object Oriented Programming",
+      "Design and Analysis of Algorithms",
+      "AR & VR Systems",
     ],
   },
   {

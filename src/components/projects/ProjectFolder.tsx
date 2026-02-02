@@ -50,7 +50,6 @@ const ProjectFolder = ({ project }: ProjectFolderProps) => {
               <h3>{project.title}</h3>
               <p>{project.description}</p>
               
-              <h4>Stack configuration</h4>
               <div className="flex flex-wrap gap-2 not-prose my-4">
                  {project.tags.map(tag => (
                    <span key={tag} className="px-2 py-0.5 bg-secondary text-secondary-foreground text-xs font-mono border border-border/50">
@@ -59,7 +58,6 @@ const ProjectFolder = ({ project }: ProjectFolderProps) => {
                  ))}
               </div>
               
-              <h4>Deployment</h4>
               <div className="flex gap-4 not-prose mt-4">
                  <Link href={project.github} target="_blank" className="flex items-center gap-2 text-sm font-mono text-muted-foreground hover:text-primary transition-colors">
                     <Github size={14} />

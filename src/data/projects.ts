@@ -2,25 +2,32 @@ import type { Project } from "@/types";
 
 export const PROJECTS: Project[] = [
   {
-    title: "HIA - Health Insights Agent",
-    description: "AI Agent to analyze blood reports and provide detailed health insights using multi-model architecture.",
+    title: "HIA - Health Insights Agent (Python)",
+    description: "Healthcare platform (250+ users) with multi-model cascade (Llama-4/3.3/3.1), analyzing 350+ reports. RAG-based conversational AI using FAISS + HF embeddings; secure auth, session management, rate limiting (15/day), PDF parsing (up to 20MB) with Supabase. Won global Streamlit Connect Challenge; 100+ stars, 50+ forks on GitHub.",
     github: "https://github.com/harshhh28/hia",
     demo: "https://hiahealth.streamlit.app",
-    tags: ["Python", "Streamlit", "Groq", "Supabase", "PDFPlumber"],
+    tags: ["Python", "Streamlit", "Groq", "Supabase", "LangChain", "FAISS", "Llama"],
+  },
+  {
+    title: "HIA - Health Analysis Agent (Next.js)",
+    description: "AI-powered health agent to analyze reports and deliver personalized diagnostics using Groq AI. Contextual embeddings via pgvector; secure JWT + OAuth and chat sessions for privacy and usability. PDF extraction and validation pipeline handling up to 10MB reports with offline analysis fallback.",
+    github: "https://github.com/harshhh28/hia-js",
+    demo: "https://hiahealth.vercel.app",
+    tags: ["Next.js", "Node.js", "PostgreSQL", "Docker", "Hugging Face", "Groq", "NextAuth.js", "pgvector"],
   },
   {
     title: "Portfolio Website",
-    description: "Integrated Discord Webhook, shadcn/ui, RSS Parser, and custom domain DNS for a dynamic and polished website.",
+    description: "Discord Webhook for real-time notifications, shadcn/ui, RSS Parser for tech news, Hashnode APIs, and custom domain (harshgajjar.xyz). Responsive design showcasing experience, skills, projects, and blogs.",
     github: "https://github.com/harshhh28/portfolio",
     demo: "https://harshgajjar.vercel.app",
-    tags: ["Next.js", "TypeScript", "Tailwind CSS", "Zod", "Webhooks"],
+    tags: ["Next.js", "TypeScript", "Discord Webhooks", "RSS Parser", "Hashnode APIs", "shadcn/ui", "Tailwind", "Zod"],
   },
   {
     title: "Spring Talk - AI Powered ChatApp",
-    description: "Implemented personal and group chats, Firebase for real-time data and auth, and Gemini API for enhanced chat interactions.",
+    description: "Atomic Design Pattern and MVC architecture. Real-time data and authentication with Firebase; Gemini API for one-tap message enhancement and queries. Integrated Cloudinary for media.",
     github: "https://github.com/harshhh28/G12_Chat_Application",
     demo: "https://youtu.be/UtoEn-mm9b0",
-    tags: ["React Native", "Expo", "Firebase", "Cloudinary", "Jest"],
+    tags: ["React Native", "Expo", "Firebase", "Cloudinary", "Babel", "Gradle", "Jest", "Gemini API"],
   },
   {
     title: "Stock Price Predictor - for HDFC Bank",
