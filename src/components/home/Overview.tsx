@@ -49,8 +49,8 @@ const Overview = () => {
             <Link href="/workbench" className="px-4 py-2 bg-primary text-primary-foreground font-mono text-sm hover:opacity-90 transition-opacity">
                 Run /workbench
             </Link>
-            <Link href="/mail" className="px-4 py-2 border border-border hover:bg-secondary/50 font-mono text-sm transition-colors">
-                Ping /mail
+            <Link href="/contact" className="px-4 py-2 border border-border hover:bg-secondary/50 font-mono text-sm transition-colors">
+                Ping /contact
             </Link>
         </div>
       </div>

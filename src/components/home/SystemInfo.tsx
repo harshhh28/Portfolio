@@ -4,7 +4,7 @@ import { useState } from "react";
 import Sidebar from "./Sidebar";
 import Overview from "./Overview";
 import Modules from "./Modules";
-import SystemLogs from "./SystemLogs";
+import ExperiencePanel from "./ExperiencePanel";
 import Education from "./Education";
 import Community from "./Community";
 
@@ -17,8 +17,8 @@ const SystemInfo = () => {
         return <Overview />;
       case "modules":
         return <Modules />;
-      case "logs":
-        return <SystemLogs />;
+      case "experience":
+        return <ExperiencePanel />;
       case "education":
         return <Education />;
       case "community":

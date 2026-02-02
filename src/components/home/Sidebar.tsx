@@ -14,7 +14,7 @@ const Sidebar = ({ activeSection, setActiveSection }: SidebarProps) => {
   const sections = [
     { id: "overview", label: "Overview", icon: Terminal },
     { id: "modules", label: "Modules", icon: Cpu },
-    { id: "logs", label: "System Logs", icon: FileText },
+    { id: "experience", label: "Syslog", icon: FileText },
     { id: "education", label: "Firmware", icon: Book },
     { id: "community", label: "Network", icon: Users },
     // { id: "kernel", label: "Kernel Info", icon: Archive }, // Philosophy/Bio

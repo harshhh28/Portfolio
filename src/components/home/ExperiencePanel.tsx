@@ -4,11 +4,11 @@ import { EXPERIENCE } from "@/data/experience";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 
-const SystemLogs = () => {
+const ExperiencePanel = () => {
   return (
     <div className="space-y-6 animate-in slide-in-from-bottom-2 fade-in duration-500">
       <div className="border-b border-border pb-4">
-        <h2 className="text-xl font-mono font-bold">System Logs</h2>
+        <h2 className="text-xl font-mono font-bold">Syslog</h2>
         <p className="text-sm text-muted-foreground font-mono mt-1">
           /var/log/experience.log
         </p>
@@ -54,4 +54,4 @@ const SystemLogs = () => {
   );
 };
 
-export default SystemLogs;
+export default ExperiencePanel;

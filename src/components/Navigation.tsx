@@ -15,7 +15,7 @@ const Navigation = () => {
     { href: "/", label: "/system" },
     { href: "/workbench", label: "/workbench" },
     { href: "/logs", label: "/logs" },
-    { href: "/mail", label: "/mail" },
+    { href: "/contact", label: "/contact" },
   ];
 
   return (

@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Terminal } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-export const MailClient = () => {
+export const ContactForm = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -70,7 +70,7 @@ export const MailClient = () => {
         <div className="bg-secondary/30 px-3 py-2 border-b border-border flex items-center justify-between">
           <div className="flex items-center gap-2">
              <Terminal size={14} className="text-muted-foreground" />
-             <span className="text-xs font-mono font-bold text-muted-foreground uppercase">/bin/mail</span>
+             <span className="text-xs font-mono font-bold text-muted-foreground uppercase">/bin/contact</span>
           </div>
           <div className="flex gap-2 text-[10px] font-mono text-muted-foreground">
              <span>--compose</span>
