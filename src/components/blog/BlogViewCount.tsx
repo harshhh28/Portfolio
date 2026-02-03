@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { doc, getDoc, runTransaction, type Transaction } from "firebase/firestore";
+import { getFirestoreDb } from "@/lib/firebase-client";
 
 const VIEWED_KEY = "blog-viewed";
 
@@ -28,29 +30,37 @@ export function BlogViewCount({ slug }: { slug: string }) {
     let cancelled = false;
 
     async function run() {
-      const viewedThisSession = getViewedSet().has(slug);
+      const db = getFirestoreDb();
+      if (!db) {
+        if (!cancelled) setViews(0);
+        return;
+      }
 
-      // Fetch current count first so we show something immediately (no cache)
-      let currentViews = 0;
+      const viewedThisSession = getViewedSet().has(slug);
+      const ref = doc(db, "blogViews", slug);
+
+      // 1) First render: show current count
       try {
-        const getRes = await fetch(`/api/blog/${slug}/views`, { cache: "no-store" });
-        if (!getRes.ok) throw new Error("GET failed");
-        const getData = await getRes.json();
-        currentViews = getData.views ?? 0;
-        if (!cancelled) setViews(currentViews);
+        const snap = await getDoc(ref);
+        const current = snap.exists() && typeof snap.data()?.views === "number" ? (snap.data()!.views as number) : 0;
+        if (!cancelled) setViews(current);
       } catch {
         if (!cancelled) setViews(0);
       }
 
-      // POST when: first view this session, OR server count is 0 (e.g. server restarted, so count again)
-      const shouldIncrement = !viewedThisSession || currentViews === 0;
-      if (shouldIncrement) {
+      // 2) Increment only once per session
+      if (!viewedThisSession) {
         try {
-          const postRes = await fetch(`/api/blog/${slug}/views`, { method: "POST", cache: "no-store" });
-          if (!postRes.ok) return;
-          const postData = await postRes.json();
+          const next = await runTransaction(db, async (tx: Transaction) => {
+            const snap = await tx.get(ref);
+            const current = snap.exists() && typeof snap.data()?.views === "number" ? (snap.data()!.views as number) : 0;
+            const updated = current + 1;
+            tx.set(ref, { views: updated }, { merge: true });
+            return updated;
+          });
+
           if (!cancelled) {
-            setViews(postData.views);
+            setViews(next);
             markViewed(slug);
           }
         } catch {
