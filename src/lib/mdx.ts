@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import { BlogPost } from '@/types';
+import { cache } from 'react';
 
 const postsDirectory = path.join(process.cwd(), 'src/content/blog');
 
@@ -14,7 +15,7 @@ export function getPostSlugs(): string[] {
     .map((file) => file.replace(/\.mdx$/, ''));
 }
 
-export function getPostBySlug(slug: string): BlogPost | null {
+export const getPost = cache((slug: string) => {
   try {
     const fullPath = path.join(postsDirectory, `${slug}.mdx`);
     if (!fs.existsSync(fullPath)) {
@@ -41,7 +42,7 @@ export function getPostBySlug(slug: string): BlogPost | null {
     const wordCount = content.split(/\s+/).length;
     const readTime = Math.ceil(wordCount / wordsPerMinute);
     
-    return {
+    const post: BlogPost = {
       slug,
       title: data.title || '',
       subtitle: data.subtitle || '',
@@ -51,10 +52,18 @@ export function getPostBySlug(slug: string): BlogPost | null {
       tags: data.tags || [],
       author: data.author || 'Harsh Gajjar',
     };
+
+    return { post, content };
   } catch (error) {
     console.error(`Error reading post ${slug}:`, error);
     return null;
   }
+});
+
+// Wrapper for backward compatibility and specific use cases
+export function getPostBySlug(slug: string): BlogPost | null {
+  const result = getPost(slug);
+  return result ? result.post : null;
 }
 
 export function getAllPosts(): BlogPost[] {
@@ -70,16 +79,6 @@ export function getAllPosts(): BlogPost[] {
 }
 
 export function getPostContent(slug: string): string | null {
-  try {
-    const fullPath = path.join(postsDirectory, `${slug}.mdx`);
-    if (!fs.existsSync(fullPath)) {
-      return null;
-    }
-    const fileContents = fs.readFileSync(fullPath, 'utf8');
-    const { content } = matter(fileContents);
-    return content;
-  } catch (error) {
-    console.error(`Error reading post content ${slug}:`, error);
-    return null;
-  }
+  const result = getPost(slug);
+  return result ? result.content : null;
 }

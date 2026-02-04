@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { format } from "date-fns";
 import { ArrowLeft } from "lucide-react";
-import { getPostBySlug, getPostContent, getAllPosts } from "@/lib/mdx";
+import { getPostBySlug, getPost, getAllPosts } from "@/lib/mdx";
 import { MDXContent } from "@/components/blog/MDXContent";
 import { BlogViewCount } from "@/components/blog/BlogViewCount";
 
@@ -69,12 +69,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function LogEntryPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
-  const content = post ? getPostContent(slug) : null;
+  const result = getPost(slug);
 
-  if (!post || !content) {
+  if (!result) {
     notFound();
   }
+
+  const { post, content } = result;
 
   return (
     <div className="min-h-screen pt-24 px-4 sm:px-6 lg:px-8 pb-32">
