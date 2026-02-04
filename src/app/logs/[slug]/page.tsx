@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   let ogImageUrl = `${siteUrl}/assets/images/og/logs.webp`;
 
   if (fs.existsSync(publicOgPath)) {
-    ogImageUrl = `${siteUrl}/assets/images/og/${slug}.webp`;
+    ogImageUrl = `${siteUrl}/assets/images/og/${slug}.webp?ts=${post.dateAdded}`;
   }
 
   return {
