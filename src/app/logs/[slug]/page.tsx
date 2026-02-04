@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       siteName: "Harsh Gajjar",
       images: [
         {
-          url: "https://harshgajjar.dev/assets/images/og/og.webp",
+          url: "https://harshgajjar.dev/assets/images/og/logs.webp",
           width: 1200,
           height: 630,
           alt: post.title,
@@ -49,7 +49,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       card: "summary_large_image",
       title: `${post.title} | Harsh Gajjar`,
       description: post.subtitle || post.title,
-      images: ["https://harshgajjar.dev/assets/images/og/og.webp"],
+      images: ["https://harshgajjar.dev/assets/images/og/logs.webp"],
       creator: "@harshgajjar_28",
     },
   };

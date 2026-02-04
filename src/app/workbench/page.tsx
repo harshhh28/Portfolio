@@ -4,6 +4,29 @@ import ProjectFolder from "@/components/projects/ProjectFolder";
 export const metadata = {
   title: "Workbench | Harsh Gajjar",
   description: "Active development environments and archived repositories.",
+  openGraph: {
+    title: "Workbench | Harsh Gajjar",
+    description: "Active development environments and archived repositories.",
+    url: "https://harshgajjar.dev/workbench",
+    siteName: "Harsh Gajjar",
+    images: [
+      {
+        url: "https://harshgajjar.dev/assets/images/og/workbench.webp",
+        width: 1200,
+        height: 630,
+        alt: "Workbench | Harsh Gajjar",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Workbench | Harsh Gajjar",
+    description: "Active development environments and archived repositories.",
+    images: ["https://harshgajjar.dev/assets/images/og/workbench.webp"],
+    creator: "@harshgajjar_28",
+  },
 };
 
 export default function WorkbenchPage() {

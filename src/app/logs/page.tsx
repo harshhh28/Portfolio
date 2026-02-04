@@ -4,6 +4,29 @@ import { ResearchLog } from "@/components/blog/ResearchLog";
 export const metadata = {
   title: "Research Log | Harsh Gajjar",
   description: "Engineering notes, tutorials, and documentation.",
+  openGraph: {
+    title: "Research Log | Harsh Gajjar",
+    description: "Engineering notes, tutorials, and documentation.",
+    url: "https://harshgajjar.dev/logs",
+    siteName: "Harsh Gajjar",
+    images: [
+      {
+        url: "https://harshgajjar.dev/assets/images/og/logs.webp",
+        width: 1200,
+        height: 630,
+        alt: "Research Log | Harsh Gajjar",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Research Log | Harsh Gajjar",
+    description: "Engineering notes, tutorials, and documentation.",
+    images: ["https://harshgajjar.dev/assets/images/og/logs.webp"],
+    creator: "@harshgajjar_28",
+  },
 };
 
 export default function LogsPage() {
