@@ -1,3 +1,5 @@
+import fs from "fs";
+import path from "path";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { format } from "date-fns";
@@ -23,6 +25,16 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     };
   }
 
+  const customOgImageName = `${slug}.webp`;
+  const publicOgPath = path.join(process.cwd(), "public", "assets", "images", "og", customOgImageName);
+  
+  const siteUrl = "https://harshgajjar.dev";
+  let ogImageUrl = `${siteUrl}/assets/images/og/logs.webp`;
+
+  if (fs.existsSync(publicOgPath)) {
+    ogImageUrl = `${siteUrl}/assets/images/og/${slug}.webp`;
+  }
+
   return {
     title: `${post.title} | Harsh Gajjar`,
     description: post.subtitle || post.title,
@@ -34,7 +46,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       siteName: "Harsh Gajjar",
       images: [
         {
-          url: "https://harshgajjar.dev/assets/images/og/logs.webp",
+          url: ogImageUrl,
           width: 1200,
           height: 630,
           alt: post.title,
@@ -49,7 +61,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       card: "summary_large_image",
       title: `${post.title} | Harsh Gajjar`,
       description: post.subtitle || post.title,
-      images: ["https://harshgajjar.dev/assets/images/og/logs.webp"],
+      images: [ogImageUrl],
       creator: "@harshgajjar_28",
     },
   };
