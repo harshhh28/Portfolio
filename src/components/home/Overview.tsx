@@ -29,7 +29,7 @@ const Overview = () => {
            </h3>
            <div className="bg-secondary/30 border border-border p-4 rounded-sm font-mono text-sm">
               <p>Process: <span className="text-green-400">RUNNING</span></p>
-              <p>Task: <span className="text-blue-400">Building HiDevs Platform</span></p>
+              <p>Task: <span className="text-blue-400">SDE Intern @ HiDevs</span></p>
               <p>Location: <span className="text-yellow-400">Remote</span></p>
            </div>
         </div>
