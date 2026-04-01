@@ -1,0 +1,127 @@
+---
+title: "Building the Freshdesk MCP Integration: 17 Tools, 90+ Tests"
+subtitle: "Shipping a full Freshdesk toolset for MCP, credential flows, centralized HTTP, explicit error mapping, and the review iterations that shaped it."
+date: "02-04-2026"
+tags: ["MCP", "OpenSource", "Freshdesk", "Python", "Testing"]
+author: "Harsh Gajjar"
+---
+
+This was an open-source contribution to [Aden's Hive (YC W20)](https://github.com/aden-hive/hive), a full Freshdesk integration for their MCP tools platform. 17 tools, a credential system, centralized HTTP handling, explicit error mapping, and 90+ tests. The focus was production-readiness: not just making API calls work, but making them reliable, observable, and safe to fail. The [PR](https://github.com/aden-hive/hive/pull/6099) is merged.
+
+
+## At a Glance
+
+- **17 MCP tools** covering tickets, contacts, agents, groups, companies, and conversations
+- **Credential system** with store-first + environment variable fallback
+- **Centralized HTTP layer** for auth, timeouts, base URL, and response parsing
+- **Explicit error mapping** for 401, 403, 404, 429, 500, and timeouts
+- **Structured outputs** with pagination control and empty-response handling
+- **90+ tests** including unit, error, credential, and multi-step flow coverage
+
+
+## What Got Built
+
+The integration exposes Freshdesk's core API surface through MCP tools: tickets, contacts, agents, groups, companies, and conversations. Each tool maps to a specific Freshdesk REST endpoint with typed inputs and structured outputs.
+
+17 tools total. Not arbitrary, this covers the endpoints that actually matter for support automation workflows. Ticket creation, contact lookup, conversation replies, agent listing.
+
+I skipped bulk operations and webhook management deliberately; they don't fit the MCP interaction model well (long-running, async, state-heavy).
+
+
+## Credential System
+
+Freshdesk needs two things: an `apiKey` and a `domain` (your Freshdesk subdomain). The credential flow:
+
+1. Check the MCP credential store first
+2. Fall back to environment variables (`FRESHDESK_API_KEY`, `FRESHDESK_DOMAIN`)
+3. If neither exists, fail early with a clear error
+
+Store-first-then-env because the credential store is the expected pattern in the repo, but env vars keep it usable for local development and CI. No interactive prompts, no silent defaults.
+
+One thing I deliberately avoided: caching credentials in memory beyond request scope. Freshdesk API keys can be rotated, and stale credentials causing silent 401s midway through a session is worse than re-reading from the store on each call.
+
+
+## Centralized HTTP Layer
+
+Every Freshdesk tool makes HTTP requests. Rather than scattering `requests.get()` calls across 17 files, I built a single request layer that all tools route through.
+
+This handles:
+- Base URL construction from the domain credential
+- Auth header injection (Basic auth with the API key)
+- Content-Type defaults
+- Timeout enforcement
+- Response parsing
+
+The alternative was letting each tool manage its own HTTP logic. That works until someone forgets to set a timeout, formats the auth header differently, or skips error response parsing. One layer, one place to fix things.
+
+
+## Error Mapping
+
+Freshdesk's API returns standard HTTP status codes, but response bodies vary. I mapped the ones that actually come up:
+
+- **401** → invalid API key or revoked credentials
+- **403** → plan-level restriction (some endpoints are paid-tier only)
+- **404** → resource doesn't exist (deleted ticket, wrong ID)
+- **429** → rate limited (Freshdesk enforces per-minute limits)
+- **500** → Freshdesk-side failure
+- **Timeouts** → network issue, not an API error
+
+Each gets a specific, human-readable error message. No generic "request failed" responses.
+
+The caller (or the LLM consuming the tool output) needs to know *why* something failed to decide what to do next. A 429 means retry. A 404 means bad input. A 403 means the feature isn't on your plan. Collapsing these into a single error class loses that signal.
+
+
+## Edge Cases Worth Mentioning
+
+**Pagination**: Freshdesk paginates list endpoints at 30 items by default. The tools accept `page` and `per_page` parameters rather than auto-paginating. Auto-pagination sounds nice until a tool tries to fetch 10,000 tickets in one call and the MCP session times out. Explicit pagination keeps the caller in control.
+
+**Empty responses**: Some endpoints return `null` or empty arrays in valid cases (e.g., a contact with no tickets). The tools return structured empty results rather than letting the null propagate into a crash.
+
+**Field filtering**: Several endpoints accept an `include` parameter to embed related data (e.g., ticket requester details). I exposed these where they exist rather than always fetching minimal payloads. Tradeoff is larger responses, but it avoids forcing N+1 tool calls to get related data.
+
+
+## Testing
+
+90+ tests. Breaks down into:
+
+- **Unit tests** for each tool: valid inputs, missing required fields, malformed inputs
+- **Error response tests**: mocked HTTP responses for each status code to verify error messages
+- **Credential tests**: store available, store missing with env fallback, both missing
+- **Multi-step flow tests**: sequences like "create ticket → add reply → list conversations" to verify tools compose correctly
+
+All mocked HTTP, no live API calls. Freshdesk's sandbox is rate-limited and slow, which makes tests flaky. Mocking also means tests run without credentials, so CI doesn't need secrets.
+
+The edge case tests were the most useful. What happens when you update a ticket that was deleted between lookup and update? What does the tool return when Freshdesk sends a 200 with an unexpected body shape? These are the cases that break tools in production.
+
+
+## Review Iterations
+
+The PR went through multiple review cycles over the course of a few days. Each round tightened something specific:
+
+- **Docstrings**: Initial versions were too terse. Expanded to include parameter descriptions and example values, since MCP tools surface these to the LLM during tool discovery.
+- **Dead code removal**: Helper functions from early prototyping that were no longer called. Cleaned out.
+- **Refactors**: Moved shared validation logic (like required field checks) into the centralized layer instead of duplicating per-tool.
+- **Error message tone**: Reviewer flagged some messages that read like internal debug logs. Rewrote them for end-user or LLM consumption.
+
+No single round was a huge architectural change, but the cumulative effect made the final version noticeably cleaner. The iteration process itself was a good signal that the review bar was high.
+
+
+## What I'd Do Differently
+
+- **Schema validation on responses**: I trusted Freshdesk's response shapes. Adding lightweight validation (or at least logging unexpected fields) would catch API-side changes earlier.
+- **Rate limit headers**: Freshdesk returns `X-RateLimit-Remaining` in response headers. Surfacing this to the caller would let them back off before hitting a 429, not after.
+- **Retry logic**: The current implementation fails immediately on transient errors. A single retry with backoff for 429s and 5xxs would improve resilience without adding complexity.
+
+
+## Key Takeaway
+
+The hard part of integrations isn't the API calls. It's making them reliable. Getting a Freshdesk endpoint to return data is straightforward. Making it handle credential rotation, rate limits, missing resources, and unexpected response shapes without crashing or returning garbage, that's where the real work is.
+
+
+## What's Next
+
+The integration covers the core Freshdesk API. Endpoints I intentionally skipped (time entries, satisfaction ratings, ticket fields configuration) are lower-frequency operations that can be added as separate PRs if there's demand.
+
+The pattern established here (credential flow, HTTP layer, error mapping, test structure) transfers directly to future tool additions. That was the point: build the foundation right so extending it is just adding a new tool file and its tests.
+
+PR is merged. On to the next one.
