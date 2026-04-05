@@ -23,6 +23,8 @@ export interface Experience {
   duration: string;
   location: string;
   description: string;
+  /** Optional related links (e.g. merged PR) — shown only when set */
+  links?: { label: string; url: string }[];
 }
 
 // Community & Leadership Types

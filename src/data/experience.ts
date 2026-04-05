@@ -12,6 +12,22 @@ export const EXPERIENCE: Experience[] = [
       "Driving backend development on Node.js and MongoDB for 3,500+ users on GCP, implementing in-process caching, request-level memoization, Sentry observability, Docker containerization, and Cashfree payments, while optimizing queries and data access patterns to reduce latency from 4-5s to 200-300ms and ~40-50ms with caching.",
   },
   {
+    id: "aden-2026",
+    title: "Open Source Contributor",
+    organization: "Aden",
+    organizationUrl: "https://adenhq.com",
+    duration: "Mar 2026 - Apr 2026",
+    location: "Remote",
+    description:
+      "Contributed to Aden's Hive, a full Freshdesk integration for their MCP tools platform. 17 tools, a credential system, centralized HTTP handling, explicit error mapping, and 90+ tests. The focus was production-readiness: not just making API calls work, but making them reliable, observable, and safe to fail.",
+    links: [
+      {
+        label: "aden-hive/hive #6099",
+        url: "https://github.com/aden-hive/hive/pull/6099",
+      },
+    ],
+  },
+  {
     id: "hidevs-2025",
     title: "Software Developer Intern",
     organization: "HiDevs",

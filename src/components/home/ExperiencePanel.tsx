@@ -40,6 +40,24 @@ const ExperiencePanel = () => {
             <p className="text-muted-foreground leading-relaxed">
               {exp.description}
             </p>
+
+            {exp.links && exp.links.length > 0 && (
+              <ul className="mt-3 space-y-1.5 text-xs">
+                {exp.links.map((item) => (
+                  <li key={item.url}>
+                    <Link
+                      href={item.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-primary hover:underline underline-offset-4"
+                    >
+                      {item.label}
+                      <ArrowUpRight className="size-3 shrink-0 opacity-70" />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
             
             {/* Status Indicator */}
             <div className="absolute -left-[3px] top-1 w-1.5 h-1.5 rounded-full bg-border group-hover:bg-primary transition-colors" />
