@@ -14,7 +14,7 @@ export const EXPERIENCE: Experience[] = [
   {
     id: "aden-2026",
     title: "Open Source Contributor",
-    organization: "Aden",
+    organization: "Aden (YC W20)",
     organizationUrl: "https://adenhq.com",
     duration: "Mar 2026 - Apr 2026",
     location: "Remote",
