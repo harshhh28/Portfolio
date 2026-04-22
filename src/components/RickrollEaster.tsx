@@ -15,10 +15,12 @@ export function triggerRickroll() {
 export default function RickrollEaster() {
   const [phase, setPhase] = useState<Phase>("idle");
   const [progress, setProgress] = useState(0);
+  const [videoReady, setVideoReady] = useState(false);
 
   const close = useCallback(() => {
     setPhase("idle");
     setProgress(0);
+    setVideoReady(false);
     document.body.style.overflow = "";
   }, []);
 
@@ -121,31 +123,34 @@ export default function RickrollEaster() {
 
       {phase === "playing" && (
         <>
-          {/* Rickrolled banner */}
-          <div
-            style={{
-              position: "absolute",
-              top: "1rem",
-              left: "50%",
-              transform: "translateX(-50%)",
-              zIndex: 3,
-              fontFamily: "inherit",
-              fontSize: "0.75rem",
-              color: "#4ade80",
-              letterSpacing: "0.15em",
-              whiteSpace: "nowrap",
-              pointerEvents: "none",
-              textShadow: "0 0 8px #4ade80",
-            }}
-          >
-            {`>> YOU JUST GOT RICKROLLED <<`}
-          </div>
+          {/* Banner — only after the video has actually started playing */}
+          {videoReady && (
+            <div
+              style={{
+                position: "absolute",
+                top: "1rem",
+                left: "50%",
+                transform: "translateX(-50%)",
+                zIndex: 3,
+                fontFamily: "inherit",
+                fontSize: "0.75rem",
+                color: "#4ade80",
+                letterSpacing: "0.15em",
+                whiteSpace: "nowrap",
+                pointerEvents: "none",
+                textShadow: "0 0 8px #4ade80",
+              }}
+            >
+              {`>> YOU JUST GOT RICKROLLED <<`}
+            </div>
+          )}
 
           <video
             src={RICKROLL_SRC}
             autoPlay
             loop
             playsInline
+            onPlay={() => setVideoReady(true)}
             style={{
               flex: 1,
               width: "100%",
