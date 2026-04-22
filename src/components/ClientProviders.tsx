@@ -2,10 +2,6 @@
 
 import dynamic from "next/dynamic";
 
-const BootSequence = dynamic(() => import("@/components/BootSequence"), {
-  ssr: false,
-});
-
 const CommandBar = dynamic(() => import("@/components/CommandBar"), {
   ssr: false,
 });
@@ -21,7 +17,6 @@ const RickrollEaster = dynamic(() => import("@/components/RickrollEaster"), {
 export default function ClientProviders() {
   return (
     <>
-      <BootSequence />
       <CommandBar />
       <RickrollEaster />
     </>
