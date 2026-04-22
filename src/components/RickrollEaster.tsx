@@ -4,7 +4,7 @@ import { useEffect, useState, useCallback } from "react";
 
 type Phase = "idle" | "loading" | "playing";
 
-const RICKROLL_URL = "https://asciicker.com/rick/";
+const RICKROLL_SRC = "/assets/videos/rickroll.mp4";
 
 export function triggerRickroll() {
   if (typeof window !== "undefined") {
@@ -120,19 +120,41 @@ export default function RickrollEaster() {
       )}
 
       {phase === "playing" && (
-        <iframe
-          src={RICKROLL_URL}
-          title="Never Gonna Give You Up"
-          style={{
-            flex: 1,
-            border: "none",
-            width: "100%",
-            height: "100%",
-            backgroundColor: "#000",
-          }}
-          allow="autoplay"
-          sandbox="allow-scripts allow-same-origin"
-        />
+        <>
+          {/* Rickrolled banner */}
+          <div
+            style={{
+              position: "absolute",
+              top: "1rem",
+              left: "50%",
+              transform: "translateX(-50%)",
+              zIndex: 3,
+              fontFamily: "inherit",
+              fontSize: "0.75rem",
+              color: "#4ade80",
+              letterSpacing: "0.15em",
+              whiteSpace: "nowrap",
+              pointerEvents: "none",
+              textShadow: "0 0 8px #4ade80",
+            }}
+          >
+            {`>> YOU JUST GOT RICKROLLED <<`}
+          </div>
+
+          <video
+            src={RICKROLL_SRC}
+            autoPlay
+            loop
+            playsInline
+            style={{
+              flex: 1,
+              width: "100%",
+              height: "100%",
+              objectFit: "contain",
+              backgroundColor: "#000",
+            }}
+          />
+        </>
       )}
 
       {/* ESC label */}
