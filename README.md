@@ -19,7 +19,7 @@
 
 ## About
 
-Personal portfolio styled as a terminal OS: dark, monospace, and a little cheeky. Built with **Next.js 15** and **TypeScript**. Kernel version: `2026.1.0-HG`.
+Personal portfolio styled as a terminal OS: dark, monospace, and a little cheeky. Built with **Next.js 15** and **TypeScript**.
 
 ## Features
 
