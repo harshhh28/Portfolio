@@ -1,121 +1,111 @@
-<h1 align="center">Harsh Gajjar's Portfolio</h1>
+<h1 align="center">~/harsh.gajjar — Personal OS Portfolio</h1>
 
 <p align="center">
-  <img alt="Github top language" src="https://img.shields.io/github/languages/top/harshhh28/portfolio?color=56BEB8">
-
-  <img alt="Github language count" src="https://img.shields.io/github/languages/count/harshhh28/portfolio?color=56BEB8">
-
-  <img alt="Repository size" src="https://img.shields.io/github/repo-size/harshhh28/portfolio?color=56BEB8">
-
-  <img alt="License" src="https://img.shields.io/github/license/harshhh28/portfolio?color=56BEB8">
-
-  <!-- <img alt="Github issues" src="https://img.shields.io/github/issues/harshhh28/portfolio?color=56BEB8" /> -->
-
-  <!-- <img alt="Github forks" src="https://img.shields.io/github/forks/harshhh28/portfolio?color=56BEB8" /> -->
-
-  <!-- <img alt="Github stars" src="https://img.shields.io/github/stars/harshhh28/portfolio?color=56BEB8" /> -->
+  <img alt="Github top language" src="https://img.shields.io/github/languages/top/harshhh28/portfolio?color=4ade80">
+  <img alt="Github language count" src="https://img.shields.io/github/languages/count/harshhh28/portfolio?color=4ade80">
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/harshhh28/portfolio?color=4ade80">
+  <img alt="License" src="https://img.shields.io/github/license/harshhh28/portfolio?color=4ade80">
 </p>
 
-<!-- Status -->
-
-<!-- <h4 align="center">
-    🚧  Portfolio 🚀 Under construction...  🚧
-</h4>
-
-<hr> -->
-
 <p align="center">
-  <a href="#dart-about">About</a> &#xa0; | &#xa0; 
-  <a href="#sparkles-features">Features</a> &#xa0; | &#xa0;
-  <a href="#rocket-technologies">Technologies</a> &#xa0; | &#xa0;
-  <a href="#white_check_mark-requirements">Requirements</a> &#xa0; | &#xa0;
-  <a href="#checkered_flag-starting">Starting</a> &#xa0; | &#xa0;
-  <a href="#memo-license">License</a> &#xa0; | &#xa0;
-  <a href="https://github.com/harshhh28" target="_blank">Author</a>
+  <a href="#about">About</a> &#xa0; | &#xa0;
+  <a href="#features">Features</a> &#xa0; | &#xa0;
+  <a href="#easter-eggs">Easter Eggs</a> &#xa0; | &#xa0;
+  <a href="#technologies">Technologies</a> &#xa0; | &#xa0;
+  <a href="#requirements">Requirements</a> &#xa0; | &#xa0;
+  <a href="#starting">Starting</a> &#xa0; | &#xa0;
+  <a href="#license">License</a>
 </p>
 
 <br>
 
-## :dart: About
+## About
 
-A responsive personal portfolio website built with Nextjs and TypeScript, showcasing my professional experience, skills, and projects with a clean, modern design.
+A personal portfolio styled as a terminal-based OS — dark, minimal, and intentionally a little cheeky. Built with **Next.js 15** and **TypeScript**. Showcases work experience, skills, projects, and blog posts in a system-explorer UI. Kernel version: `2026.1.0-HG`.
 
-## :sparkles: Features
+## Features
 
-:heavy_check_mark: Projects page showcasing my portfolio works\
-:heavy_check_mark: Blog page for sharing technical insights\
-:heavy_check_mark: Tech news page featuring latest industry updates\
-:heavy_check_mark: About page with professional background\
-:heavy_check_mark: Contact page for professional inquiries
+:heavy_check_mark: **Terminal OS UI** — system explorer with sidebar navigation (`/system`)\
+:heavy_check_mark: **Projects workbench** — projects page with live links and tech stacks (`/workbench`)\
+:heavy_check_mark: **Blog / logs** — technical blog powered by the Hashnode API (`/logs`)\
+:heavy_check_mark: **Contact** — contact form with Discord webhook notification (`/contact`)\
+:heavy_check_mark: **Boot sequence** — typewriter-style terminal boot animation on first visit\
+:heavy_check_mark: **Global command bar** — press `/` anywhere to open an in-page terminal\
+:heavy_check_mark: **Easter eggs** — including a certain unforgettable surprise hidden in the command bar\
+:heavy_check_mark: **Animated status fields** — CPU load, mood, and other live system stats on the home page\
+:heavy_check_mark: **Kernel panic 404** — full stack-trace styled 404 error page\
+:heavy_check_mark: **Modules table** — skills rendered as a system module table with VERSION and STATUS columns\
+:heavy_check_mark: **Fully responsive** — command bar adapts to mobile (bottom sheet) and desktop (centered modal)
 
-## :rocket: Technologies
+## Easter Eggs
 
-The following tools were used in this project:
+| Trigger | What happens |
+|---|---|
+| First page load (localStorage cleared) | Boot sequence plays with a typewriter effect |
+| Press `/` anywhere on the page | Opens the in-page terminal |
+| Type `sudo play` in the terminal | 🤫 |
+| Navigate to a non-existent route | Kernel panic `0x404` page with a stack trace |
 
-- [Next.js](https://nextjs.org/)
-- [Node.js](https://nodejs.org/en/)
-- [React](https://pt-br.reactjs.org/)
+## Technologies
+
+- [Next.js 15](https://nextjs.org/) — App Router, Server + Client Components
+- [React 19](https://react.dev/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
-- [Zod](https://zod.dev/)
-- [Discord Webhook](https://discord.com/developers/docs/resources/webhook)
 - [shadcn/ui](https://ui.shadcn.com/)
+- [Hashnode API](https://apidocs.hashnode.com/) — blog content
+- [Discord Webhook](https://discord.com/developers/docs/resources/webhook) — contact form notifications
+- [Vercel Analytics](https://vercel.com/analytics)
 
-## :white_check_mark: Requirements
-
-Before starting :checkered_flag:, you need to have the following requirements:
+## Requirements
 
 - [Git](https://git-scm.com)
-- [Node.js](https://nodejs.org/en/) version 18.17 or higher
-- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/) package manager
-- A [Discord](https://discord.com/) account (for webhook functionality)
-- Basic knowledge of TypeScript and React
-- A code editor like [VS Code](https://code.visualstudio.com/) (recommended)
+- [Node.js](https://nodejs.org/en/) `v18.17+`
+- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
+- A Discord server with a webhook (for contact form)
+- A Hashnode account with an API token (for blog posts)
 
-## :key: Environment Variables
+## Environment Variables
 
-Before running the project, you need to set up the following environment variables in your `.env` file:
+Create a `.env` file at the project root:
 
 ```env
 NEXT_PUBLIC_DISCORD_WEBHOOK_URL=your_discord_webhook_url
 HASHNODE_TOKEN=your_hashnode_api_token
 ```
 
-To get these values:
+**Discord webhook:**
+1. Open your Discord server → Server Settings → Integrations → Webhooks
+2. Create a webhook and copy the URL
 
-1. For Discord webhook URL:
+**Hashnode token:**
+1. Log in to [Hashnode](https://hashnode.com)
+2. Account Settings → Developer Settings → Generate access token
 
-   - Create a Discord server
-   - Go to Server Settings > Integrations > Webhooks
-   - Create a new webhook and copy the URL
-
-2. For Hashnode token:
-   - Log in to Hashnode
-   - Go to Account Settings > Developer Settings
-   - Generate a new access token
-
-## :checkered_flag: Starting
+## Starting
 
 ```bash
-# Clone this project
-$ git clone https://github.com/harshhh28/portfolio
+# Clone
+git clone https://github.com/harshhh28/portfolio
 
-# Access
-$ cd portfolio
+# Navigate
+cd portfolio
 
-# Install dependencies
-$ npm install
+# Install
+npm install
 
-# Run the project
-$ npm run dev
-
-# The server will initialize in the <http://localhost:3000>
+# Run dev server
+npm run dev
+# → http://localhost:3000
 ```
 
-## :memo: License
+> [!TIP]
+> Clear `localStorage` in your browser devtools (`localStorage.removeItem('hg_booted')`) to replay the boot sequence.
 
-This project is under license from MIT. For more details, see the [LICENSE](LICENSE) file.
+## License
 
-Made with :heart: by <a href="https://github.com/harshhh28" target="_blank">Harsh Gajjar</a>
+MIT — see [LICENSE](LICENSE).
 
-<a href="#top">Back to top</a>
+Made with `:terminal:` by <a href="https://github.com/harshhh28" target="_blank">Harsh Gajjar</a>
+
+<a href="#top">↑ Back to top</a>
