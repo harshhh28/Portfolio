@@ -3,13 +3,13 @@ import type { Experience } from "@/types";
 export const EXPERIENCE: Experience[] = [
   {
     id: "hidevs-2026",
-    title: "Software Developer Intern",
+    title: "Software Engineer (AI) Intern",
     organization: "HiDevs",
     organizationUrl: "https://hidevs.xyz",
     duration: "Jan 2026 - Present",
     location: "San Francisco, CA (Remote)",
     description:
-      "Driving backend development on Node.js and MongoDB for 3,500+ users on GCP, implementing in-process caching, request-level memoization, Sentry observability, Docker containerization, and Cashfree payments, while optimizing queries and data access patterns to reduce latency from 4-5s to 200-300ms and ~40-50ms with caching.",
+      "Driving backend development on Node.js and MongoDB for a production platform serving 4,000+ users on GCP, scaling core systems with indexing, query optimization, and multi-layer caching to reduce API latency from 4–5s to ~40–50ms. Built end-to-end competition lifecycle systems, AI-powered evaluation pipelines, and a GenAI-based natural language admin interface reducing query time to <10s. Developed analytics dashboards, automated email workflows, and user lifecycle systems, while improving reliability through Docker and CI/CD, and integrating AI tools for learning and discovery.",
   },
   {
     id: "aden-2026",
@@ -29,17 +29,17 @@ export const EXPERIENCE: Experience[] = [
   },
   {
     id: "hidevs-2025",
-    title: "Software Developer Intern",
+    title: "Software Engineer Intern",
     organization: "HiDevs",
     organizationUrl: "https://hidevs.xyz",
     duration: "Mar 2025 - Jun 2025",
     location: "San Francisco, CA (Remote)",
     description:
-      "Designed and deployed scalable Node.js APIs with MongoDB and AWS for 2.5k+ users, reducing latency by 30%, while building React and Next.js dashboards and mentoring developers to drive an 80% increase in user engagement.",
+      "Designed and deployed scalable Node.js APIs with MongoDB and AWS for 2.5k+ users, reducing latency by 30%, while building React and Next.js dashboards and mentoring Engineers to drive an 80% increase in user engagement.",
   },
   {
     id: "irlab",
-    title: "Software Developer (Freelance)",
+    title: "Software Engineer (Freelance)",
     organization: "IR Lab, DA-IICT",
     organizationUrl: "https://irlab.daiict.ac.in",
     duration: "May 2025 - Jul 2025",

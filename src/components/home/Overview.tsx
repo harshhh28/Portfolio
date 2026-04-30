@@ -44,59 +44,96 @@ const Overview = () => {
 
       <div className="space-y-6 max-w-2xl">
         <div className="space-y-2">
-           <h3 className="text-sm font-mono font-bold text-muted-foreground uppercase tracking-wider">
-             User Identity
-           </h3>
-           <p className="text-foreground leading-relaxed">
-             Hello! I&apos;m <span className="font-bold text-primary">Harsh Gajjar</span>, a Software Engineer.
-             I design and build fast, scalable systems. Most of my time goes into backend architecture, system design, infrastructure, and making sure things don&apos;t break in production.
-           </p>
+          <h3 className="text-sm font-mono font-bold text-muted-foreground uppercase tracking-wider">
+            User Identity
+          </h3>
+          <p className="text-foreground leading-relaxed">
+            Hello! I&apos;m{" "}
+            <span className="font-bold text-primary">Harsh Gajjar</span> - a
+            Software Engineer who builds scalable backend systems and GenAI
+            products. I enjoy turning complex ideas into reliable, high-performance
+            systems that scale without surprises :)
+          </p>
         </div>
 
         <div className="space-y-2">
-           <h3 className="text-sm font-mono font-bold text-muted-foreground uppercase tracking-wider">
-             Current Status
-           </h3>
-           <div className="bg-secondary/30 border border-border p-4 rounded-sm font-mono text-sm">
-              <p>Process: <span className="text-green-400">RUNNING</span></p>
-              <p>Task: <span className="text-blue-400">SDE Intern @ HiDevs</span></p>
-              <p>Location: <span className="text-yellow-400">Remote</span></p>
-              <p>
-                CPU Load:{" "}
-                {cpuState === "critical" ? (
-                  <span className="text-red-400 font-bold">CRITICAL — 100%</span>
-                ) : (
-                  <span className="text-green-400">94%</span>
-                )}
-              </p>
-              <p>Mood: <span className="text-cyan-400">CAFFEINATED</span></p>
-           </div>
+          <h3 className="text-sm font-mono font-bold text-muted-foreground uppercase tracking-wider">
+            Current Status
+          </h3>
+          <div className="bg-secondary/30 border border-border p-4 rounded-sm font-mono text-sm">
+            <p>
+              Process: <span className="text-green-400">RUNNING</span>
+            </p>
+            <p>
+              Task:{" "}
+              <span className="text-blue-400">SDE (AI) Intern @ HiDevs</span>
+            </p>
+            <p>
+              Location: <span className="text-yellow-400">Remote</span>
+            </p>
+            <p>
+              CPU Load:{" "}
+              {cpuState === "critical" ? (
+                <span className="text-red-400 font-bold">CRITICAL — 100%</span>
+              ) : (
+                <span className="text-green-400">94%</span>
+              )}
+            </p>
+            <p>
+              Mood: <span className="text-cyan-400">CAFFEINATED</span>
+            </p>
+          </div>
         </div>
-        
+
         <div className="space-y-2">
-            <h3 className="text-sm font-mono font-bold text-muted-foreground uppercase tracking-wider">
-             Changelog
-           </h3>
-           <div
-             className="font-mono text-sm space-y-1 text-muted-foreground border-l-2 border-border pl-4 overflow-y-auto max-h-48"
-             style={{ scrollbarWidth: "thin" }}
-           >
-              {CHANGELOG.map(({ version, text }) => (
-                <p key={version}>
-                  <span className="text-foreground font-bold">{version}</span> - {text}
-                </p>
-              ))}
-           </div>
+          <h3 className="text-sm font-mono font-bold text-muted-foreground uppercase tracking-wider">
+            Changelog
+          </h3>
+          <div
+            className="font-mono text-xs space-y-1 text-muted-foreground border-l-2 border-border pl-3 overflow-y-auto max-h-28"
+            style={{ scrollbarWidth: "thin" }}>
+            {CHANGELOG.slice(0, 5).map(({ version, text }) => (
+              <p key={version}>
+                <span className="text-foreground font-bold">{version}</span> -{" "}
+                {text}
+              </p>
+            ))}
+          </div>
         </div>
-        
+
+        <div className="space-y-2">
+          <h3 className="text-xs font-mono font-bold text-muted-foreground uppercase tracking-wider">
+            What I&apos;m Up To
+          </h3>
+          <div className="text-xs text-muted-foreground font-mono space-y-1 border-l-2 border-border pl-3">
+            <p>- watching reels at 2x while claude does my job</p>
+            <p>- pretending this is &quot;deep work&quot;</p>
+            <p>- checking snacks inventory before deadlines</p>
+          </div>
+          <p className="text-xs text-muted-foreground font-mono">
+            Curious what&apos;s ahead?{" "}
+            <Link href="/workbench" className="text-primary hover:underline">
+              go ahead and see what&apos;s ahead →
+            </Link>
+          </p>
+        </div>
+
         <div className="pt-4 flex gap-4">
-            <Link href="/workbench" className="px-4 py-2 bg-primary text-primary-foreground font-mono text-sm hover:opacity-90 transition-opacity">
-                Run /workbench
-            </Link>
-            <Link href="/contact" className="px-4 py-2 border border-border hover:bg-secondary/50 font-mono text-sm transition-colors">
-                Ping /contact
-            </Link>
+          <Link
+            href="/workbench"
+            className="px-4 py-2 bg-primary text-primary-foreground font-mono text-sm hover:opacity-90 transition-opacity">
+            Run /workbench
+          </Link>
+          <Link
+            href="/contact"
+            className="px-4 py-2 border border-border hover:bg-secondary/50 font-mono text-sm transition-colors">
+            Ping /contact
+          </Link>
         </div>
+
+        <p className="text-xs text-muted-foreground/80 font-mono italic">
+          Could you be any more jobless to scroll till here?
+        </p>
       </div>
     </div>
   );
