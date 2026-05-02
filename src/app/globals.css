@@ -126,3 +126,48 @@
     @apply my-2 pl-2;
   }
 }
+
+@keyframes pulse-glow {
+  0%, 100% {
+    transform: scale(1);
+    text-shadow: 0 0 0px transparent;
+  }
+  50% {
+    transform: scale(1.05);
+    text-shadow: 0 0 8px currentColor;
+  }
+}
+
+@keyframes jitter {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(1px); }
+  50% { transform: translateX(-1px); }
+  75% { transform: translateX(1px); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  98% { opacity: 1; }
+  99% { opacity: 0.6; }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-pulse-glow-medium {
+  animation: pulse-glow 1.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-pulse-glow-strong {
+  animation: pulse-glow 0.6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-jitter {
+  animation: jitter 0.1s linear infinite;
+}
+
+.animate-flicker {
+  animation: flicker 4s linear infinite;
+}
