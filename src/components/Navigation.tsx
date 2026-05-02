@@ -61,7 +61,7 @@ const Navigation = () => {
 
         {/* Mobile "Terminal" Menu */}
         {isOpen && (
-          <div className="md:hidden border-b border-border bg-background">
+          <div className="md:hidden border-b border-border bg-background z-50 relative">
             <div className="flex flex-col p-2 space-y-1">
               {links.map((link) => {
                 const isActive = pathname === link.href;
@@ -80,6 +80,13 @@ const Navigation = () => {
                   </Link>
                 );
               })}
+              <button
+                onClick={() => { setIsOpen(false); window.dispatchEvent(new Event("open-terminal")); }}
+                className="flex items-center gap-2 px-3 py-2 text-sm font-mono transition-colors text-muted-foreground/50 hover:text-muted-foreground hover:bg-secondary/20 text-left"
+              >
+                <span className="text-accent-foreground">{">"}</span>
+                open terminal
+              </button>
             </div>
           </div>
         )}

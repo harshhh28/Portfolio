@@ -209,17 +209,6 @@ const Overview = () => {
           </div>
         </div>
 
-        <div className="space-y-2">
-          <h3 className="text-xs font-mono font-bold text-muted-foreground uppercase tracking-wider">
-            What I&apos;m Up To
-          </h3>
-          <div className="text-xs text-muted-foreground font-mono space-y-1 border-l-2 border-border pl-3">
-            <p>- watching reels at 2x while claude does my job</p>
-            <p>- pretending this is &quot;deep work&quot;</p>
-            <p>- checking snacks inventory before deadlines</p>
-          </div>
-        </div>
-
         <div className="pt-4 flex gap-4">
           <Link
             href="/workbench"

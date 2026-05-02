@@ -14,7 +14,7 @@ const COMMANDS: Record<string, () => string | string[]> = {
     "  help        → shows this message (how meta)",
     "  whoami      → reveals the human behind the keyboard",
     "  uptime      → checks system runtime (spoiler: it's long)",
-    "  sudo play   → plays something. don't ask.",
+    "  play        → don't ask.",
     "  clear       → wipes the slate clean. a fresh start.",
     "  exit / q    → closes this terminal (boring choice)",
   ],
@@ -30,7 +30,7 @@ function processCommand(raw: string): {
   const cmd = raw.trim().toLowerCase();
 
   if (cmd === "exit" || cmd === "q") return { output: [], action: "exit" };
-  if (cmd === "sudo play") return { output: ["> sudo play: loading classified content..."], action: "rickroll" };
+  if (cmd === "play") return { output: ["> loading classified content..."], action: "rickroll" };
   if (cmd === "clear") return { output: [], action: "clear" };
 
   if (cmd in COMMANDS) {
@@ -62,7 +62,6 @@ function useIsDesktop(): boolean | null {
 const MONO =
   "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace";
 
-const QUICK_CMDS = ["help", "whoami", "uptime", "sudo play", "clear", "exit"];
 
 export default function CommandBar() {
   const [open, setOpen] = useState(false);
@@ -135,39 +134,15 @@ export default function CommandBar() {
     }
   }
 
-  // ── Closed state hint ──────────────────────────────────────────────────────
-  if (!open) {
-    return (
-      <button
-        onClick={openBar}
-        aria-label="Open terminal"
-        style={{
-          position: "fixed",
-          bottom: "1rem",
-          left: "1rem",
-          zIndex: 40,
-          fontFamily: MONO,
-          fontSize: "0.65rem",
-          color: "#374151",
-          letterSpacing: "0.05em",
-          userSelect: "none",
-          background: "transparent",
-          border: "none",
-          cursor: "pointer",
-          // Generous tap target without shifting the visual text
-          padding: "0.5rem 0.6rem",
-          margin: "-0.5rem -0.6rem",
-          lineHeight: 1,
-          WebkitTapHighlightColor: "transparent",
-          transition: "color 0.2s",
-        }}
-        onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.color = "#6b7280"; }}
-        onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.color = "#374151"; }}
-      >
-        [ press / to open terminal ]
-      </button>
-    );
-  }
+  // ── Listen for open event dispatched by sidebar ───────────────────────────
+  useEffect(() => {
+    const handler = () => openBar();
+    window.addEventListener("open-terminal", handler);
+    return () => window.removeEventListener("open-terminal", handler);
+  }, [openBar]);
+
+  // When closed, render nothing — hint is now in the sidebar
+  if (!open) return null;
 
   // ── Shared panel styles, branching on isDesktop ───────────────────────────
   // isDesktop is null on first render — default to mobile layout to avoid flash
@@ -311,56 +286,6 @@ export default function CommandBar() {
           <div ref={historyEndRef} />
         </div>
 
-        {/* ── Quick-command chips ───────────────────────────────────────────── */}
-        <div
-          style={{
-            display: "flex",
-            gap: "0.4rem",
-            padding: "0.4rem 0.75rem",
-            overflowX: "auto",
-            borderTop: "1px solid #1f2937",
-            backgroundColor: "#0d0d0d",
-            flexShrink: 0,
-            scrollbarWidth: "none",
-          }}
-        >
-          {QUICK_CMDS.map((cmd) => (
-            <button
-              key={cmd}
-              onPointerDown={(e) => {
-                e.preventDefault();
-                setInput(cmd);
-                setTimeout(() => inputRef.current?.focus(), 0);
-              }}
-              style={{
-                flexShrink: 0,
-                background: "#1a1a1a",
-                border: "1px solid #1f2937",
-                borderRadius: "3px",
-                color: "#6b7280",
-                fontFamily: MONO,
-                fontSize: "0.65rem",
-                padding: desktop ? "0.2rem 0.5rem" : "0.3rem 0.6rem",
-                cursor: "pointer",
-                whiteSpace: "nowrap",
-                WebkitTapHighlightColor: "transparent",
-                transition: "color 0.15s, border-color 0.15s",
-              }}
-              onMouseEnter={(e) => {
-                const el = e.currentTarget as HTMLButtonElement;
-                el.style.color = "#9ca3af";
-                el.style.borderColor = "#374151";
-              }}
-              onMouseLeave={(e) => {
-                const el = e.currentTarget as HTMLButtonElement;
-                el.style.color = "#6b7280";
-                el.style.borderColor = "#1f2937";
-              }}
-            >
-              {cmd}
-            </button>
-          ))}
-        </div>
 
         {/* ── Input row ────────────────────────────────────────────────────── */}
         <form
@@ -389,8 +314,7 @@ export default function CommandBar() {
               outline: "none",
               color: "#e5e7eb",
               fontFamily: MONO,
-              // 16px prevents iOS auto-zoom; desktop uses 0.8rem to match history text
-              fontSize: desktop ? "0.8rem" : "16px",
+              fontSize: "0.8rem",
               caretColor: "#4ade80",
             }}
             autoComplete="off"

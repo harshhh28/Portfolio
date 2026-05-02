@@ -16,6 +16,15 @@ export default function RickrollEaster() {
   const [phase, setPhase] = useState<Phase>("idle");
   const [progress, setProgress] = useState(0);
   const [videoReady, setVideoReady] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(true);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 640px)");
+    setIsDesktop(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
 
   const close = useCallback(() => {
     setPhase("idle");
@@ -191,7 +200,7 @@ export default function RickrollEaster() {
           el.style.borderColor = "#374151";
         }}
       >
-        [ESC to eject]
+        {isDesktop ? "[ESC to eject]" : "[ eject ]"}
       </button>
     </div>
   );
