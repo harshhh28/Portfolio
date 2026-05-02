@@ -110,6 +110,7 @@ const Sidebar = ({ activeSection, setActiveSection }: SidebarProps) => {
         </div>
       </div>
 
+
       {/* Terminal hint — desktop only, pinned at the bottom */}
       <div className="hidden md:block mt-auto border-t border-border">
         <button

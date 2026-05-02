@@ -30,12 +30,12 @@ const SystemInfo = () => {
 
   return (
     <div className="pt-24 px-4 pb-12 max-w-5xl mx-auto">
-      <div className="flex flex-col md:flex-row min-h-[600px] border border-border bg-card shadow-sm">
+      <div className="flex flex-col md:flex-row min-h-[480px] border border-border bg-card shadow-sm">
         {/* Sidebar Navigation */}
         <Sidebar activeSection={activeSection} setActiveSection={setActiveSection} />
 
         {/* Main Content Panel */}
-        <div className="flex-1 p-6 md:p-8 bg-background/50 overflow-y-auto max-h-[800px]">
+        <div className="flex-1 p-6 md:p-8 bg-background/50 overflow-y-auto max-h-[700px]">
           {renderContent()}
         </div>
       </div>
