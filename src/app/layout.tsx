@@ -7,6 +7,7 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { cn } from "@/lib/utils";
 import { Analytics } from "@vercel/analytics/react";
 import ClientProviders from "@/components/ClientProviders";
+import MatrixBackground from "@/components/MatrixBackground";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -50,11 +51,13 @@ export default function RootLayout({
           "bg-background text-foreground overflow-x-hidden min-h-screen flex flex-col antialiased"
         )}>
         <ThemeProvider defaultTheme="dark" storageKey="portfolio-theme">
-          {/* BackgroundAnimation removed for minimalist theme */}
-          <ClientProviders />
-          <Navigation />
-          <main className="relative z-10 flex-1">{children}</main>
-          <Footer />
+          <div className="terminal-overlay-wrapper min-h-screen flex flex-col">
+            <MatrixBackground />
+            <ClientProviders />
+            <Navigation />
+            <main className="relative z-10 flex-1">{children}</main>
+            <Footer />
+          </div>
         </ThemeProvider>
         <Analytics />
       </body>

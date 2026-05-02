@@ -171,3 +171,36 @@
 .animate-flicker {
   animation: flicker 4s linear infinite;
 }
+/* Terminal Overlay System */
+.terminal-overlay-wrapper {
+  position: relative;
+  min-height: 100vh;
+}
+
+.terminal-overlay-wrapper::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.06) 2px,
+    rgba(0, 0, 0, 0.06) 4px
+  );
+}
+
+.terminal-overlay-wrapper::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  background: radial-gradient(
+    circle,
+    transparent 55%,
+    rgba(0, 0, 0, 0.5) 100%
+  );
+}
