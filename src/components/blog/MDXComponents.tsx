@@ -122,7 +122,7 @@ export const MDXComponents = {
       if (typeof node === 'string') return node;
       if (typeof node === 'number') return String(node);
       if (Array.isArray(node)) return node.map(extractText).join('');
-      if (React.isValidElement(node)) return extractText(node.props.children);
+      if (React.isValidElement(node)) return extractText((node.props as any).children);
       return '';
     };
 
@@ -138,7 +138,7 @@ export const MDXComponents = {
         if (type === 'code' || type?.displayName === 'code' || (node.props as any)?.originalType === 'code') {
           return node as React.ReactElement;
         }
-        return findCodeElement(node.props.children);
+        return findCodeElement((node.props as any).children);
       }
       if (Array.isArray(node)) {
         for (const child of node) {
