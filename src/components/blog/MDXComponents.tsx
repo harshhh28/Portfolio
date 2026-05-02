@@ -127,8 +127,8 @@ export const MDXComponents = {
     if (!src) return null;
     // Use span (not div) so when MDX wraps the image in a <p>, we don't get invalid <p><div></div></p>
     return (
-      <span className="my-5 block max-w-2xl mx-auto rounded-lg overflow-hidden border border-border">
-        <img src={src} alt={alt || ''} className="w-full h-auto max-h-[320px] object-contain" {...props} />
+      <span className="my-5 block max-w-5xl mx-auto rounded-lg overflow-hidden border border-border">
+        <img src={src} alt={alt || ''} className="w-full h-auto" {...props} />
       </span>
     );
   },
