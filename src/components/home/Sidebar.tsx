@@ -20,9 +20,10 @@ const Sidebar = ({ activeSection, setActiveSection }: SidebarProps) => {
   ];
 
   const activities = [
-    "watching reels at 2x while claude does my job",
-    'pretending this is "deep work"',
-    "checking snacks inventory before deadlines",
+    `avoiding monday thoughts`,
+    `reels at 2x while claude works`,
+    `planning big, doing small`,
+    `watching samay raina on loop :)`,
   ];
 
   return (
@@ -95,10 +96,10 @@ const Sidebar = ({ activeSection, setActiveSection }: SidebarProps) => {
         </div>
       </div>
 
-      {/* What I'm Up To — desktop only */}
+      {/* Weekend Logs — desktop only */}
       <div className="hidden md:block px-4 pt-4 mt-4 border-t border-border">
         <div className="text-xs font-mono text-muted-foreground mb-2 uppercase tracking-wider">
-          What I&apos;m Up To
+          Weekend Logs
         </div>
         <div className="space-y-1.5">
           {activities.map((activity, i) => (
