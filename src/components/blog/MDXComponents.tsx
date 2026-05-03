@@ -2,7 +2,6 @@ import React from 'react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { CodeBlock } from '@/components/blog/CodeBlock';
-import { Mermaid } from '@/components/blog/Mermaid';
 
 export const MDXComponents = {
   // ... existing headers, p, a, ul, ol, li, blockquote ...
@@ -116,62 +115,11 @@ export const MDXComponents = {
       />
     );
   },
-  pre: ({ className, children, ...props }: React.HTMLAttributes<HTMLPreElement>) => {
-    // Helper to extract text content from nested React elements
-    const extractText = (node: any): string => {
-      if (typeof node === 'string') return node;
-      if (typeof node === 'number') return String(node);
-      if (Array.isArray(node)) return node.map(extractText).join('');
-      if (React.isValidElement(node)) return extractText((node.props as any).children);
-      return '';
-    };
-
-    // Recursive helper to find the fenced-code element. MDX passes our custom `code`
-    // component (a function), not the intrinsic "code" string, so match language class too.
-    const findCodeElement = (node: any): React.ReactElement | null => {
-      if (React.isValidElement(node)) {
-        const cls = String((node.props as any)?.className ?? '');
-        if (cls.includes('language-mermaid')) {
-          return node as React.ReactElement;
-        }
-        const type = node.type as any;
-        if (type === 'code' || type?.displayName === 'code' || (node.props as any)?.originalType === 'code') {
-          return node as React.ReactElement;
-        }
-        return findCodeElement((node.props as any).children);
-      }
-      if (Array.isArray(node)) {
-        for (const child of node) {
-          const found = findCodeElement(child);
-          if (found) return found;
-        }
-      }
-      return null;
-    };
-
-    const codeElement = findCodeElement(children);
-    const codeClassName = (codeElement?.props?.className || '') as string;
-    const preClassName = (className || '') as string;
-
-    const isMermaid = 
-      codeClassName.includes('language-mermaid') || 
-      codeClassName.includes('mermaid') ||
-      preClassName.includes('language-mermaid') ||
-      preClassName.includes('mermaid');
-
-    if (isMermaid) {
-      const chartCode = extractText(codeElement?.props?.children || children).trim();
-      if (chartCode) {
-        return <Mermaid chart={chartCode} />;
-      }
-    }
-
-    return (
-      <CodeBlock className={className} {...props}>
-        {children}
-      </CodeBlock>
-    );
-  },
+  pre: ({ className, children, ...props }: React.HTMLAttributes<HTMLPreElement>) => (
+    <CodeBlock className={className} {...props}>
+      {children}
+    </CodeBlock>
+  ),
   hr: ({ ...props }: React.HTMLAttributes<HTMLHRElement>) => (
     <hr className="my-8 border-border" {...props} />
   ),

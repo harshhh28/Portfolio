@@ -26,43 +26,7 @@ NLQueryFlow is a 3-layer pipeline:
 
 This gives the speed of natural language with the predictability of strict, typed contracts.
 
-```mermaid
-flowchart TD
-
-  subgraph FE[Frontend - Admin UI]
-    A1[Enter NL Query]
-    A2[Send Request]
-    A3{Response OK?}
-    A4[Show Clarification]
-    A5[Display Results]
-  end
-
-  subgraph BE[Backend - Node.js]
-    B1[Validate Request]
-    B2[Process Query]
-    B3[Call Intent Planner]
-    B4[Validate Response]
-    B5{Clarification Needed?}
-    B6[Build DB Query]
-    B7[Fetch Users]
-    B8[Return Response]
-  end
-
-  subgraph GA[GenAI Service]
-    C1[Intent Planner API]
-    C2[Generate Filters]
-    C3[Return Structured Response]
-  end
-
-  A1 --> A2 --> B1 --> B2 --> B3 --> C1 --> C2 --> C3
-  C3 --> B4 --> B5
-
-  B5 -->|Yes| B8 --> A3
-  B5 -->|No| B6 --> B7 --> B8 --> A3
-
-  A3 -->|Clarification| A4 --> A1
-  A3 -->|Success| A5
-```
+![NLQueryFlow high-level architecture — admin UI, backend, and GenAI service](/assets/images/blog/diagrams/nlqueryflow-architecture.webp)
 
 ## Frontend
 
