@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { doc, getDoc, runTransaction, type Transaction } from "firebase/firestore";
-import { getFirestoreDb } from "@/lib/firebase-client";
+import { getFirestoreDb, isFirebaseConfigured } from "@/lib/firebase-client";
 
 const VIEWED_KEY = "blog-viewed";
 
@@ -24,6 +24,12 @@ function markViewed(slug: string) {
 }
 
 export function BlogViewCount({ slug }: { slug: string }) {
+  // Render nothing when Firebase isn't configured instead of a misleading "0 views".
+  if (!isFirebaseConfigured) return null;
+  return <ViewCounter slug={slug} />;
+}
+
+function ViewCounter({ slug }: { slug: string }) {
   const [views, setViews] = useState<number | null>(null);
 
   useEffect(() => {
@@ -39,7 +45,6 @@ export function BlogViewCount({ slug }: { slug: string }) {
       const viewedThisSession = getViewedSet().has(slug);
       const ref = doc(db, "blogViews", slug);
 
-      // 1) First render: show current count
       try {
         const snap = await getDoc(ref);
         const current = snap.exists() && typeof snap.data()?.views === "number" ? (snap.data()!.views as number) : 0;
@@ -48,7 +53,6 @@ export function BlogViewCount({ slug }: { slug: string }) {
         if (!cancelled) setViews(0);
       }
 
-      // 2) Increment only once per session
       if (!viewedThisSession) {
         try {
           const next = await runTransaction(db, async (tx: Transaction) => {
@@ -64,7 +68,7 @@ export function BlogViewCount({ slug }: { slug: string }) {
             markViewed(slug);
           }
         } catch {
-          // Count already shown from GET above
+          // Count already shown from the read above
         }
       }
     }
@@ -80,13 +84,14 @@ export function BlogViewCount({ slug }: { slug: string }) {
     };
   }, [slug]);
 
-  if (views === null) {
-    return (
-      <span className="inline-flex items-center">
-        <span className="animate-pulse">...</span>
-        <span className="ml-1">views</span>
-      </span>
-    );
-  }
-  return <span>{views.toLocaleString()} views</span>;
+  return (
+    <>
+      <span aria-hidden="true">·</span>
+      {views === null ? (
+        <span className="animate-pulse">… views</span>
+      ) : (
+        <span>{views.toLocaleString()} views</span>
+      )}
+    </>
+  );
 }

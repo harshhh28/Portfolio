@@ -2,89 +2,101 @@ import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 import { Resend } from 'resend';
 
+const LIMITS = { name: 100, email: 254, message: 5000 };
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function escapeHtml(value: string) {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function badRequest(error: string) {
+  return NextResponse.json({ error }, { status: 400 });
+}
+
 export async function POST(request: NextRequest) {
+  let body: Record<string, unknown>;
   try {
-    const body = await request.json();
-    const { name, email, message } = body;
+    body = await request.json();
+  } catch {
+    return badRequest('Invalid request body');
+  }
 
-    // Validate input
-    if (!name || !email || !message) {
-      return NextResponse.json(
-        { error: 'Missing required fields' },
-        { status: 400 }
-      );
-    }
+  // Honeypot: real visitors never see or fill this field.
+  if (typeof body.company === 'string' && body.company.trim() !== '') {
+    return NextResponse.json({ message: 'Email sent successfully' }, { status: 200 });
+  }
 
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      return NextResponse.json(
-        { error: 'Invalid email format' },
-        { status: 400 }
-      );
-    }
+  const name = typeof body.name === 'string' ? body.name.trim().replace(/[\r\n]+/g, ' ') : '';
+  const email = typeof body.email === 'string' ? body.email.trim() : '';
+  const message = typeof body.message === 'string' ? body.message.trim() : '';
 
-    // Email content (shared between both methods)
+  if (!name || !email || !message) {
+    return badRequest('Missing required fields');
+  }
+  if (!EMAIL_REGEX.test(email)) {
+    return badRequest('Invalid email format');
+  }
+  if (name.length > LIMITS.name || email.length > LIMITS.email || message.length > LIMITS.message) {
+    return badRequest('Message is too long');
+  }
+
+  try {
+    const safeName = escapeHtml(name);
+    const safeEmail = escapeHtml(email);
+    const safeMessage = escapeHtml(message).replace(/\n/g, '<br>');
+
     const emailHtml = `
-      <div style="font-family: 'Courier New', monospace; max-width: 600px; margin: 0 auto; background-color: #09090b; color: #e4e4e7; padding: 20px; border: 1px solid #27272a;">
-        <h2 style="color: #22c55e; border-bottom: 1px solid #27272a; padding-bottom: 10px; font-size: 18px;">
-          > New Transmission
+      <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 600px; margin: 0 auto; background-color: #FAFAF7; color: #1B1B18; padding: 24px; border: 1px solid #E7E6DF;">
+        <h2 style="color: #3B5B7A; border-bottom: 1px solid #E7E6DF; padding-bottom: 12px; font-size: 16px; font-weight: 600;">
+          New message from your portfolio
         </h2>
-        <div style="margin-top: 20px; font-size: 14px;">
-          <p style="margin: 5px 0;"><span style="color: #71717a;">To:</span> me@harshgajjar.dev</p>
-          <p style="margin: 5px 0;"><span style="color: #71717a;">From:</span> <a href="mailto:${email}" style="color: #60a5fa; text-decoration: none;">${email}</a></p>
-          <p style="margin: 5px 0;"><span style="color: #71717a;">Subject:</span> ${name}</p>
-          
-          <div style="border-top: 1px solid #27272a; margin-top: 15px; padding-top: 15px;">
-            <p style="margin-bottom: 10px; color: #a1a1aa;">&gt; Message:</p>
-            <div style="color: #e4e4e7; line-height: 1.6;">
-              ${message.replace(/\n/g, '<br>')}
-            </div>
+        <div style="margin-top: 16px; font-size: 14px; line-height: 1.6;">
+          <p style="margin: 4px 0;"><span style="color: #6F6F68;">From:</span> ${safeName} &lt;<a href="mailto:${safeEmail}" style="color: #3B5B7A; text-decoration: none;">${safeEmail}</a>&gt;</p>
+
+          <div style="border-top: 1px solid #E7E6DF; margin-top: 16px; padding-top: 16px; color: #1B1B18;">
+            ${safeMessage}
           </div>
         </div>
-        <p style="margin-top: 30px; border-top: 1px solid #27272a; pt: 10px; color: #52525b; font-size: 10px;">
-          -- end of transmission --
-        </p>
       </div>
     `;
 
     const emailText = `
-> New Transmission
+New message from your portfolio
 
-To: me@harshgajjar.dev
-From: ${email}
-Subject: ${name}
+From: ${name} <${email}>
 
-> Message:
 ${message}
-
--- end of transmission --
     `;
 
-    const subject = `${name} [via Portfolio]`;
+    const subject = `${name} (via portfolio)`;
 
-    // Check if Resend API key is available (preferred method)
     const resendApiKey = process.env.RESEND_API_KEY;
     const resendFromEmail = process.env.RESEND_FROM_EMAIL;
 
     if (resendApiKey && resendFromEmail) {
-      // Use Resend API
       const resend = new Resend(resendApiKey);
       const recipientEmail = process.env.EMAIL_RECIPIENT || resendFromEmail;
 
-      await resend.emails.send({
+      const { error } = await resend.emails.send({
         from: resendFromEmail,
         to: recipientEmail,
         replyTo: email,
-        subject: subject,
+        subject,
         html: emailHtml,
         text: emailText,
       });
 
-      return NextResponse.json(
-        { message: 'Email sent successfully' },
-        { status: 200 }
-      );
+      if (error) {
+        console.error('Resend error:', error);
+        return NextResponse.json({ error: 'Failed to send email' }, { status: 502 });
+      }
+
+      return NextResponse.json({ message: 'Email sent successfully' }, { status: 200 });
     }
 
     // Fallback to SMTP (nodemailer)
@@ -98,12 +110,11 @@ ${message}
     if (!emailUser || !emailPass) {
       console.error('Missing email credentials');
       return NextResponse.json(
-        { error: 'Email service not configured. Please set either RESEND_API_KEY and RESEND_FROM_EMAIL, or EMAIL_USER and EMAIL_USER_PASS.' },
+        { error: 'Email service is not configured. Please try again later.' },
         { status: 500 }
       );
     }
 
-    // Create transporter
     const transporter = nodemailer.createTransport({
       host: emailHost,
       port: emailPort,
@@ -114,25 +125,18 @@ ${message}
       },
     });
 
-    // Send email via SMTP
     await transporter.sendMail({
       from: `"Portfolio Contact Form" <${emailUser}>`,
       to: smtpRecipientEmail,
       replyTo: email,
-      subject: subject,
+      subject,
       html: emailHtml,
       text: emailText,
     });
 
-    return NextResponse.json(
-      { message: 'Email sent successfully' },
-      { status: 200 }
-    );
+    return NextResponse.json({ message: 'Email sent successfully' }, { status: 200 });
   } catch (error) {
     console.error('Error sending email:', error);
-    return NextResponse.json(
-      { error: 'Failed to send email' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to send email' }, { status: 500 });
   }
 }

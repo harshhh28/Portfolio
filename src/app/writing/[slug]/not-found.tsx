@@ -3,21 +3,21 @@ import { ArrowLeft } from "lucide-react";
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen flex items-center justify-center px-6 pt-14">
-      <div className="max-w-sm text-center space-y-4">
+    <div className="min-h-screen pt-14 px-6 pb-16 flex items-center justify-center">
+      <div className="max-w-md mx-auto text-center space-y-4">
         <p className="font-mono text-sm text-primary">404</p>
-        <h1 className="text-2xl font-semibold tracking-tight text-balance">
-          This page doesn&apos;t exist
+        <h1 className="text-2xl font-semibold tracking-tight">
+          Post not found
         </h1>
-        <p className="text-sm text-muted-foreground">
-          The link might be broken, or the page may have moved.
+        <p className="text-muted-foreground text-sm">
+          The post you&apos;re looking for doesn&apos;t exist or has been moved.
         </p>
         <Link
-          href="/"
+          href="/writing"
           className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline underline-offset-4"
         >
           <ArrowLeft className="w-4 h-4" />
-          Back home
+          Back to writing
         </Link>
       </div>
     </div>

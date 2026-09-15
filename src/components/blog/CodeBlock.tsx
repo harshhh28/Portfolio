@@ -33,9 +33,9 @@ export function CodeBlock({ className, children, ...props }: CodeBlockProps & Re
         type="button"
         onClick={handleCopy}
         className={cn(
-          'absolute top-1.5 right-2 z-10 p-1 rounded-sm transition-all',
-          'bg-secondary/50 hover:bg-secondary text-muted-foreground hover:text-foreground',
-          'border border-border/50 opacity-100'
+          'absolute top-2 right-2 z-10 p-1 rounded-sm transition-colors',
+          'bg-secondary hover:bg-border text-muted-foreground hover:text-foreground',
+          'border border-border'
         )}
         aria-label={copied ? 'Copied' : 'Copy code'}
       >
@@ -48,7 +48,7 @@ export function CodeBlock({ className, children, ...props }: CodeBlockProps & Re
       <pre
         ref={preRef}
         className={cn(
-          'overflow-x-auto rounded-lg bg-muted mb-3 border border-border py-1.5 px-3 text-xs leading-relaxed pr-10',
+          'my-6 overflow-x-auto rounded-sm border border-border bg-muted py-3 pl-4 pr-12 text-xs leading-relaxed',
           className
         )}
         {...props}

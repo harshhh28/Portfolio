@@ -48,9 +48,7 @@ export const getPost = cache((slug: string) => {
       subtitle: data.subtitle || '',
       dateAdded: dateAddedStr,
       readTimeInMinutes: readTime,
-      views: typeof data.views === 'number' ? data.views : (data.views ? Number(data.views) : 0),
       tags: data.tags || [],
-      author: data.author || 'Harsh Gajjar',
     };
 
     return { post, content };

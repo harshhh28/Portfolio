@@ -1,8 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
-import { Terminal } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { SOCIALS } from "@/data/socials";
+
+const LIMITS = { name: 100, email: 254, message: 5000 };
+
+const fieldClass =
+  "w-full border border-input bg-background px-3 py-2 text-sm text-foreground placeholder:text-faint outline-none transition-colors hover:border-muted-foreground/40 focus:border-primary";
 
 export const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -25,6 +30,7 @@ export const ContactForm = () => {
       name: formDataObj.get("name") as string,
       email: formDataObj.get("email") as string,
       message: formDataObj.get("message") as string,
+      company: formDataObj.get("company") as string,
     };
 
     try {
@@ -63,105 +69,131 @@ export const ContactForm = () => {
     }
   };
 
+  const linkedIn = SOCIALS.find((s) => s.name === "LinkedIn");
+  const github = SOCIALS.find((s) => s.name === "GitHub");
+
   return (
-    <div className="min-h-screen pt-24 px-4 sm:px-6 lg:px-8 pb-16 flex items-start justify-center">
-      <div className="w-full max-w-2xl bg-background border border-border shadow-none">
-        {/* Window Header */}
-        <div className="bg-secondary/30 px-3 py-2 border-b border-border flex items-center justify-between">
-          <div className="flex items-center gap-2">
-             <Terminal size={14} className="text-muted-foreground" />
-             <span className="text-xs font-mono font-bold text-muted-foreground uppercase">/bin/contact</span>
-          </div>
-          <div className="flex gap-2 text-[10px] font-mono text-muted-foreground">
-             <span>--compose</span>
-          </div>
+    <div className="mx-auto min-h-screen max-w-2xl px-6 pb-20">
+      <header className="pb-8 pt-14">
+        <h1 className="text-[17px] font-semibold">Contact</h1>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Best reached here. I usually reply within a day.
+        </p>
+      </header>
+
+      <form onSubmit={handleSubmit} className="max-w-md space-y-5">
+        <p className="text-xs text-muted-foreground">All fields are required.</p>
+
+        <div className="hidden" aria-hidden="true">
+          <label htmlFor="company">Company</label>
+          <input id="company" name="company" type="text" tabIndex={-1} autoComplete="off" />
         </div>
 
-        <form onSubmit={handleSubmit} className="flex flex-col font-mono text-sm">
-          {/* To Field */}
-          <div className="flex items-center px-4 py-3 border-b border-border">
-            <span className="text-muted-foreground w-20">To:</span>
-            <div className="text-foreground">
-              me@harshgajjar.dev
-            </div>
-          </div>
+        <div>
+          <label htmlFor="name" className="mb-1.5 block text-sm font-medium">
+            Name
+          </label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            autoComplete="name"
+            maxLength={LIMITS.name}
+            value={formData.name}
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+            className={fieldClass}
+            required
+            placeholder="Jane Doe"
+          />
+        </div>
 
-          {/* From/Email Field */}
-          <div className="flex items-center px-4 py-3 border-b border-border">
-            <label htmlFor="email" className="text-muted-foreground w-20">From:</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              className="flex-1 bg-transparent border-none outline-none text-foreground placeholder:text-muted-foreground/30"
-              required
-              placeholder="user@domain.com"
-            />
-          </div>
+        <div>
+          <label htmlFor="email" className="mb-1.5 block text-sm font-medium">
+            Email
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            autoComplete="email"
+            maxLength={LIMITS.email}
+            value={formData.email}
+            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+            className={fieldClass}
+            required
+            placeholder="jane@example.com"
+          />
+        </div>
 
-          {/* Subject/Name Field */}
-          <div className="flex items-center px-4 py-3 border-b border-border">
-            <label htmlFor="name" className="text-muted-foreground w-20">Subject:</label>
-             <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              className="flex-1 bg-transparent border-none outline-none text-foreground placeholder:text-muted-foreground/30"
-              required
-              placeholder="Connection Request / Inquiry"
-            />
-          </div>
+        <div>
+          <label htmlFor="message" className="mb-1.5 block text-sm font-medium">
+            Message
+          </label>
+          <textarea
+            id="message"
+            name="message"
+            maxLength={LIMITS.message}
+            value={formData.message}
+            onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+            className={cn(fieldClass, "min-h-[150px] resize-y")}
+            required
+            placeholder="What's on your mind?"
+          />
+        </div>
 
-          {/* Message Body */}
-          <div className="p-4 flex-1 bg-background">
-            <textarea
-              id="message"
-              name="message"
-              value={formData.message}
-              onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-              className="w-full min-h-[300px] bg-transparent border-none outline-none resize-none text-foreground placeholder:text-muted-foreground/30 leading-relaxed font-mono"
-              required
-              placeholder="> Type your message here..."
-            />
-          </div>
-
-          {/* Footer / Send Action */}
-          <div className="px-4 py-3 bg-secondary/30 border-t border-border flex justify-between items-center">
-            {formData.error ? (
-               <span className="text-destructive text-xs">Error: {formData.error}</span>
-            ) : (
-                <span className="text-muted-foreground text-xs">{isMessageSent ? "Message queued for delivery." : "Ready to send."}</span>
+        <div className="flex items-center justify-between gap-4 pt-1">
+          <span
+            role="status"
+            aria-live="polite"
+            className={cn(
+              "text-xs",
+              formData.error ? "text-destructive" : "text-muted-foreground"
             )}
-            
-            <button
-              type="submit"
-              className={cn(
-                  "px-4 py-1.5 border border-border bg-background hover:bg-secondary/50 text-xs font-mono uppercase transition-colors flex items-center gap-2",
-                  isMessageSent && "border-green-500/50 text-green-500",
-                  isSending && "opacity-50 cursor-wait"
-              )}
-              disabled={isSending || isMessageSent}>
-              {isMessageSent ? (
-                 "SENT"
-              ) : (
-                <>
-                  {isSending ? (
-                      "SENDING..."
-                  ) : (
-                      <>
-                        <span>[ SEND ]</span>
-                      </>
-                  )}
-                </>
-              )}
-            </button>
-          </div>
-        </form>
-      </div>
+          >
+            {formData.error
+              ? `Error: ${formData.error}`
+              : isMessageSent
+                ? "Message sent. Thank you."
+                : ""}
+          </span>
+
+          <button
+            type="submit"
+            className="shrink-0 bg-primary px-5 py-2 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
+            disabled={isSending || isMessageSent}
+          >
+            {isMessageSent ? "Sent" : isSending ? "Sending…" : "Send message"}
+          </button>
+        </div>
+      </form>
+
+      {(linkedIn || github) && (
+        <p className="mt-12 max-w-md border-t border-border pt-6 text-sm text-muted-foreground">
+          Prefer something else? Find me on{" "}
+          {linkedIn && (
+            <a
+              href={linkedIn.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary underline decoration-primary/30 underline-offset-4 transition-colors hover:decoration-primary"
+            >
+              LinkedIn
+            </a>
+          )}
+          {linkedIn && github && " or "}
+          {github && (
+            <a
+              href={github.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary underline decoration-primary/30 underline-offset-4 transition-colors hover:decoration-primary"
+            >
+              GitHub
+            </a>
+          )}
+          .
+        </p>
+      )}
     </div>
   );
 };

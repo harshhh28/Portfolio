@@ -1,25 +1,31 @@
 "use client";
 
 import * as React from "react";
+import {
+  ThemeProvider as NextThemesProvider,
+  useTheme as useNextTheme,
+} from "next-themes";
 
-// Simplified ThemeProvider that enforces dark mode
 export function ThemeProvider({
   children,
-  ...props
+  defaultTheme = "light",
+  storageKey = "portfolio-theme",
 }: {
   children: React.ReactNode;
   defaultTheme?: string;
   storageKey?: string;
 }) {
-  React.useEffect(() => {
-    const root = window.document.documentElement;
-    root.classList.remove("light");
-    root.classList.add("dark");
-  }, []);
-
-  return <>{children}</>;
+  return (
+    <NextThemesProvider
+      attribute="class"
+      defaultTheme={defaultTheme}
+      enableSystem
+      storageKey={storageKey}
+      disableTransitionOnChange
+    >
+      {children}
+    </NextThemesProvider>
+  );
 }
 
-export const useTheme = () => {
-  return { theme: "dark", setTheme: () => {} };
-};
+export const useTheme = useNextTheme;

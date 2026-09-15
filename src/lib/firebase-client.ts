@@ -23,6 +23,8 @@ function isConfigured(cfg: FirebaseWebConfig): boolean {
   return !!(cfg.apiKey && cfg.authDomain && cfg.projectId && cfg.appId);
 }
 
+export const isFirebaseConfigured = isConfigured(firebaseConfig);
+
 let app: FirebaseApp | null = null;
 let db: Firestore | null = null;
 

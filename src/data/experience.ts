@@ -2,14 +2,35 @@ import type { Experience } from "@/types";
 
 export const EXPERIENCE: Experience[] = [
   {
+    id: "unifyapps-2026",
+    title: "Forward Deployed Engineer (FDE) Intern",
+    organization: "UnifyApps",
+    organizationUrl: "https://unifyapps.com",
+    duration: "May 2026 - Present",
+    location: "Gurugram, India",
+    description:
+      "Embedded with UnifyApps' enterprise clients, building automation workflows and AI agents directly against real production data.",
+    highlights: [
+      "Leading the agent and workflow build-out for the Bayer engagement.",
+      "Designing pipelines that ingest, transform, and reconcile hundreds of thousands of records.",
+      "Turning ambiguous business processes into dependable automated systems.",
+    ],
+  },
+  {
     id: "hidevs-2026",
     title: "Software Engineer (AI) Intern",
     organization: "HiDevs",
     organizationUrl: "https://hidevs.xyz",
-    duration: "Jan 2026 - Present",
+    duration: "Jan 2026 - Apr 2026",
     location: "San Francisco, CA (Remote)",
     description:
-      "Driving backend development on Node.js and MongoDB for a production platform serving 4,000+ users on GCP, scaling core systems with indexing, query optimization, and multi-layer caching to reduce API latency from 4–5s to ~40–50ms. Built end-to-end competition lifecycle systems, AI-powered evaluation pipelines, and a GenAI-based natural language admin interface reducing query time to <10s. Developed analytics dashboards, automated email workflows, and user lifecycle systems, while improving reliability through Docker and CI/CD, and integrating AI tools for learning and discovery.",
+      "Drove backend development on Node.js and MongoDB for a production platform serving 4,000+ users on GCP.",
+    highlights: [
+      "Cut API latency from 4-5s to ~40-50ms with indexing, query optimization, and multi-layer caching.",
+      "Built a GenAI natural-language admin interface that brought query time under 10s.",
+      "Shipped competition lifecycle systems, AI-powered evaluation pipelines, analytics dashboards, automated email workflows, and user lifecycle systems.",
+      "Improved reliability with Docker and CI/CD, and integrated AI tools for learning and discovery.",
+    ],
   },
   {
     id: "aden-2026",
@@ -19,7 +40,11 @@ export const EXPERIENCE: Experience[] = [
     duration: "Mar 2026 - Apr 2026",
     location: "Remote",
     description:
-      "Contributed to Aden's Hive, a full Freshdesk integration for their MCP tools platform. 17 tools, a credential system, centralized HTTP handling, explicit error mapping, and 90+ tests. The focus was production-readiness: not just making API calls work, but making them reliable, observable, and safe to fail.",
+      "Contributed a full Freshdesk integration to Aden's Hive, their MCP (Model Context Protocol) tools platform.",
+    highlights: [
+      "17 tools, a credential system, centralized HTTP handling, and explicit error mapping.",
+      "90+ tests, built for production-readiness: reliable and observable, not just working.",
+    ],
     links: [
       {
         label: "aden-hive/hive #6099",
@@ -35,7 +60,12 @@ export const EXPERIENCE: Experience[] = [
     duration: "Mar 2025 - Jun 2025",
     location: "San Francisco, CA (Remote)",
     description:
-      "Designed and deployed scalable Node.js APIs with MongoDB and AWS for 2.5k+ users, reducing latency by 30%, while building React and Next.js dashboards and mentoring Engineers to drive an 80% increase in user engagement.",
+      "Designed and deployed scalable Node.js APIs with MongoDB and AWS for 2.5k+ users.",
+    highlights: [
+      "Reduced API latency by 30%.",
+      "Built React and Next.js dashboards.",
+      "Mentored engineers, helping drive an 80% increase in user engagement.",
+    ],
   },
   {
     id: "irlab",
@@ -45,6 +75,10 @@ export const EXPERIENCE: Experience[] = [
     duration: "May 2025 - Jul 2025",
     location: "Gandhinagar, India",
     description:
-      "Built a full-stack machine translation evaluation platform using React, Vite, and Supabase, designing secure REST APIs, PostgreSQL-backed dashboards, and cloud deployment to support BLEU and NLP metric analysis in collaboration with IR researchers.",
+      "Built a full-stack machine translation evaluation platform with React, Vite, and Supabase, in collaboration with IR researchers.",
+    highlights: [
+      "Secure REST APIs and PostgreSQL-backed dashboards, deployed to the cloud.",
+      "Supported BLEU (a standard machine-translation accuracy score) and other NLP metric analysis.",
+    ],
   },
 ];

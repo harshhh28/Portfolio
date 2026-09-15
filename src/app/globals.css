@@ -1,45 +1,75 @@
-@import "highlight.js/styles/github-dark.css";
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    /* "Personal OS" Theme - Dark First */
-    --background: 240 10% 4%;
-    /* zinc-950 roughly */
-    --foreground: 240 5% 90%;
+    /* Neutral minimalist theme, light first. */
+    --background: 60 20% 97%;
+    --foreground: 60 6% 10%;
 
-    --card: 240 10% 4%;
-    --card-foreground: 240 5% 90%;
+    --card: 60 20% 97%;
+    --card-foreground: 60 6% 10%;
 
-    --popover: 240 10% 4%;
-    --popover-foreground: 240 5% 90%;
+    --popover: 60 20% 97%;
+    --popover-foreground: 60 6% 10%;
 
-    --primary: 240 5% 90%;
-    --primary-foreground: 240 10% 4%;
+    --primary: 210 35% 35%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 240 5% 15%;
-    /* darker secondary */
-    --secondary-foreground: 240 5% 90%;
+    --secondary: 53 18% 93%;
+    --secondary-foreground: 60 6% 10%;
 
-    --muted: 240 5% 15%;
-    --muted-foreground: 240 5% 60%;
+    --muted: 53 18% 93%;
+    --muted-foreground: 60 3% 36%;
 
-    --accent: 240 5% 15%;
-    --accent-foreground: 240 5% 90%;
+    --faint: 60 4% 43%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
+    --accent: 180 8% 93%;
+    --accent-foreground: 210 35% 30%;
+    --accent-soft: rgba(59, 91, 122, 0.08);
 
-    --border: 240 5% 15%;
-    /* Subtle borders */
-    --input: 240 5% 15%;
-    --ring: 240 5% 90%;
+    --destructive: 6 60% 42%;
+    --destructive-foreground: 0 0% 100%;
 
-    --radius: 0px;
-    /* System look implies sharp or very subtle corners like 2px */
+    --border: 53 14% 89%;
+    --input: 53 14% 89%;
+    --ring: 210 35% 35%;
+
+    --radius: 0.25rem;
+  }
+
+  .dark {
+    --background: 225 10% 8%;
+    --foreground: 60 14% 92%;
+
+    --card: 225 10% 8%;
+    --card-foreground: 60 14% 92%;
+
+    --popover: 225 10% 8%;
+    --popover-foreground: 60 14% 92%;
+
+    --primary: 211 36% 72%;
+    --primary-foreground: 225 15% 10%;
+
+    --secondary: 228 8% 14%;
+    --secondary-foreground: 60 14% 92%;
+
+    --muted: 228 8% 14%;
+    --muted-foreground: 67 4% 56%;
+
+    --faint: 70 4% 48%;
+
+    --accent: 220 12% 15%;
+    --accent-foreground: 211 40% 78%;
+    --accent-soft: rgba(157, 182, 209, 0.1);
+
+    --destructive: 6 55% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 228 6% 17%;
+    --input: 228 6% 17%;
+    --ring: 211 36% 72%;
   }
 }
 
@@ -48,30 +78,33 @@
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-background text-foreground;
-    /* Often system UIs use a sans, but mono for data */
+    transition: background-color 0.2s ease, color 0.2s ease;
   }
 
-  /* Log / Terminal Monospace */
-  .font-mono-system {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  }
-}
-
-@layer utilities {
-  .subtle-border {
-    @apply border border-border;
+  ::selection {
+    background: hsl(var(--primary));
+    color: hsl(var(--background));
   }
 
-  /* OS Window / Panel Style */
-  .system-panel {
-    @apply bg-card border border-border;
+  :focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
   }
 
-  /* Status Bar Style */
-  .status-bar {
-    @apply bg-secondary/50 border-t border-border text-xs text-muted-foreground px-2 py-1 flex items-center;
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
 
@@ -89,118 +122,145 @@
   @apply bg-border hover:bg-muted-foreground/30 transition-colors;
 }
 
-/* Prose overrides for clean docs look */
-@layer utilities {
-  .prose {
-    @apply text-foreground max-w-none;
-  }
-
-  .prose h1,
-  .prose h2,
-  .prose h3 {
-    @apply text-foreground font-medium tracking-tight border-b border-border pb-2 mb-4;
-  }
-
-  .prose p {
-    @apply text-foreground/80 leading-7;
-  }
-
-  .prose a {
-    @apply text-foreground underline decoration-border hover:decoration-primary underline-offset-4 transition-all;
-  }
-
-  .prose code {
-    @apply bg-secondary px-1.5 py-0.5 rounded-none text-sm font-mono-system text-foreground/90;
-  }
-
-  .prose pre {
-    @apply bg-background border border-border rounded-none my-4;
-  }
-
-  .prose ul,
-  .prose ol {
-    @apply my-6;
-  }
-
-  .prose li {
-    @apply my-2 pl-2;
-  }
+/*
+ * Code syntax highlighting (highlight.js token colors), scoped per theme
+ * so blocks stay legible in both light and dark mode instead of always
+ * rendering with a fixed dark palette. Background is intentionally left
+ * transparent so the surrounding bg-muted token shows through.
+ */
+.hljs {
+  background: transparent;
+  color: hsl(var(--foreground));
 }
 
-@keyframes pulse-glow {
-  0%, 100% {
-    transform: scale(1);
-    text-shadow: 0 0 0px transparent;
-  }
-  50% {
-    transform: scale(1.05);
-    text-shadow: 0 0 8px currentColor;
-  }
+.hljs-doctag,
+.hljs-keyword,
+.hljs-meta .hljs-keyword,
+.hljs-template-tag,
+.hljs-template-variable,
+.hljs-type,
+.hljs-variable.language_ {
+  color: #d73a49;
+}
+.hljs-title,
+.hljs-title.class_,
+.hljs-title.class_.inherited__,
+.hljs-title.function_ {
+  color: #6f42c1;
+}
+.hljs-attr,
+.hljs-attribute,
+.hljs-literal,
+.hljs-meta,
+.hljs-number,
+.hljs-operator,
+.hljs-variable,
+.hljs-selector-attr,
+.hljs-selector-class,
+.hljs-selector-id {
+  color: #005cc5;
+}
+.hljs-regexp,
+.hljs-string,
+.hljs-meta .hljs-string {
+  color: #032f62;
+}
+.hljs-built_in,
+.hljs-symbol {
+  color: #e36209;
+}
+.hljs-comment,
+.hljs-code,
+.hljs-formula {
+  color: #6a737d;
+}
+.hljs-name,
+.hljs-quote,
+.hljs-selector-tag,
+.hljs-selector-pseudo {
+  color: #22863a;
+}
+.hljs-section {
+  color: #005cc5;
+  font-weight: bold;
+}
+.hljs-bullet {
+  color: #735c0f;
+}
+.hljs-emphasis {
+  font-style: italic;
+}
+.hljs-strong {
+  font-weight: bold;
+}
+.hljs-addition {
+  color: #22863a;
+  background-color: #f0fff4;
+}
+.hljs-deletion {
+  color: #b31d28;
+  background-color: #ffeef0;
 }
 
-@keyframes jitter {
-  0% { transform: translateX(0); }
-  25% { transform: translateX(1px); }
-  50% { transform: translateX(-1px); }
-  75% { transform: translateX(1px); }
-  100% { transform: translateX(0); }
+.dark .hljs-doctag,
+.dark .hljs-keyword,
+.dark .hljs-meta .hljs-keyword,
+.dark .hljs-template-tag,
+.dark .hljs-template-variable,
+.dark .hljs-type,
+.dark .hljs-variable.language_ {
+  color: #ff7b72;
 }
-
-@keyframes flicker {
-  0%, 100% { opacity: 1; }
-  98% { opacity: 1; }
-  99% { opacity: 0.6; }
+.dark .hljs-title,
+.dark .hljs-title.class_,
+.dark .hljs-title.class_.inherited__,
+.dark .hljs-title.function_ {
+  color: #d2a8ff;
 }
-
-.animate-pulse-glow {
-  animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+.dark .hljs-attr,
+.dark .hljs-attribute,
+.dark .hljs-literal,
+.dark .hljs-meta,
+.dark .hljs-number,
+.dark .hljs-operator,
+.dark .hljs-variable,
+.dark .hljs-selector-attr,
+.dark .hljs-selector-class,
+.dark .hljs-selector-id {
+  color: #79c0ff;
 }
-
-.animate-pulse-glow-medium {
-  animation: pulse-glow 1.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+.dark .hljs-regexp,
+.dark .hljs-string,
+.dark .hljs-meta .hljs-string {
+  color: #a5d6ff;
 }
-
-.animate-pulse-glow-strong {
-  animation: pulse-glow 0.6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+.dark .hljs-built_in,
+.dark .hljs-symbol {
+  color: #ffa657;
 }
-
-.animate-jitter {
-  animation: jitter 0.1s linear infinite;
+.dark .hljs-comment,
+.dark .hljs-code,
+.dark .hljs-formula {
+  color: #8b949e;
 }
-
-.animate-flicker {
-  animation: flicker 4s linear infinite;
-}
-/* Terminal Overlay System */
-.terminal-overlay-wrapper {
-  position: relative;
-  min-height: 100vh;
+.dark .hljs-name,
+.dark .hljs-quote,
+.dark .hljs-selector-tag,
+.dark .hljs-selector-pseudo {
+  color: #7ee787;
 }
-
-.terminal-overlay-wrapper::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 2;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 2px,
-    rgba(0, 0, 0, 0.06) 2px,
-    rgba(0, 0, 0, 0.06) 4px
-  );
+.dark .hljs-section {
+  color: #1f6feb;
+  font-weight: bold;
 }
-
-.terminal-overlay-wrapper::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
-  background: radial-gradient(
-    circle,
-    transparent 55%,
-    rgba(0, 0, 0, 0.5) 100%
-  );
+.dark .hljs-bullet {
+  color: #f2cc60;
+}
+.dark .hljs-addition {
+  color: #aff5b4;
+  background-color: #033a16;
+}
+.dark .hljs-deletion {
+  color: #ffdcd7;
+  background-color: #67060c;
 }

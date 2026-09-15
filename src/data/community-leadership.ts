@@ -13,12 +13,4 @@ export const POSITIONS: Position[] = [
       { name: "SLoP 4.0", url: "https://slop.dscdaiict.in" },
     ],
   },
-  {
-    id: "hmc-core",
-    title: "Core Member",
-    organization: "Hostel Management Committee",
-    organizationUrl: null,
-    duration: "Feb 2025 - Dec 2025",
-    description: "Managed hostel operations and coordinated student events, improving facilities and enhancing overall resident experience and satisfaction.",
-  },
 ];

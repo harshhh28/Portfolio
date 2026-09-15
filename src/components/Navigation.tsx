@@ -1,96 +1,130 @@
 "use client";
 
-import { Menu, X } from "lucide-react";
+import { Menu, X, Sun, Moon } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { useTheme } from "@/components/ThemeProvider";
+
+const LINKS = [
+  { href: "/work", label: "Work" },
+  { href: "/writing", label: "Writing" },
+  { href: "/contact", label: "Contact" },
+];
+
+const iconButton =
+  "flex size-8 shrink-0 items-center justify-center border border-border text-foreground transition-colors hover:border-primary hover:text-primary";
+
+function isActive(pathname: string, href: string) {
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
+
+const ThemeToggle = () => {
+  const { resolvedTheme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
+
+  const isDark = mounted && resolvedTheme === "dark";
+
+  return (
+    <button
+      type="button"
+      onClick={() => setTheme(isDark ? "light" : "dark")}
+      aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
+      className={iconButton}
+    >
+      {isDark ? <Sun size={15} aria-hidden="true" /> : <Moon size={15} aria-hidden="true" />}
+    </button>
+  );
+};
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
 
-  // "System" metaphors for links
-  const links = [
-    { href: "/", label: "/system" },
-    { href: "/workbench", label: "/workbench" },
-    { href: "/logs", label: "/logs" },
-    { href: "/contact", label: "/contact" },
-  ];
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [isOpen]);
 
   return (
-    <nav className="fixed w-full z-50 bg-background border-b border-border shadow-none">
-      <div className="max-w-screen-xl mx-auto">
-        <div className="flex justify-between items-center h-12 px-4">
-          {/* Brand / Root */}
-          <Link href="/" className="text-sm font-mono font-bold text-foreground hover:text-primary transition-colors">
-            ~/harsh.gajjar
-          </Link>
+    <nav aria-label="Main" className="sticky top-0 z-50 border-b border-border bg-background">
+      <div className="mx-auto flex max-w-2xl items-center justify-between gap-4 px-6 py-5">
+        <Link href="/" className="text-[15px] font-semibold transition-colors hover:text-primary">
+          Harsh Gajjar
+        </Link>
 
-          {/* Desktop "Dock" */}
-          <div className="hidden md:flex items-center gap-1">
-            {links.map((link) => {
-              const isActive = pathname === link.href;
+        <div className="flex items-center gap-3 sm:gap-6">
+          <ul className="hidden items-center gap-6 text-sm md:flex">
+            {LINKS.map((link) => {
+              const active = isActive(pathname, link.href);
               return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={cn(
-                    "px-3 py-1.5 text-xs font-mono transition-colors relative group",
-                    isActive ? "text-foreground bg-secondary/50" : "text-muted-foreground hover:text-foreground hover:bg-secondary/30"
-                  )}
-                >
-                  <span className={cn("opacity-50 group-hover:opacity-100 transition-opacity", isActive && "opacity-100")}>[</span>
-                  <span className="mx-1">{link.label}</span>
-                  <span className={cn("opacity-50 group-hover:opacity-100 transition-opacity", isActive && "opacity-100")}>]</span>
-                </Link>
-              );
-            })}
-          </div>
-
-          {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center gap-4">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="text-foreground hover:bg-secondary/50 p-1 rounded-sm"
-            >
-              {isOpen ? <X size={18} /> : <Menu size={18} />}
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile "Terminal" Menu */}
-        {isOpen && (
-          <div className="md:hidden border-b border-border bg-background z-50 relative">
-            <div className="flex flex-col p-2 space-y-1">
-              {links.map((link) => {
-                const isActive = pathname === link.href;
-                return (
+                <li key={link.href}>
                   <Link
-                    key={link.href}
                     href={link.href}
-                    onClick={() => setIsOpen(false)}
+                    aria-current={active ? "page" : undefined}
                     className={cn(
-                      "flex items-center gap-2 px-3 py-2 text-sm font-mono transition-colors",
-                      isActive ? "bg-secondary/50 text-foreground" : "text-muted-foreground hover:bg-secondary/20"
+                      "relative py-1 transition-colors hover:text-foreground",
+                      active
+                        ? "text-foreground after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px after:bg-primary"
+                        : "text-muted-foreground"
                     )}
                   >
-                    <span className="text-accent-foreground">{">"}</span>
                     {link.label}
                   </Link>
-                );
-              })}
-              <button
-                onClick={() => { setIsOpen(false); window.dispatchEvent(new Event("open-terminal")); }}
-                className="flex items-center gap-2 px-3 py-2 text-sm font-mono transition-colors text-muted-foreground/50 hover:text-muted-foreground hover:bg-secondary/20 text-left"
-              >
-                <span className="text-accent-foreground">{">"}</span>
-                open terminal
-              </button>
-            </div>
-          </div>
-        )}
+                </li>
+              );
+            })}
+          </ul>
+
+          <ThemeToggle />
+
+          <button
+            type="button"
+            onClick={() => setIsOpen((open) => !open)}
+            aria-label={isOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isOpen}
+            aria-controls="mobile-menu"
+            className={cn(iconButton, "md:hidden")}
+          >
+            {isOpen ? <X size={16} aria-hidden="true" /> : <Menu size={16} aria-hidden="true" />}
+          </button>
+        </div>
       </div>
+
+      {isOpen && (
+        <div id="mobile-menu" className="border-t border-border md:hidden">
+          <ul className="flex flex-col px-6 py-2">
+            {LINKS.map((link) => {
+              const active = isActive(pathname, link.href);
+              return (
+                <li key={link.href} className="border-t border-border first:border-t-0">
+                  <Link
+                    href={link.href}
+                    aria-current={active ? "page" : undefined}
+                    className={cn(
+                      "block py-3 text-sm transition-colors",
+                      active ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+                    )}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )}
     </nav>
   );
 };
